@@ -1,0 +1,10 @@
+version: v1alpha9
+kind: workitem
+id: explore-helix-repo-exploration-2026-10-08
+type: explore
+title: 'Explore helix: what it is, how it runs, and what''s wrong with it'
+ref: WI-4c0e36
+tags:
+    - helix
+projects:
+    - projects/helix

@@ -3,4 +3,4 @@
 	url = git@github.com:lancekrogers/helix.git
 [submodule "projects/TaskQ"]
 	path = projects/TaskQ
-	url = git@github.com:AZX-PBC-OSS/TaskQ.git
+	url = git@github.com:lancekrogers/TaskQ.git
