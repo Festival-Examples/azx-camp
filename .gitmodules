@@ -1,0 +1,3 @@
+[submodule "projects/helix"]
+	path = projects/helix
+	url = git@github.com:AZX-PBC-OSS/helix.git
