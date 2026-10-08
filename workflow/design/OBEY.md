@@ -1,0 +1,45 @@
+# Design
+
+Implementation-bound design workspace.
+
+## Purpose
+
+`workflow/design/` is where humans and agents create one subdirectory per
+feature, system, or product change that you actually expect to implement.
+
+This is not a general documentation bucket. Use it to flesh out designs that
+are likely to turn into implementation work, festivals, or active project specs.
+
+## What Goes Here
+
+- Feature design packages and implementation specs
+- Architecture decisions tied to planned work
+- UX flows, wireframes, APIs, and technical tradeoff notes
+- Agent collaboration directories for iterating on a design
+
+## When To Use Something Else
+
+- Use `workflow/explore/` for research, spikes, prototypes, and comparisons
+  when you are not yet committed to building something.
+- Use `camp intent` for quick capture, rough notes, and ideas that do not
+  deserve a design directory yet. Camp stores those items under
+  `.campaign/intents/`.
+- Use `festivals/` when the work needs a structured phase/sequence/task plan.
+
+## Typical Structure
+
+```
+design/
+├── <feature-or-system>/ # One directory per design effort
+└── dungeon/             # Pre-scaffolded local archive for finished or stale work
+    ├── completed/
+    ├── archived/
+    └── someday/
+```
+
+## Workflow
+
+- Create a subdirectory when a design effort needs focused collaboration.
+- Keep implementation-bound design material together instead of scattering it
+  across general docs.
+- Use `camp dungeon crawl` regularly to triage stale or finished design work.

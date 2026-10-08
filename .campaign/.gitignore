@@ -1,0 +1,14 @@
+# Machine-specific state (navigation history, timestamps)
+state.yaml
+
+# Generated cache (navigation index, rebuilt automatically)
+cache/
+
+# Local campaign event ledger (append-only runtime history)
+events/
+
+# Tool-managed state (workitem priorities, regenerated automatically)
+settings/workitems.json
+
+# Legacy leftover: removed camp workitem current command; keep ignored if present
+workitems/current.yaml

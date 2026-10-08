@@ -1,0 +1,314 @@
+{
+  "version": "1.0.0",
+  "created": "2026-10-08T11:13:58.196498-06:00",
+  "updated": "2026-10-08T11:13:58.196499-06:00",
+  "source": {},
+  "files": {
+    "FESTIVAL_SOFTWARE_PROJECT_MANAGEMENT.md": {
+      "hash": "7428292fca2e2d6cf04d1fbb23c91bffea03ab69b1000138f69f9e72612de8ab",
+      "size": 37484,
+      "modified": "2026-10-08T11:13:57.903882003-06:00",
+      "original": true
+    },
+    "README.md": {
+      "hash": "81c7af28895cd66ef2ea61cfe2716e3d74b928d9680a359065403dfbf1123591",
+      "size": 4402,
+      "modified": "2026-10-08T11:13:57.908623052-06:00",
+      "original": true
+    },
+    "examples/TASK_EXAMPLES.md": {
+      "hash": "6e845cf9eea36b04cee4565a10b4d08480d36a5dd2e6931931ac7d0fe1e1ae4a",
+      "size": 22494,
+      "modified": "2026-10-08T11:13:57.912471758-06:00",
+      "original": true
+    },
+    "extensions/README.md": {
+      "hash": "f1f330a920b4204a6eced3e13e80975f6fa2b51f41fbbd01c62e0c20bc6d23b5",
+      "size": 6579,
+      "modified": "2026-10-08T11:13:57.916617801-06:00",
+      "original": true
+    },
+    "extensions/interface-planning/extension.md": {
+      "hash": "279e66513ac41eb03fcfbf6e31d0a567c4e7bb76213353e2f6d41b3731869546",
+      "size": 8626,
+      "modified": "2026-10-08T11:13:57.920601925-06:00",
+      "original": true
+    },
+    "extensions/interface-planning/templates/COMMON_INTERFACES_TEMPLATE.md": {
+      "hash": "4b9b2efb1a8332c8e97c4df762ebc3a809d81e9ed95e5a31a94a04f2155399ca",
+      "size": 18821,
+      "modified": "2026-10-08T11:13:57.924524632-06:00",
+      "original": true
+    },
+    "extensions/orchestration/ORCHESTRATION_GUIDE.md": {
+      "hash": "15830442d46b6ae31161b677ae3cba241d04bbdd78c7f2e3c14681dd77af43d1",
+      "size": 11824,
+      "modified": "2026-10-08T11:13:57.928736009-06:00",
+      "original": true
+    },
+    "extensions/orchestration/README.md": {
+      "hash": "eda8687cbd027b208e00f8d31853155b3243f8cde438be1cfe64feeae8145db1",
+      "size": 6086,
+      "modified": "2026-10-08T11:13:57.932396255-06:00",
+      "original": true
+    },
+    "extensions/orchestration/examples/blockchain-verification-example.md": {
+      "hash": "699abf90efd9a2da9689a52e38a20c04c2b6e88e215f97c50484e2dfc32b1efc",
+      "size": 15901,
+      "modified": "2026-10-08T11:13:57.936454839-06:00",
+      "original": true
+    },
+    "extensions/orchestration/patterns/AGENT_ARCHETYPES.md": {
+      "hash": "ba0ec88fa6c16712798851192d4a2dc2eb51f2ef9740ef05a189cabb47d8f449",
+      "size": 20619,
+      "modified": "2026-10-08T11:13:57.940423213-06:00",
+      "original": true
+    },
+    "extensions/orchestration/patterns/COMMON_PATTERNS.md": {
+      "hash": "de63cf4dee33108eb757d04571bd4815b1ba38ae596a73137d55a7d0fc291e89",
+      "size": 14496,
+      "modified": "2026-10-08T11:13:57.944461838-06:00",
+      "original": true
+    },
+    "extensions/orchestration/templates/AGENT_TEMPLATE.md": {
+      "hash": "0fb1b70b52efa8d07499d56732d43ba0dd1f14f1d8984493947bf9239255e429",
+      "size": 8854,
+      "modified": "2026-10-08T11:13:57.948460129-06:00",
+      "original": true
+    },
+    "extensions/orchestration/templates/ORCHESTRATION_PLAN_TEMPLATE.md": {
+      "hash": "e3d453991df977506ea2a09d4a747e301b15f098ef3912822419f80a146e8d2a",
+      "size": 13708,
+      "modified": "2026-10-08T11:13:57.952336794-06:00",
+      "original": true
+    },
+    "festival_types.yaml": {
+      "hash": "ac50a5085386c3881159c7a68e70a973a228f0e5e8ac8c8535bc8c8b9c446e46",
+      "size": 2149,
+      "modified": "2026-10-08T11:13:57.95650617-06:00",
+      "original": true
+    },
+    "templates/festival/GOAL.md": {
+      "hash": "f13a780ae544195646ef84056bed3ae90aea1fe05d500367a0b3327b69d2a2e7",
+      "size": 1212,
+      "modified": "2026-10-08T11:13:57.960608629-06:00",
+      "original": true
+    },
+    "templates/festival/OVERVIEW.md": {
+      "hash": "69fd0dcc014253203267b66623abdf5474a5823f1616373f13856a691acf8d3e",
+      "size": 1230,
+      "modified": "2026-10-08T11:13:57.964383627-06:00",
+      "original": true
+    },
+    "templates/festival/RULES.md": {
+      "hash": "b15ecd57ac00bb52574fd532978fc353be5f5e5355a783f5c7067cf0b1a29c9f",
+      "size": 6519,
+      "modified": "2026-10-08T11:13:57.968324292-06:00",
+      "original": true
+    },
+    "templates/festival/TODO.md": {
+      "hash": "72202e2402d3062be1231e75fbbe650606ca2b4aeb00afa3c341597386d03e0c",
+      "size": 1134,
+      "modified": "2026-10-08T11:13:57.972805088-06:00",
+      "original": true
+    },
+    "templates/phases/implementation/GATES.md": {
+      "hash": "28fc5b22e5c0a0ac877f3e4d93fc9be6cc0d7de2daff36efc9290af0aeb6e6f7",
+      "size": 3889,
+      "modified": "2026-10-08T11:13:57.976922756-06:00",
+      "original": true
+    },
+    "templates/phases/implementation/GOAL.md": {
+      "hash": "f09986d28f6332afd10a9e8ebc59e84f016208655a4350b895498ef1be9985b0",
+      "size": 1944,
+      "modified": "2026-10-08T11:13:57.981846598-06:00",
+      "original": true
+    },
+    "templates/phases/implementation/gates/QUALITY_GATE_FEST_COMMIT.md": {
+      "hash": "1ab21234103135805e04ef1771e78bb6bc34dec5a79b8fa50e4f1fa42bbf25bb",
+      "size": 1948,
+      "modified": "2026-10-08T11:13:57.986258602-06:00",
+      "original": true
+    },
+    "templates/phases/implementation/gates/QUALITY_GATE_ITERATE.md": {
+      "hash": "574750e4975317a25cc0cbfd2813bd313a981356802f907760bc99b8e7d2fa3e",
+      "size": 1081,
+      "modified": "2026-10-08T11:13:57.990758565-06:00",
+      "original": true
+    },
+    "templates/phases/implementation/gates/QUALITY_GATE_REVIEW.md": {
+      "hash": "ac6cd59b7d4d189d1bdf9542a5288a9702712967ea6d4bc9154409f5b135e8ac",
+      "size": 1353,
+      "modified": "2026-10-08T11:13:57.994701981-06:00",
+      "original": true
+    },
+    "templates/phases/implementation/gates/QUALITY_GATE_TESTING.md": {
+      "hash": "4d1b1302faa969072ffe5a260e649d1888c97347a78523b1d5a4eb3efff7977e",
+      "size": 1140,
+      "modified": "2026-10-08T11:13:57.999034734-06:00",
+      "original": true
+    },
+    "templates/phases/ingest/GATES.md": {
+      "hash": "c42668398543d2f91617ee599984f920adc1d3c4d7ef1c5414b5e0020a4eef47",
+      "size": 3259,
+      "modified": "2026-10-08T11:13:58.004238371-06:00",
+      "original": true
+    },
+    "templates/phases/ingest/GOAL.md": {
+      "hash": "a62ffac0edbc8a1f89ee2378f2b037d69ec99c617209032beb9e03bfc1f0e158",
+      "size": 2123,
+      "modified": "2026-10-08T11:13:58.009122421-06:00",
+      "original": true
+    },
+    "templates/phases/ingest/WORKFLOW.md": {
+      "hash": "3625526a51abf6f0b98851821a5409fce0c00c3cbdca338eea7d85a65b1539b1",
+      "size": 4208,
+      "modified": "2026-10-08T11:13:58.013804344-06:00",
+      "original": true
+    },
+    "templates/phases/ingest/input_specs/README.md": {
+      "hash": "a79c27d8c51f514d02390c3369348a911b9bd51a15c57bdb40757810c418095d",
+      "size": 638,
+      "modified": "2026-10-08T11:13:58.018328391-06:00",
+      "original": true
+    },
+    "templates/phases/ingest/output_specs/README.md": {
+      "hash": "af1a289a1ba65e3ef6a631341a9677efe62cc50076ed078f0802d0c2415692f4",
+      "size": 608,
+      "modified": "2026-10-08T11:13:58.023196941-06:00",
+      "original": true
+    },
+    "templates/phases/non_coding_action/GATES.md": {
+      "hash": "7b5ae3820b681adc9c9f060e51b6b7cc0afcc7416e120df8d6d134d2c24d4069",
+      "size": 3206,
+      "modified": "2026-10-08T11:13:58.028566747-06:00",
+      "original": true
+    },
+    "templates/phases/non_coding_action/GOAL.md": {
+      "hash": "fc3779aed338718115c8cdde22c86cbd092d52aed424dd913b086b5ccaa82938",
+      "size": 1719,
+      "modified": "2026-10-08T11:13:58.032889583-06:00",
+      "original": true
+    },
+    "templates/phases/planning/GATES.md": {
+      "hash": "a21105fbbe07d33adecc15f9215170600095d90a479c01377e09bd62dc31aac4",
+      "size": 3207,
+      "modified": "2026-10-08T11:13:58.038519766-06:00",
+      "original": true
+    },
+    "templates/phases/planning/GOAL.md": {
+      "hash": "d480ed9ed129cbd092c1f95e8ed058173a57c75371055b5c7f3fd1c69f9a727b",
+      "size": 1682,
+      "modified": "2026-10-08T11:13:58.042997187-06:00",
+      "original": true
+    },
+    "templates/phases/planning/WORKFLOW.md": {
+      "hash": "ad824fbed37b13bdddd1cccc0ebae59bd7c792978e3547dfa0f860f8d2c481ea",
+      "size": 5703,
+      "modified": "2026-10-08T11:13:58.048035239-06:00",
+      "original": true
+    },
+    "templates/phases/planning/decisions/INDEX.md": {
+      "hash": "dea6164e8a4c566e989a917cb6961ca09c8e242cdda068270dff62996e2b23e5",
+      "size": 807,
+      "modified": "2026-10-08T11:13:58.053370919-06:00",
+      "original": true
+    },
+    "templates/phases/planning/inputs/README.md": {
+      "hash": "1a29cc41b90a518e9756713d3cf409e98829e4079f64f4687c74957690d56ea9",
+      "size": 742,
+      "modified": "2026-10-08T11:13:58.058238344-06:00",
+      "original": true
+    },
+    "templates/phases/planning/plan/README.md": {
+      "hash": "fb4001007307a2a733db928e2dcf0f7a17d82fba63a5e0ad063ba60e57e6ec6f",
+      "size": 1654,
+      "modified": "2026-10-08T11:13:58.063223896-06:00",
+      "original": true
+    },
+    "templates/phases/research/GATES.md": {
+      "hash": "575e074e90771e7bac1d37db7df9c6d993d31873886bf4d61449407a7ba7e6dd",
+      "size": 3288,
+      "modified": "2026-10-08T11:13:58.068635702-06:00",
+      "original": true
+    },
+    "templates/phases/research/GOAL.md": {
+      "hash": "f2a371430b2d38db7e537e618748195e3d1fa99bcf5b943aa4aa1a19c0b7d3c4",
+      "size": 1627,
+      "modified": "2026-10-08T11:13:58.07298933-06:00",
+      "original": true
+    },
+    "templates/phases/research/WORKFLOW.md": {
+      "hash": "50dd5e92597549175a16c0c13014c447543189bd3cbaac460fa5dd842a479fe7",
+      "size": 2397,
+      "modified": "2026-10-08T11:13:58.078064049-06:00",
+      "original": true
+    },
+    "templates/phases/research/analysis.md": {
+      "hash": "6531ad3321713799428c6f02ee99cf162f173b00f20b5f1384eee788a33676f7",
+      "size": 5280,
+      "modified": "2026-10-08T11:13:58.082982641-06:00",
+      "original": true
+    },
+    "templates/phases/research/comparison.md": {
+      "hash": "4c3a45564f722e07343cfa6f206fb5e2fc68224386bae58d6697771134c7d7b9",
+      "size": 5936,
+      "modified": "2026-10-08T11:13:58.08801211-06:00",
+      "original": true
+    },
+    "templates/phases/research/findings/INDEX.md": {
+      "hash": "12d8ade31ef28112687385b57eed93bd080ab36bb6f0749e31f3a9ce4f6a0492",
+      "size": 775,
+      "modified": "2026-10-08T11:13:58.09322008-06:00",
+      "original": true
+    },
+    "templates/phases/research/investigation.md": {
+      "hash": "52b4574c31bbcb57151361a012915e8a6c75ec1af20f49ae410846ee079cb584",
+      "size": 4129,
+      "modified": "2026-10-08T11:13:58.098041421-06:00",
+      "original": true
+    },
+    "templates/phases/research/sources/INDEX.md": {
+      "hash": "ffe9cfb89ff6e1353f05d2d2c04675a1e1004397ee430f154b4075eb2afab98d",
+      "size": 850,
+      "modified": "2026-10-08T11:13:58.103252059-06:00",
+      "original": true
+    },
+    "templates/phases/research/specification.md": {
+      "hash": "f33e7fd94ce3ba0ed2378d7c795e567c1ac889940c961b8fc28201e3bd1c85a1",
+      "size": 5725,
+      "modified": "2026-10-08T11:13:58.107975941-06:00",
+      "original": true
+    },
+    "templates/phases/review/GATES.md": {
+      "hash": "e0c58dc24b43652843cf42fa7974494f0b19af8158e836705a50003520aad78b",
+      "size": 3243,
+      "modified": "2026-10-08T11:13:58.113200411-06:00",
+      "original": true
+    },
+    "templates/phases/review/GOAL.md": {
+      "hash": "e57ecea75981d2e790608d37da7be7dfc1945378e28b6d82f69e1825ffb32761",
+      "size": 1640,
+      "modified": "2026-10-08T11:13:58.118028378-06:00",
+      "original": true
+    },
+    "templates/sequences/GOAL.md": {
+      "hash": "0be1adae28401129ed54e522fe9691643b48d05c68d646cbaff051ca374c6a5d",
+      "size": 3328,
+      "modified": "2026-10-08T11:13:58.123424391-06:00",
+      "original": true
+    },
+    "templates/sequences/GOAL_MINIMAL.md": {
+      "hash": "57a9bbc93a80e5e890cd789e9871400fc3872e9c44926e0a16ee754afe8097b1",
+      "size": 939,
+      "modified": "2026-10-08T11:13:58.127906229-06:00",
+      "original": true
+    },
+    "templates/tasks/TASK.md": {
+      "hash": "ffa102a8ace9a773d69c17848442170c92c8faec70203719688f11d26127adb9",
+      "size": 846,
+      "modified": "2026-10-08T11:13:58.133302618-06:00",
+      "original": true
+    }
+  }
+}

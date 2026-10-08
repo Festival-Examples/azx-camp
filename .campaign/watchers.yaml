@@ -1,0 +1,191 @@
+version: 1
+entries:
+    - id: campaign-metadata
+      path: .campaign/campaign.yaml
+      type: campaign.metadata
+      format: yaml
+      watch: file
+      owner: camp
+    - id: project-registry
+      path: .campaign/leverage/config.json
+      type: project.registry
+      format: json
+      watch: file
+      owner: camp
+    - id: festival-pins
+      path: .campaign/settings/pins.json
+      type: ui.pins
+      format: json
+      watch: file
+      owner: camp
+    - id: settings-jumps
+      path: .campaign/settings/jumps.yaml
+      type: settings.navigation
+      format: yaml
+      watch: file
+      owner: camp
+    - id: settings-allowlist
+      path: .campaign/settings/allowlist.json
+      type: settings.permissions
+      format: json
+      watch: file
+      owner: camp
+    - id: leverage-snapshots
+      path: .campaign/leverage/snapshots/
+      type: metrics.snapshots
+      format: directory
+      watch: directory
+      owner: camp
+    - id: intents-inbox
+      path: .campaign/intents/inbox/
+      type: intent.status_dir
+      format: directory
+      watch: directory
+      owner: camp
+      status: inbox
+    - id: intents-ready
+      path: .campaign/intents/ready/
+      type: intent.status_dir
+      format: directory
+      watch: directory
+      owner: camp
+      status: ready
+    - id: intents-active
+      path: .campaign/intents/active/
+      type: intent.status_dir
+      format: directory
+      watch: directory
+      owner: camp
+      status: active
+    - id: intents-dungeon
+      path: .campaign/intents/dungeon/
+      type: intent.status_dir
+      format: directory
+      watch: directory
+      owner: camp
+      status: archived
+    - id: workflow-design-config
+      path: workflow/design/.workflow.yaml
+      type: workflow.config
+      format: yaml
+      watch: file
+      owner: camp
+    - id: festival-events
+      path: festivals/.festival/.state/festival_events.jsonl
+      type: festival.lifecycle
+      format: jsonl
+      watch: append
+      owner: fest
+    - id: festival-types
+      path: festivals/.festival/festival_types.yaml
+      type: festival.types
+      format: yaml
+      watch: file
+      owner: fest
+    - id: festival-id-registry
+      path: festivals/.festival/.state/id_registry.yaml.backup
+      type: festival.registry
+      format: yaml
+      watch: file
+      owner: fest
+    - id: festival-checksums
+      path: festivals/.festival/.state/.fest-checksums.json
+      type: festival.integrity
+      format: json
+      watch: file
+      owner: fest
+    - id: festival-navigation
+      path: .campaign/fest/navigation.yaml
+      type: festival.navigation
+      format: yaml
+      watch: file
+      owner: fest
+    - id: festivals-planning
+      path: festivals/planning/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: planning
+    - id: festivals-active
+      path: festivals/active/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: active
+    - id: festivals-ready
+      path: festivals/ready/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: ready
+    - id: festivals-parked
+      path: festivals/parked/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: parked
+    - id: festivals-ritual
+      path: festivals/ritual/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: ritual
+    - id: festivals-dungeon-archived
+      path: festivals/dungeon/archived/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: archived
+      fallback_paths:
+        - festivals/.dungeon/archived/
+    - id: festivals-dungeon-completed
+      path: festivals/dungeon/completed/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: completed
+      fallback_paths:
+        - festivals/.dungeon/completed/
+    - id: festivals-dungeon-someday
+      path: festivals/dungeon/someday/
+      type: festival.status_dir
+      format: directory
+      watch: directory
+      owner: fest
+      status: someday
+      fallback_paths:
+        - festivals/.dungeon/someday/
+    - id: festival-metadata
+      path: '{festival}/fest.yaml'
+      type: festival.metadata
+      format: yaml
+      watch: file
+      owner: fest
+      template: true
+      fallback_paths:
+        - '{festival}/festival.yaml'
+    - id: festival-progress
+      path: '{festival}/.fest/progress_events.jsonl'
+      type: festival.progress
+      format: jsonl
+      watch: append
+      owner: fest
+      template: true
+      fallback_paths:
+        - '{festival}/.fest/progress.yaml'
+        - '{festival}/.fest/progress.json'
+    - id: festival-tasks
+      path: '{festival}/**/*.md'
+      type: festival.task
+      format: markdown_frontmatter
+      watch: directory
+      owner: fest
+      template: true
+      status_field: fest_status
