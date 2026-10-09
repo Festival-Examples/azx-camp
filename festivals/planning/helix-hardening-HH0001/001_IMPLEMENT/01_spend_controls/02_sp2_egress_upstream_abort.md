@@ -52,7 +52,7 @@ export const INSTR_EGRESS_UPSTREAM_ABORTS = "helix.egress.upstream_aborts";
 
 4. Edit `apps/egress/src/proxy.ts`. Follow the pattern the edge already uses at `apps/edge/src/gateway/llm.ts:218-243` and `apps/edge/src/gateway/fetch.ts:338-341`: watch the response (`reply.raw`), not the request, and use `writableEnded`, not `writableFinished`. Read both comments before copying.
 
-   a. Imports: nothing new. `request` is already imported from `undici` (line 9), `ATTR_CAPABILITY` is imported (line 35), and `instruments` is imported (line 46).
+   a. Imports: nothing new. `request` is already imported from `undici` (line 10), `ATTR_CAPABILITY` is imported (line 33), and `instruments` is imported (line 46).
 
    b. At the very top of `runProxy` (line 320, directly after `const { instruction, targetRaw, method } = authenticated;` at line 325), before the jti burn, add the controller and the listener. Hoist `let requestCapTripped = false;` from line 595 up to here so the listener can read it:
 

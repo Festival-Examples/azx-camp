@@ -1,38 +1,19 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-09T02:21:08.691Z",
+  "updatedAt": "2026-10-09T02:24:50.305Z",
   "activeWorkspaceTabId": "workspace-tab-1",
   "workspaceTabs": [
     {
       "id": "workspace-tab-1",
       "title": "Tab 1",
       "paneTree": {
-        "children": [
-          {
-            "content": {
-              "chatSessionId": null,
-              "filePath": null,
-              "type": "terminal"
-            },
-            "id": "pane-7",
-            "type": "pane"
-          },
-          {
-            "content": {
-              "chatSessionId": "d0b9bc04-3d90-47c4-993b-f958a3d526d9",
-              "type": "chat"
-            },
-            "id": "pane-19",
-            "type": "pane"
-          }
-        ],
-        "direction": "vertical",
-        "id": "split-20",
-        "sizes": [
-          50,
-          50
-        ],
-        "type": "split"
+        "content": {
+          "chatSessionId": null,
+          "filePath": null,
+          "type": "terminal"
+        },
+        "id": "pane-7",
+        "type": "pane"
       },
       "openFiles": [
         {
