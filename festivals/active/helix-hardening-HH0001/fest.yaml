@@ -15,6 +15,9 @@ metadata:
     - status: ready
       timestamp: 2026-10-09T14:05:42.40486-06:00
       path: festivals/ready/helix-hardening-HH0001
+    - status: active
+      timestamp: 2026-10-09T14:05:42.556032-06:00
+      path: festivals/active/helix-hardening-HH0001
 project_path: projects/helix
 type_config:
   auto_phases:

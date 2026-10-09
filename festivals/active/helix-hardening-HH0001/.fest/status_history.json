@@ -3,5 +3,10 @@
     "timestamp": "2026-10-09T14:05:42.374759-06:00",
     "from_status": "planning",
     "to_status": "ready"
+  },
+  {
+    "timestamp": "2026-10-09T14:05:42.539866-06:00",
+    "from_status": "ready",
+    "to_status": "active"
   }
 ]

@@ -1,7 +1,7 @@
 version: 1
-updated_at: 2026-10-09T20:05:42.405747Z
+updated_at: 2026-10-09T20:05:42.556367Z
 links:
   helix-hardening-HH0001:
     path: projects/helix
-    festival_path: festivals/ready/helix-hardening-HH0001
-    linked_at: 2026-10-09T20:05:42.405747Z
+    festival_path: festivals/active/helix-hardening-HH0001
+    linked_at: 2026-10-09T20:05:42.556367Z
