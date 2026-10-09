@@ -8,7 +8,7 @@ _Repository:_ `projects/helix` at `main` = 792557a. Paths below are relative to 
 
 Decisions D1 (authors may be hostile), C1 to C6, V1, V2 and V4 are applied. Both parts ship, in an order that puts the least risky change first. Each stricter behavior is a per-install setting, so an install on AZX's documented model (one org per install, ADR-0028) can relax it.
 
-**Part 3 (first, separable).** Add `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints`, `nel` and `link` to the shared proxied-response header blocklist (SEC-13).
+**Part 3 (first, separable).** Add `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints` and `nel` to the shared proxied-response header blocklist (SEC-13). `link` was in this list and was dropped at task-writing time: browsers do not act on a `Link` header in a `fetch()` response, so stripping it protects nothing, and it breaks `rel="next"` pagination that apps use against vendors such as the GitHub API.
 
 **Part 2 (next).** Change `img-src` from `https:` to `'self' data: blob:` plus approved origins, reusing the `externalOrigins` approval and the Violations screen, and add `object-src 'none'`. It lands as a `Content-Security-Policy-Report-Only` header first, then the enforced header switches. A per-install `EDGE_IMG_SRC_ALLOW_ALL` setting restores today's `https:` for installs that accept the channel. Top-level navigation, popups, WebRTC and DNS hints cannot be closed by any CSP, `sandbox` or COOP option I found. After Part 2, an app that wants to leak what its viewer can read still can. Part 2 removes the silent, no-gesture, bulk channel. It does not deliver confidentiality, and the docs must say so.
 
@@ -237,7 +237,7 @@ The channel inventory is the same for every option, so the options differ in wha
 
 ### Part 3 (first, small, separable): proxied response headers (SEC-13)
 
-`RESPONSE_HEADER_BLOCKLIST` (`packages/shared/src/fetch.ts:110-122`) is a denylist of 11 names. It is the single source for egress (`apps/egress/src/proxy.ts:79, 666-676`) and the edge gateway (`apps/edge/src/gateway/fetch.ts:405-407`). So `clear-site-data`, `content-security-policy`, `refresh`, `report-to`, `reporting-endpoints`, `nel` and `link` are copied from the upstream onto the app-origin response.
+`RESPONSE_HEADER_BLOCKLIST` (`packages/shared/src/fetch.ts:110-122`) is a denylist of 11 names. It is the single source for egress (`apps/egress/src/proxy.ts:79, 666-676`) and the edge gateway (`apps/edge/src/gateway/fetch.ts:405-407`). So `clear-site-data`, `content-security-policy`, `refresh`, `report-to`, `reporting-endpoints` and `nel` are copied from the upstream onto the app-origin response.
 
 - `refresh` is moot on a `fetch()` response, and navigations are refused outright (`validate.ts:136-148`).
 - **Hypothesis:** `Clear-Site-Data` on a fetch response executes against the app origin and could wipe its cookies and storage, including `__Host-session`. This needs an approved origin that returns it, so it is a Low-severity DoS by a vendor; I did not test it.
@@ -288,7 +288,7 @@ Ship in this order, each as its own change (see Work breakdown):
 | `apps/edge/src/serving/assets.ts` | Send Report-Only header with the enforced one (`:114`) | Also covers the service-worker response (`app.ts:791`). |
 | `apps/edge/src/serving/cspReport.ts` | Count reports with a bounded `directive` dimension | See Telemetry. Do not log blocked URLs. |
 | `packages/shared/src/telemetry.ts`, `apps/edge/src/telemetry.ts` | New instrument constants and entries on `instruments()` | See Telemetry. |
-| `packages/shared/src/fetch.ts` | Add `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints`, `nel`, `link` to `RESPONSE_HEADER_BLOCKLIST` (`:110`) | Part 3. Affects egress and the edge gateway. |
+| `packages/shared/src/fetch.ts` | Add `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints`, `nel` to `RESPONSE_HEADER_BLOCKLIST` (`:110`) | Part 3. Affects egress and the edge gateway. |
 | `packages/shared/src/capabilityHelp.ts` | Update the `externalOrigins` copy (`:61-70`): "also allows images from this host; anything the page can read can be sent there" | The classifier is unchanged (`approval.ts:406-410`) unless 2C is chosen. |
 | `apps/portal/src/deployment.ts` | Add `resolveControlPublicBase()` (optional, defaults to `APP_PUBLIC_BASE`'s origin); `connectionsCallbackUrl()` uses it; validate in `assertDeploymentConfig` | Replaces the "derived, never configured" comment (`:66-68`) with the new rule and the reason. |
 | `apps/portal/src/deployment.test.ts`, `routes/config.test.ts`, `routes/apps.test.ts` | New cases for split config | See Tests. |
@@ -445,7 +445,7 @@ Changes in the order they should land. Each fits one pull request. Part 3 first,
 ### CT-1 Extend the proxied-response header blocklist
 - **Depends on:** none
 - **Files:** `packages/shared/src/fetch.ts` (`RESPONSE_HEADER_BLOCKLIST`, `:110-122`), blocklist test in `packages/shared`, `apps/egress/src/proxy.test.ts`, `apps/edge/src/gateway/fetch` tests
-- **Done when:** `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints`, `nel` and `link` are in the blocklist; none of them reaches an app-origin response through egress or the edge gateway; `etag`, `content-type`, `retry-after` and rate-limit headers still pass.
+- **Done when:** `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints` and `nel` are in the blocklist; none of them reaches an app-origin response through egress or the edge gateway; `etag`, `content-type`, `retry-after`, `link` and rate-limit headers still pass.
 - **Evidence:** the blocklist unit test; one egress and one edge-gateway test per new header asserting the header is stripped from an upstream response that carries it; `./check-and-lint.sh` green. Nothing in this change is Azure-specific.
 
 ### CT-2 Report-Only tightened CSP and the report counter

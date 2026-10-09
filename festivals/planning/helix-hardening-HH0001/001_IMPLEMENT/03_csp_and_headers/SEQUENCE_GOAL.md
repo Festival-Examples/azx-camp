@@ -25,7 +25,7 @@ The sequence goal is achieved when:
 
 ### Required Deliverables
 
-- [ ] **Extended header blocklist**: `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints`, `nel` and `link` are in `RESPONSE_HEADER_BLOCKLIST` (`packages/shared/src/fetch.ts`). None of them reaches an app-origin response through egress or through the edge gateway; `etag`, `content-type`, `retry-after` and rate-limit headers still pass. The loss of `Link` pagination headers is documented.
+- [ ] **Extended header blocklist**: `clear-site-data`, `content-security-policy`, `content-security-policy-report-only`, `refresh`, `report-to`, `reporting-endpoints` and `nel` are in `RESPONSE_HEADER_BLOCKLIST` (`packages/shared/src/fetch.ts`). None of them reaches an app-origin response through egress or through the edge gateway; `etag`, `content-type`, `retry-after`, rate-limit headers and `link` (kept on purpose, so vendor pagination keeps working) still pass.
 - [ ] **Report-Only tightened policy and report counter**: every app response (asset, injected HTML, 304, service-worker script) carries the unchanged enforced policy plus `Content-Security-Policy-Report-Only` with the tightened `img-src` and `object-src 'none'`; `EDGE_IMG_SRC_EXTRA` widens the Report-Only `img-src`; `helix.edge.csp_reports` counts reports with bounded `directive` and `disposition` dimensions and never records a URL; the approval copy says an approved host is also an image sink.
 - [ ] **Enforced policy and the relaxation**: the enforced header carries the tight `img-src` and `object-src 'none'`; `EDGE_IMG_SRC_ALLOW_ALL=true` restores `https:` in `img-src`; the Report-Only header is retired; an ungranted image is blocked, produces a violation, and the Violations screen can resolve it by granting the origin.
 - [ ] **Records and agent guidance**: ADR-0009 amendment, `SECURITY.md`, `docs/platform-architecture.md`, `docs/features/edge-serving.md`, `docs/features/observability.md`, `docs/features/fetch-proxy.md`, the edge README, `configuration.md` and `packages/deploy-skill/SKILL.md` (which generates `apps/docs/src/apps/quickstart.md`) state the new policy, the residual channels (navigation, popups, approved origins, WebRTC, DNS hints) and the instruction to inline images or ship them in the bundle.
@@ -50,7 +50,7 @@ The sequence goal is achieved when:
 
 | Task | Task Objective | Contribution to Sequence Goal |
 |------|----------------|-------------------------------|
-| 01_ct1_proxied_response_header_blocklist.md | Add eight policy, reporting and navigation header names to the shared proxied-response blocklist, with tests on the shared list, egress and the edge gateway (CT-1). | Smallest, safest change and the base of the phase: a vendor can no longer set a CSP, `Clear-Site-Data` or reporting header on the app origin. |
+| 01_ct1_proxied_response_header_blocklist.md | Add seven policy and reporting header names to the shared proxied-response blocklist, with tests on the shared list, egress and the edge gateway (CT-1). | Smallest, safest change and the base of the phase: a vendor can no longer set a CSP, `Clear-Site-Data` or reporting header on the app origin. |
 | 02_ct2_report_only_csp_and_report_counter.md | Send a `Content-Security-Policy-Report-Only` header with the tightened `img-src` and `object-src 'none'` beside the unchanged enforced policy, add `EDGE_IMG_SRC_EXTRA`, and count CSP reports with bounded dimensions (CT-2). | Measures what the tighter policy would break before anything breaks, using the existing report sink and Violations screen. |
 | 03_ct3_enforce_img_src_and_object_src.md | Move the tightened policy onto the enforced header, add `EDGE_IMG_SRC_ALLOW_ALL`, retire the Report-Only header, and rewrite the published CSP statements (CT-3). | Removes the silent bulk image channel and leaves a per-install way back, with the residual channels stated plainly. |
 
@@ -79,7 +79,6 @@ Target project: `projects/helix` (relative to campaign root)
 | `object-src 'none'` breaks apps that use `<object>` or `<embed>`; usage was not measured. | Low | Low | It is reported in Report-Only first, and the counter has an `object-src` directive value. Hypothesis until measured. |
 | The report sink has no rate limit, and a tighter `img-src` multiplies reports; a hostile app can already flood it. | Med | Low | Deferred by `plan.md`. The counter makes load visible; add a per-app cap only if the measurement window shows it. |
 | The legacy `report-uri` body may not carry `disposition` in every browser, so Report-Only and enforced reports cannot be told apart. | Med | Low | The code accepts the field being absent (`unknown`); CT-2 reads a real report in the smoke run and records what Chromium sent. |
-| Stripping `link` removes Link-header pagination that apps use against vendors such as the GitHub API; the design assumed a `fetch()` response cannot act on it, but app code can read it. | Med | Med | The list is kept as the design set it (an allowlist is deferred). The consequence is documented for agents and recorded in `results/`; the owner decides whether to revisit it. |
 | The design and the code differ in places this plan found: `quickstart.md` is generated and gitignored, `SECURITY.md:56-57` is not CSP text, the design's file list omits `main.bicep`, and CT-3 is worded two ways on the Report-Only header. | High | Low | Each task records the difference in `results/` and follows the code; the Bicep parameters are added and flagged as a design gap. |
 | The browser smoke checks SKIP without Chromium, the certificate flag or name resolution, and the consent popup has no smoke check at this commit. | Med | Med | Header checks run without a browser; the popup is proved by `pnpm lane:connections`; a SKIP is reported as unverified. |
 | WebRTC ICE, DNS prefetch and preconnect hints are not governed by `img-src` or `connect-src`, so a determined app can still leak data. | High | Low | Stated, not fixed: the docs say the change removes the silent bulk channel and does not deliver confidentiality; the claims are labeled untested. |
@@ -88,7 +87,7 @@ Target project: `projects/helix` (relative to campaign root)
 
 ### Milestones
 
-- [ ] **Milestone 1**: CT-1 merged: the eight header names are blocked on both hops with tests on the shared list, egress and the edge gateway.
+- [ ] **Milestone 1**: CT-1 merged: the seven header names are blocked on both hops with tests on the shared list, egress and the edge gateway.
 - [ ] **Milestone 2**: CT-2 merged and the Report-Only header is flowing: reports are counted and recorded, and the measurement window can start.
 - [ ] **Milestone 3**: CT-3 merged: the enforced policy is tight, `EDGE_IMG_SRC_ALLOW_ALL` works, and the published CSP statements match.
 

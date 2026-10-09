@@ -3,9 +3,9 @@ kind: workflow-runtime
 workflow_id: wf-helix-spend-containment-egress
 doc_path: WORKFLOW.md
 doc_hash: sha256:f0fcd6aa77f173cdd3af54eaa88f21cf3d21a3be8220edb8bd8609bc9be5c9cb
-active_run_id: run-20261008T191408Z
 runs:
     - run_id: run-20261008T191408Z
-      status: active
+      status: completed
       path: runs/run-20261008T191408Z
       started_at: "2026-10-08T19:14:08Z"
+      ended_at: "2026-10-09T18:40:22Z"

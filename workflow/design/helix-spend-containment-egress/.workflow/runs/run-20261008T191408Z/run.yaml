@@ -2,7 +2,7 @@ version: 1
 kind: workflow-run
 run_id: run-20261008T191408Z
 workflow_id: wf-helix-spend-containment-egress
-status: active
+status: completed
 started_at: 2026-10-08T19:14:08.941736Z
 executor: fest
 source:
@@ -10,7 +10,7 @@ source:
     workflow_hash: sha256:f0fcd6aa77f173cdd3af54eaa88f21cf3d21a3be8220edb8bd8609bc9be5c9cb
     workitem_path: ../..
 summary:
-    current_step: 4
+    current_step: 5
     total_steps: 5
-    completed_steps: 4
+    completed_steps: 5
     blocked: false
