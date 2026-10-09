@@ -4,12 +4,13 @@ fest_id: 06_sp6_default_llm_budget.md
 fest_name: sp6 default llm budget
 fest_parent: 01_spend_controls
 fest_order: 6
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.335173-06:00
-fest_updated: 2026-10-09T16:00:17.245337-06:00
+fest_updated: 2026-10-09T16:22:17.621796-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: sp6 default llm budget

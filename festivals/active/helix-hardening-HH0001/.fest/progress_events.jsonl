@@ -9,3 +9,5 @@
 {"ts":"2026-10-09T21:41:12.347775Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/05_sp5_charge_cut_and_failed_calls.md","percent":10}
 {"ts":"2026-10-09T22:00:11.907222Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/05_sp5_charge_cut_and_failed_calls.md","minutes":18}
 {"ts":"2026-10-09T22:00:17.245161Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/06_sp6_default_llm_budget.md","percent":10}
+{"ts":"2026-10-09T22:22:17.621694Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/06_sp6_default_llm_budget.md","minutes":22}
+{"ts":"2026-10-09T22:22:24.819201Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/07_sp7_admission_denial_throttle.md","percent":10}
