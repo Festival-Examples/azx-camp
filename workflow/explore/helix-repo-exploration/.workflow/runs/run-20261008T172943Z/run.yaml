@@ -2,7 +2,7 @@ version: 1
 kind: workflow-run
 run_id: run-20261008T172943Z
 workflow_id: wf-helix-repo-exploration
-status: active
+status: completed
 started_at: 2026-10-08T17:29:43.568107Z
 executor: fest
 source:
@@ -10,7 +10,7 @@ source:
     workflow_hash: sha256:af83e9ece63c6aab14681eeb8546afc524675f4d23a7728f9a3b17d79c15b386
     workitem_path: ../..
 summary:
-    current_step: 0
+    current_step: 7
     total_steps: 7
-    completed_steps: 0
+    completed_steps: 7
     blocked: false

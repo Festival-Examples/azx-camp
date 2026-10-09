@@ -1,0 +1,11 @@
+version: v1alpha9
+kind: workitem
+id: design-helix-spend-containment-egress-2026-10-08
+type: design
+title: 'Helix: close the AI spend leak, contain hosted apps, and control egress at the network'
+ref: WI-36492b
+tags:
+    - helix
+    - security
+projects:
+    - projects/helix

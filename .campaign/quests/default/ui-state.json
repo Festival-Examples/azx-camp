@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "updatedAt": "2026-10-09T01:50:45.865Z",
+  "activeWorkspaceTabId": "workspace-tab-1",
+  "workspaceTabs": [
+    {
+      "id": "workspace-tab-1",
+      "title": "Tab 1",
+      "paneTree": {
+        "content": {
+          "type": "terminal"
+        },
+        "id": "pane-1",
+        "type": "pane"
+      },
+      "activePaneId": "pane-1",
+      "chainConfig": {
+        "leftSessionId": null,
+        "rightSessionId": null
+      }
+    }
+  ]
+}
