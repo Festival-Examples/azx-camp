@@ -1,0 +1,58 @@
+node .claude/skills/run-helix/smoke.mjs "$@"
+[1mHelix smoke test[0m   artifacts → /tmp/helix-smoke-k5bf61
+[2misolated stack: offset 1000, ports 9080 9081 9082 4001 4002 6173 4003 4443, db helix_smoke[0m
+
+  [2mreusing database helix_smoke[0m
+building the SPA…
+booting services…
+  [32m✓[0m dev-idp healthy on :4002  [2mtrue[0m
+  [32m✓[0m portal healthy on :4001  [2mtrue[0m
+  [32m✓[0m egress healthy on :9081  [2mtrue[0m
+  [32m✓[0m edge healthy on :9080  [2mtrue[0m
+
+[1mseed[0m — a live public + internal app for the edge to serve
+  [32m✓[0m cli bundle for seeding  [2mbuilt[0m
+  [32m✓[0m live public app (smoke-public)  [2mreused[0m
+  [32m✓[0m live internal app (smoke-internal)  [2mreused[0m
+
+[1mdev-idp[0m — oidc-provider authorization_code + PKCE
+  [32m✓[0m discovery document  [2mhttp://localhost:4002[0m
+  [32m✓[0m authorize → interaction → code  [2malice@azx.dev[0m
+  [32m✓[0m token exchange yields an ID token with inline groups  [2malice@azx.dev [eng-team, platform-admin][0m
+
+[1mportal[0m — fastify + Prisma control plane
+  [32m✓[0m public bootstrap config  [2mhttps://local.helix.azxlabs.io:9080[0m
+  [32m✓[0m unauthenticated read is rejected
+  [32m✓[0m authenticated app list (Prisma read)  [2m2 apps[0m
+  [32m✓[0m create app (Prisma write)  [2msmoke-3d7e2a75[0m
+  [32m✓[0m read back the created app
+  [32m✓[0m zod boundary rejects a malformed body
+
+[1medge[0m — data/policy plane (https, host routing, session gate)
+  [32m✓[0m health reports registry-projection freshness  [2mok / projection ok[0m
+  [32m✓[0m public app is served from Blob  [2msmoke-public[0m
+  [32m✓[0m CSP is injected
+  [32m✓[0m session gate: 401 for API-style request
+  [32m✓[0m session gate: 302 to auth host for a navigation  [2m/start[0m
+  [32m✓[0m unknown host is 404
+
+[1megress[0m — mechanism plane (attested instruction verification)
+  [32m✓[0m health is liveness-only
+  [32m✓[0m missing instruction headers → 400
+  [32m✓[0m forged instruction is refused before dialing the target
+
+[1mportal SPA[0m — vite build, served by the portal
+  [32m✓[0m vite production build  [2m1730 modules[0m
+  [32m✓[0m portal serves the built index.html  [2m2 hashed assets[0m
+  [32m✓[0m hashed assets resolve with correct content types  [2m2 ok[0m
+  [32m✓[0m SPA deep link falls through to index (client routing)
+
+[1mbrowser[0m — real Chromium over CDP
+  [33m•[0m SPA renders in a real browser  [2mSKIP — no cached Chromium (set HELIX_SMOKE_CHROME)[0m
+
+[1mhelix CLI[0m — esbuild bundle driven against the live portal
+  [32m✓[0m esbuild bundle  [2mbuilt[0m
+  [32m✓[0m CLI reads versions from the live portal  [2msmoke-public: 1 versions[0m
+
+────────────────────────────────────────────────────────────
+[1m31 passed[0m, 0 failed, 1 skipped

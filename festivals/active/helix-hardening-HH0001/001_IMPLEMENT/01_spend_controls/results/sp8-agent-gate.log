@@ -1,0 +1,755 @@
+Auto-fixing lint + formatting before checks...
+$ eslint . --fix
+$ prettier --write . --log-level warn
+
+▶ typecheck
+  $ pnpm typecheck
+$ pnpm -r typecheck
+Scope: 14 of 15 workspace projects
+apps/dev-idp typecheck$ tsc
+packages/deploy-skill typecheck$ tsc
+apps/dev-oauth-vendor typecheck$ tsc
+packages/directory typecheck$ tsc
+packages/deploy-skill typecheck: Done
+packages/secret-store typecheck$ tsc
+packages/directory typecheck: Done
+packages/shared typecheck$ tsc
+apps/dev-idp typecheck: Done
+packages/telemetry typecheck$ tsc
+apps/dev-oauth-vendor typecheck: Done
+packages/secret-store typecheck: Done
+packages/telemetry typecheck: Done
+packages/shared typecheck: Done
+apps/egress typecheck$ tsc
+apps/portal-web typecheck$ tsc && tsc -p tsconfig.node.json
+apps/docs typecheck$ tsc --noEmit
+packages/cli typecheck$ tsc
+apps/docs typecheck: Done
+packages/cli typecheck: Done
+apps/egress typecheck: Done
+apps/portal-web typecheck: Done
+apps/portal typecheck$ tsc
+apps/portal typecheck: Done
+apps/edge typecheck$ tsc
+apps/edge typecheck: Done
+apps/connections-lane typecheck$ tsc
+apps/connections-lane typecheck: Done
+✔ typecheck passed (17s)
+
+▶ lint
+  $ pnpm lint
+$ eslint .
+✔ lint passed (7s)
+
+▶ refs
+  $ bash -c if git ls-files -z | xargs -0 grep -nIE "(^|[^A-Za-z0-9])(I-[0-9]{2,}|T-[0-9]{3,})([^A-Za-z0-9]|$)"; then echo "machine-local planning identifiers (I-xx / T-nnnn) found above — remove them"; exit 1; fi
+fatal: gitfile does not point to a valid repository: /workspace/.git
+✔ refs passed (0s)
+
+▶ format
+  $ pnpm format:check
+$ prettier --check .
+Checking formatting...
+All matched files use Prettier code style!
+✔ format passed (6s)
+
+▶ docs
+  $ pnpm --filter @azx-pbc/docs-site build
+$ tsx scripts/render-skill.ts
+render-skill: wrote /workspace/apps/docs/src/apps/quickstart.md (34093 bytes)
+$ vitepress build
+
+  vitepress v1.6.4
+
+- building client + server bundles...
+llmstxt »   vitepress-plugin-llms initialized (client build) with workDir: /workspace/apps/docs/src
+llmstxt »   Build started, file collection cleared
+llmstxt »   Processing 13 markdown files from /workspace/apps/docs/src
+llmstxt »   Generating llms.txt...
+llmstxt »   Generating full documentation bundle (llms-full.txt)...
+llmstxt » ✓ Processed deploy/access-control.md
+llmstxt » ✓ Generated llms.txt (~733 tokens, 2.77 kB) with 13 documentation links
+llmstxt » ✓ Processed apps/quickstart.md
+llmstxt » ✓ Generated llms-full.txt (~38.1K tokens, 143 kB) with 13 markdown files
+llmstxt » ✓ Processed contributing.md
+llmstxt » ✓ Processed deploy/foundry.md
+llmstxt » ✓ Processed deploy/getting-started.md
+llmstxt » ✓ Processed deploy/database.md
+llmstxt » ✓ Processed deploy/entra-setup.md
+llmstxt » ✓ Processed apps/manifest.md
+llmstxt » ✓ Processed deploy/configuration.md
+llmstxt » ✓ Processed deploy/local-dev.md
+llmstxt » ✓ Processed apps/gateway.md
+llmstxt » ✓ Processed deploy/updates.md
+llmstxt » ✓ Processed apps/cli.md
+llmstxt »   vitepress-plugin-llms initialized (SSR build) with workDir: /workspace/apps/docs/src
+llmstxt »   Build started, file collection cleared
+llmstxt »   Skipping LLMs docs generation in SSR build
+[32m✓[0m building client + server bundles...
+- rendering pages...
+[32m✓[0m rendering pages...
+- generating sitemap...
+[32m✓[0m generating sitemap...
+build complete in 2.59s.
+✔ docs passed (3s)
+
+▶ tests
+  $ pnpm test
+$ vitest run
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.11 [39m[90m/workspace[39m
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "helix_test", schema "public" at "db:5432"
+
+46 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+NOTICE:  truncate cascades to table "apps"
+NOTICE:  truncate cascades to table "sessions"
+NOTICE:  truncate cascades to table "approval_requests"
+NOTICE:  truncate cascades to table "app_secrets"
+NOTICE:  truncate cascades to table "app_secret_grants"
+NOTICE:  truncate cascades to table "app_dev_token"
+NOTICE:  truncate cascades to table "app_secret_grants"
+NOTICE:  truncate cascades to table "versions"
+NOTICE:  truncate cascades to table "sessions"
+NOTICE:  truncate cascades to table "approval_requests"
+NOTICE:  truncate cascades to table "app_secrets"
+NOTICE:  truncate cascades to table "app_secret_grants"
+NOTICE:  truncate cascades to table "app_dev_token"
+DO
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mthe prod consent journey through the real entry points[2m > [22m[2mstart → consult → vendor authorize → callback → saved connection → delegated call in the configured placement
+[22m[39mTEMP-DEBUG cache wait took 105ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mthe connection-status read tracks the journey (ADR-0031 as amended)[2m > [22m[2mnot_connected before consent → connected after the callback → not_connected after disconnect
+[22m[39mTEMP-DEBUG cache wait took 111ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mthe connection-status read tracks the journey (ADR-0031 as amended)[2m > [22m[2mthe dev tier's status read keys to the developer identity through the dev gateway
+[22m[39mTEMP-DEBUG cache wait took 111ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mthe dev-tier journey[2m > [22m[2mbearer POST → single-use popup URL → nonce entry → vendor → completion keyed to the developer identity
+[22m[39mTEMP-DEBUG cache wait took 107ms
+
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/access-password.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 2989[2mms[22m[39m
+     [33m[2m✓[22m[39m flips visibility to password and returns a hyphenated passphrase + url [33m 453[2mms[22m[39m
+     [33m[2m✓[22m[39m rerolls a fresh passphrase [33m 429[2mms[22m[39m
+     [33m[2m✓[22m[39m accepts a manual password of sufficient length [33m 423[2mms[22m[39m
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mdevelopment and production separation[2m > [22m[2ma dev connection and a prod connection never serve each other's tier
+[22m[39mTEMP-DEBUG cache wait took 102ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mtwo approved apps share one connection[2m > [22m[2mthe second app's consult answers already-connected and its calls ride the same connection
+[22m[39mTEMP-DEBUG cache wait took 106ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mboth rotation modes through real expiry[2m > [22m[2mrotating: the renewal replaces the material, ledger-marks the old, and the call succeeds
+[22m[39mTEMP-DEBUG cache wait took 130ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mboth rotation modes through real expiry[2m > [22m[2mnon-rotating: the renewal retains the refresh token, writes no ledger mark, and the call succeeds
+[22m[39mTEMP-DEBUG cache wait took 102ms
+
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/connectionsCallback.integration.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 5603[2mms[22m[39m
+     [33m[2m✓[22m[39m a hung vendor token endpoint renders the failed-service page [33m 5028[2mms[22m[39m
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mdisconnection, sensitive edits, deletion[2m > [22m[2mdisconnect stops use immediately; the ledger labels connection_required apart from refusal
+[22m[39mTEMP-DEBUG cache wait took 105ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mdisconnection, sensitive edits, deletion[2m > [22m[2ma sensitive edit mid-consent kills the attempt — the callback cannot establish anything
+[22m[39mTEMP-DEBUG cache wait took 104ms
+
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/password-login.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 3690[2mms[22m[39m
+     [33m[2m✓[22m[39m mints a session on the correct password and redirects to rd [33m 403[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a wrong password (401, no cookie, form re-rendered) [33m 399[2mms[22m[39m
+     [33m[2m✓[22m[39m accepts a same-origin form POST that omits Origin (Firefox/Safari behavior) [33m 384[2mms[22m[39m
+     [33m[2m✓[22m[39m accepts a same-origin Sec-Fetch-Site post [33m 393[2mms[22m[39m
+     [33m[2m✓[22m[39m throttles brute force — blocks after the failure budget (429) [33m 854[2mms[22m[39m
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts[2m > [22m[2mdisconnection, sensitive edits, deletion[2m > [22m[2ma sensitive edit kills the live connection, and deletion makes later calls report provider unavailability
+[22m[39mTEMP-DEBUG cache wait took 100ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts
+[22m[39mREGISTRY-WARN: {
+  err: error: terminating connection due to administrator command
+      at parseErrorMessage [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/parser.js:305:11[90m)[39m
+      at Parser.handlePacket [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/parser.js:143:27[90m)[39m
+      at Parser.parse [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/parser.js:37:38[90m)[39m
+      at Socket.<anonymous> [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/index.js:11:42[90m)[39m
+  [90m    at Socket.emit (node:events:514:28)[39m
+  [90m    at addChunk (node:internal/streams/readable:568:12)[39m
+  [90m    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)[39m
+  [90m    at Socket.Readable.push (node:internal/streams/readable:399:5)[39m
+  [90m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)[39m {
+    length: [33m116[39m,
+    severity: [32m'FATAL'[39m,
+    code: [32m'57P01'[39m,
+    detail: [90mundefined[39m,
+    hint: [90mundefined[39m,
+    position: [90mundefined[39m,
+    internalPosition: [90mundefined[39m,
+    internalQuery: [90mundefined[39m,
+    where: [90mundefined[39m,
+    schema: [90mundefined[39m,
+    table: [90mundefined[39m,
+    column: [90mundefined[39m,
+    dataType: [90mundefined[39m,
+    constraint: [90mundefined[39m,
+    file: [32m'postgres.c'[39m,
+    line: [32m'3354'[39m,
+    routine: [32m'ProcessInterrupts'[39m
+  }
+} registry LISTEN connection down; reconnecting in 573ms
+
+[90mstdout[2m | apps/edge/src/routing/connectionsJourney.integration.test.ts
+[22m[39mREGISTRY-WARN: {
+  event: [32m'db.pool_client_error'[39m,
+  pool: [32m'registry'[39m,
+  phase: [32m'idle'[39m,
+  err: error: terminating connection due to administrator command
+      at parseErrorMessage [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/parser.js:305:11[90m)[39m
+      at Parser.handlePacket [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/parser.js:143:27[90m)[39m
+      at Parser.parse [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/parser.js:37:38[90m)[39m
+      at Socket.<anonymous> [90m(/workspace/[39mnode_modules/[4m.pnpm[24m/pg-protocol@1.14.0/node_modules/[4mpg-protocol[24m/dist/index.js:11:42[90m)[39m
+  [90m    at Socket.emit (node:events:514:28)[39m
+  [90m    at addChunk (node:internal/streams/readable:568:12)[39m
+  [90m    at readableAddChunkPushByteMode (node:internal/streams/readable:519:3)[39m
+  [90m    at Socket.Readable.push (node:internal/streams/readable:399:5)[39m
+  [90m    at TCP.onStreamRead (node:internal/stream_base_commons:189:23)[39m {
+    length: [33m116[39m,
+    severity: [32m'FATAL'[39m,
+    code: [32m'57P01'[39m,
+    detail: [90mundefined[39m,
+    hint: [90mundefined[39m,
+    position: [90mundefined[39m,
+    internalPosition: [90mundefined[39m,
+    internalQuery: [90mundefined[39m,
+    where: [90mundefined[39m,
+    schema: [90mundefined[39m,
+    table: [90mundefined[39m,
+    column: [90mundefined[39m,
+    dataType: [90mundefined[39m,
+    constraint: [90mundefined[39m,
+    file: [32m'postgres.c'[39m,
+    line: [32m'3354'[39m,
+    routine: [32m'ProcessInterrupts'[39m,
+    client: Client {
+      _events: [36m[Object: null prototype][39m,
+      _eventsCount: [33m1[39m,
+      _maxListeners: [90mundefined[39m,
+      connectionParameters: [36m[ConnectionParameters][39m,
+      user: [32m'helix_edge'[39m,
+      database: [32m'helix_journey_test'[39m,
+      port: [33m5432[39m,
+      host: [32m'db'[39m,
+      replication: [90mundefined[39m,
+      _Promise: [36m[Function: Promise][39m,
+      _types: [36m[TypeOverrides][39m,
+      _ending: [33mtrue[39m,
+      _ended: [33mfalse[39m,
+      _connecting: [33mfalse[39m,
+      _connected: [33mtrue[39m,
+      _connectionError: [33mfalse[39m,
+      _queryable: [33mfalse[39m,
+      _activeQuery: [1mnull[22m,
+      _txStatus: [32m'I'[39m,
+      enableChannelBinding: [33mfalse[39m,
+      scramMaxIterations: [33m100000[39m,
+      connection: [36m[Connection][39m,
+      _queryQueue: [],
+      binary: [33mfalse[39m,
+      processID: [33m44331[39m,
+      secretKey: [33m1344452680[39m,
+      ssl: [33mfalse[39m,
+      _connectionTimeoutMillis: [33m0[39m,
+      _connectionCallback: [1mnull[22m,
+      saslSession: [1mnull[22m,
+      release: [36m[Function (anonymous)][39m,
+      readyForQuery: [33mtrue[39m,
+      hasExecuted: [33mtrue[39m,
+      _poolUseCount: [33m25[39m,
+      [32mSymbol(shapeMode)[39m: [33mfalse[39m,
+      [32mSymbol(kCapture)[39m: [33mfalse[39m
+    }
+  }
+} pooled DB client dropped (registry, idle)
+
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/connectionsJourney.integration.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 7233[2mms[22m[39m
+     [33m[2m✓[22m[39m start → consult → vendor authorize → callback → saved connection → delegated call in the configured placement [33m 455[2mms[22m[39m
+     [33m[2m✓[22m[39m the second app's consult answers already-connected and its calls ride the same connection [33m 385[2mms[22m[39m
+     [33m[2m✓[22m[39m rotating: the renewal replaces the material, ledger-marks the old, and the call succeeds [33m 1427[2mms[22m[39m
+     [33m[2m✓[22m[39m non-rotating: the renewal retains the refresh token, writes no ledger mark, and the call succeeds [33m 1387[2mms[22m[39m
+     [33m[2m✓[22m[39m a sensitive edit mid-consent kills the attempt — the callback cannot establish anything [33m 364[2mms[22m[39m
+     [33m[2m✓[22m[39m a sensitive edit kills the live connection, and deletion makes later calls report provider unavailability [33m 498[2mms[22m[39m
+[90mstderr[2m | packages/cli/src/auth/deviceFlow.integration.test.ts
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.DeviceCode function called, you SHOULD change it in order to define the expiration for DeviceCode artifacts.
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.Session function called, you SHOULD change it in order to define the expiration for Session artifacts.
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.Interaction function called, you SHOULD change it in order to define the expiration for Interaction artifacts.
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.Grant function called, you SHOULD change it in order to define the expiration for Grant artifacts.
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default features.deviceFlow.successSource function called, you SHOULD change it in order to customize the look of the device code success page.
+
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/delegated.integration.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 2579[2mms[22m[39m
+     [33m[2m✓[22m[39m temporary failure (the vendor hangs): 502 upstream_error, connection preserved [33m 2024[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/password.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 2081[2mms[22m[39m
+     [33m[2m✓[22m[39m verifies a hash derived at the shared cost (no maxmem throw) [33m 399[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects the wrong password [33m 396[2mms[22m[39m
+     [33m[2m✓[22m[39m stays correct under concurrency beyond the cap [33m 858[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/renewal.integration.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 4117[2mms[22m[39m
+     [33m[2m✓[22m[39m concurrent renewals on distinct users/providers run in parallel, not serialized [33m 1031[2mms[22m[39m
+     [33m[2m✓[22m[39m temporary failure (hang): the row is untouched, no retry within the attempt [33m 1036[2mms[22m[39m
+     [33m[2m✓[22m[39m a holder of the EXPORTED lock key bounded-blocks a renewal into temporary failure [33m 424[2mms[22m[39m
+     [33m[2m✓[22m[39m releases the lock and the client on every exit path [33m 1194[2mms[22m[39m
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change it in order to define the expiration for AccessToken artifacts.
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.RefreshToken function called, you SHOULD change it in order to define the expiration for RefreshToken artifacts.
+
+[90mstdout[2m | packages/cli/src/auth/deviceFlow.integration.test.ts[2m > [22m[2mdevice flow against dev-idp[2m > [22m[2mlogs in as alice and refreshes the grant
+[22m[39moidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
+
+ [32m✓[39m [30m[43m node [49m[39m packages/cli/src/auth/deviceFlow.integration.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5078[2mms[22m[39m
+     [33m[2m✓[22m[39m logs in as alice and refreshes the grant [33m 5039[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/retire.integration.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 1673[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/providers.integration.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 2896[2mms[22m[39m
+     [33m[2m✓[22m[39m reconciles on reconnect after an injected connection failure (self-heal) [33m 2160[2mms[22m[39m
+     [33m[2m✓[22m[39m releases the dedicated client on shutdown — start/stop cycles return to baseline [33m 467[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/registry/role-split.integration.test.ts [2m([22m[2m20 tests[22m[2m)[22m[33m 424[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/access/password.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 1095[2mms[22m[39m
+     [33m[2m✓[22m[39m is verifiable by re-deriving scrypt with the stored salt at the shared cost (the edge's check) [33m 423[2mms[22m[39m
+     [33m[2m✓[22m[39m uses a fresh salt each call [33m 420[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/data.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 1051[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps the newest rows when the collection outgrows the export cap [33m 717[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/providerListener.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1989[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps trying to reconnect with backoff instead of dying quietly [33m 1651[2mms[22m[39m
+     [33m[2m✓[22m[39m stays silent about failures caused by its own shutdown [33m 312[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/apps.test.ts [2m([22m[2m35 tests[22m[2m)[22m[33m 748[2mms[22m[39m
+     [33m[2m✓[22m[39m hands the losing password-enable a 409 rather than a passphrase that is not stored [33m 424[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/proxy.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 1199[2mms[22m[39m
+(node:113880) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/exchange.test.ts [2m([22m[2m26 tests[22m[2m)[22m[33m 1145[2mms[22m[39m
+     [33m[2m✓[22m[39m a hanging token endpoint surfaces as the opaque outcome [33m 933[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/deploy/diagnose.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 1063[2mms[22m[39m
+     [33m[2m✓[22m[39m stays fast on a pathological many-entry zip (bounded enumeration) [33m 1005[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/fetch.test.ts [2m([22m[2m42 tests[22m[2m)[22m[33m 707[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/directory.test.ts [2m([22m[2m36 tests[22m[2m)[22m[33m 873[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/dev-oauth-vendor/src/vendor.test.ts [2m([22m[2m19 tests[22m[2m)[22m[33m 704[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/connections/consent.test.ts [2m([22m[2m24 tests[22m[2m)[22m[33m 493[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/registry/registry.integration.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 653[2mms[22m[39m
+     [33m[2m✓[22m[39m loads seeded apps on start and refreshes via the NOTIFY trigger [33m 498[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/registry/listener.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 577[2mms[22m[39m
+     [33m[2m✓[22m[39m stays silent about load failures caused by its own shutdown [33m 320[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/approvals.test.ts [2m([22m[2m38 tests[22m[2m)[22m[33m 514[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/providers.importexport.test.ts [2m([22m[2m29 tests[22m[2m)[22m[33m 462[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/usage.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 478[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/connectionsPages.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 541[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/secrets.test.ts [2m([22m[2m37 tests[22m[2m)[22m[33m 609[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/data.integration.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 324[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/providers.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 375[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/approvals/providerBindings.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 370[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/connectionsInternal.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 470[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/connectionsMine.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 501[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/pointer.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 446[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/usage.rls.integration.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 209[2mms[22m[39m
+[90mstderr[2m | apps/edge/src/auth/flow.integration.test.ts
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+[90mstdout[2m | apps/edge/src/auth/flow.integration.test.ts[2m > [22m[2mthe full Appendix A flow against real oidc-provider + Postgres[2m > [22m[2mlogs alice into an internal app and lands on rd
+[22m[39moidc-provider NOTICE: default ttl.Interaction function called, you SHOULD change it in order to define the expiration for Interaction artifacts.
+
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/deploy/multipart.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 413[2mms[22m[39m
+[90mstdout[2m | apps/edge/src/auth/flow.integration.test.ts[2m > [22m[2mthe full Appendix A flow against real oidc-provider + Postgres[2m > [22m[2mlogs alice into an internal app and lands on rd
+[22m[39moidc-provider NOTICE: default ttl.Grant function called, you SHOULD change it in order to define the expiration for Grant artifacts.
+
+[90mstdout[2m | apps/edge/src/auth/flow.integration.test.ts[2m > [22m[2mthe full Appendix A flow against real oidc-provider + Postgres[2m > [22m[2mlogs alice into an internal app and lands on rd
+[22m[39moidc-provider NOTICE: default ttl.Session function called, you SHOULD change it in order to define the expiration for Session artifacts.
+
+[90mstdout[2m | apps/edge/src/auth/flow.integration.test.ts[2m > [22m[2mthe full Appendix A flow against real oidc-provider + Postgres[2m > [22m[2mlogs alice into an internal app and lands on rd
+[22m[39moidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change it in order to define the expiration for AccessToken artifacts.
+
+[90mstdout[2m | apps/edge/src/auth/flow.integration.test.ts[2m > [22m[2mthe full Appendix A flow against real oidc-provider + Postgres[2m > [22m[2mlogs alice into an internal app and lands on rd
+[22m[39moidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
+
+[90mstderr[2m | apps/edge/src/auth/flow.integration.test.ts[2m > [22m[2ma token without an oid claim refuses the login (ADR-0048 decision 2)
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/flow.integration.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 354[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/providers.invalidation.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 483[2mms[22m[39m
+[90mstderr[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/appsList.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 318[2mms[22m[39m
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.DeviceCode function called, you SHOULD change it in order to define the expiration for DeviceCode artifacts.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.Session function called, you SHOULD change it in order to define the expiration for Session artifacts.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.Interaction function called, you SHOULD change it in order to define the expiration for Interaction artifacts.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.Grant function called, you SHOULD change it in order to define the expiration for Grant artifacts.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default features.deviceFlow.successSource function called, you SHOULD change it in order to customize the look of the device code success page.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change it in order to define the expiration for AccessToken artifacts.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.RefreshToken function called, you SHOULD change it in order to define the expiration for RefreshToken artifacts.
+
+[90mstdout[2m | apps/portal/src/auth/oidc.integration.test.ts
+[22m[39moidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
+
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/adversarial.test.ts [2m([22m[2m38 tests[22m[2m)[22m[33m 351[2mms[22m[39m
+[90mstderr[2m | apps/portal/src/auth/oidc.integration.test.ts[2m > [22m[2mportal API with real device-flow tokens[2m > [22m[2mrejects a token from a different issuer with the same audience
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/auth/oidc.integration.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 323[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/llm.test.ts [2m([22m[2m44 tests[22m[2m)[22m[32m 265[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/versions.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 367[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/catalogue.test.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 340[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/sessions.test.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 323[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/manifest-bindings.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 250[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/devTokens.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 285[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/adversarial.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 165[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/openaiCodec.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 175[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/csp.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 203[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/visitors.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 269[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/spans.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 184[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/auth.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 238[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/ownership.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 213[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/visits.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 148[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/data.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 218[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/sessions.integration.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+[90mstderr[2m | apps/dev-idp/src/provider.test.ts
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.DeviceCode function called, you SHOULD change it in order to define the expiration for DeviceCode artifacts.
+
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/consentStart.test.ts [2m([22m[2m54 tests[22m[2m)[22m[32m 217[2mms[22m[39m
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.Session function called, you SHOULD change it in order to define the expiration for Session artifacts.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.Interaction function called, you SHOULD change it in order to define the expiration for Interaction artifacts.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.Grant function called, you SHOULD change it in order to define the expiration for Grant artifacts.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default features.deviceFlow.successSource function called, you SHOULD change it in order to customize the look of the device code success page.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change it in order to define the expiration for AccessToken artifacts.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.RefreshToken function called, you SHOULD change it in order to define the expiration for RefreshToken artifacts.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mdevice flow (the CLI path)[2m > [22m[2myields a portal-audience JWT access token with actor claims
+[22m[39moidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
+
+[90mstdout[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2mauthorization-code flow (the edge path)[2m > [22m[2mdenies an unregistered redirect_uri
+[22m[39moidc-provider NOTICE: default renderError function called, you SHOULD change it in order to customize the look of the error page.
+
+[90mstderr[2m | apps/dev-idp/src/provider.test.ts[2m > [22m[2momitOidClaim (the fail-closed fixture, ADR-0048 decision 2)
+[22m[39moidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+ [32m✓[39m [30m[43m node [49m[39m apps/dev-idp/src/provider.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 155[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/dashboard.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 235[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/connectionsProxy.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 282[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/spanAttributes.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 171[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/directory/rateLimit.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 216[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/secrets.integration.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 258[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/gate.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 263[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/deploy/validate.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 314[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/devGateway/consentStart.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 120[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/consentCancel.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 146[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/spanRedaction.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 135[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/auth/verifier.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 156[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/public-visibility.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 112[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/connectionStatus.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 113[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/sessions.rls.integration.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/counterStore.integration.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 88[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/registry/telemetry.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 95[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/app.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/devGateway/connectionStatus.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 85[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/devGateway/devGateway.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 93[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/app.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 124[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/dataTelemetry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/config.test.ts [2m([22m[2m69 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/db/portal-rls.integration.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/config.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 89[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/connectHelper.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 73[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/managedIdentity.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/traceBoundary.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/trustProxyHealth.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/logging.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/serviceWorker.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 59[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/spanOutcome.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/plugins/auth.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 58[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/bundlePlan.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/routes/spa.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 62[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/errorHandler.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 49[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/secret-store/src/keyvault.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/blob/store.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/usage.integration.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/telemetry/src/testing.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 43[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/shim.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/telemetry.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/requestId.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/burn.integration.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/blob/client.integration.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 71[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/deploy/malformed-bundles.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/blob/client.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/cspReport.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 51[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/providers.test.ts [2m([22m[2m85 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/directory/src/entra.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/db/partition.integration.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 77[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/telemetry.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/serviceWorkerRuntime.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/cli/src/auth/tokenStore.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/cli/src/client.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/ssrf.test.ts [2m([22m[2m49 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/oidc.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/gateTelemetry.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/handoff.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/internalJwt.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/db/migrationsLedger.integration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/cli/src/auth/session.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/secrets.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/provider.test.ts [2m([22m[2m12 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/approval.test.ts [2m([22m[2m77 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/manifest.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/internalJwt.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/egressLlmProvider.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/secrets/custody.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/registry/projection.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/cli/src/config.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/internalJwt.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/db/mappers.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/geo/fetchDb.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/consent.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/fetch.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/bodyCap.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/providerCache.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/directory/custody.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/openaiProvider.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/logging.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/connections.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/providers.adversarial.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/lifecycle.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/api.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/llm.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/usage.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/pricing.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/config.test.ts [2m([22m[2m26 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/telemetry.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/secret-store/src/index.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/collectionTable.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/secret-store/src/token.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/flow.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/telemetry/src/config.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/telemetry/src/index.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/usageEstimate.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/db/pool.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/visibility.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/usage.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/telemetry/src/correlation.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/directory/src/index.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/deploy-skill/src/index.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/providers.misuse.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/health.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/ipRateLimiter.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/pool.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/instruction.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/deployment.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/paths.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/cli/src/args.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/cookies.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/identity.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/geo/resolver.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/secrets.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/blob/token.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/hmac.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/deploy/limits.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/validate.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/policy/directoryPolicy.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/db/partition.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/policy/modelPolicy.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/providers.prototype.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/registry/health.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/telemetry/src/propagation.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/auth.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/blob/signing.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/portal/src/db/client.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/routing/hosts.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/devToken.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/serving/csp.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/gateway/denialThrottle.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/edge/src/auth/loginThrottle.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/app.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m apps/egress/src/burn.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/internalJwt.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[43m node [49m[39m packages/shared/src/index.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/access-tab.test.tsx [2m([22m[2m25 tests[22m[2m)[22m[33m 3207[2mms[22m[39m
+     [33m[2m✓[22m[39m shows a pending-change bar at the top while a draft is dirty, and Discard clears it [33m 328[2mms[22m[39m
+     [33m[2m✓[22m[39m confirms before making an app internal, and cancel applies nothing [33m 484[2mms[22m[39m
+[90mstderr[2m | src/test/provider-form.test.tsx[2m > [22m[2mProviderFormPage deletion[2m > [22m[2mshows the impact before confirming; Confirm deletes; a repeat reports already removed
+[22m[39mNo routes matched location "/admin/providers" 
+
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/apps-list.test.tsx [2m([22m[2m36 tests[22m[2m)[22m[33m 2451[2mms[22m[39m
+     [33m[2m✓[22m[39m renders a row per app from the registry [33m 350[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/provider-form.test.tsx [2m([22m[2m12 tests[22m[2m)[22m[33m 6779[2mms[22m[39m
+     [33m[2m✓[22m[39m submits the full field contract — env, canonical origins, placement — and navigates to the edit route [33m 1793[2mms[22m[39m
+     [33m[2m✓[22m[39m mirrors the server's 422s inline, announces an assertive summary, and sends nothing [33m 1242[2mms[22m[39m
+     [33m[2m✓[22m[39m reports a duplicate create naming the existing ref + environment [33m 1326[2mms[22m[39m
+     [33m[2m✓[22m[39m seeds the form from the loaded provider, saves a non-sensitive edit without the panel, then reseeds [33m 317[2mms[22m[39m
+     [33m[2m✓[22m[39m opens the review panel with the field diff and impact counts BEFORE sending, and Confirm applies with the acknowledgement [33m 350[2mms[22m[39m
+     [33m[2m✓[22m[39m Cancel returns to the form with the draft intact and nothing sent [33m 432[2mms[22m[39m
+     [33m[2m✓[22m[39m operates edit → review → cancel → review → confirm entirely from the keyboard, with modal focus management [33m 356[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/capabilities-bindings.test.tsx [2m([22m[2m13 tests[22m[2m)[22m[33m 7579[2mms[22m[39m
+     [33m[2m✓[22m[39m swaps in the provider picker + Required switch, removes the secret input, and saves the provider-bound origin through the approval flow [33m 1822[2mms[22m[39m
+     [33m[2m✓[22m[39m shows the field error and blocks save when the origin is not one of the provider's API destinations, mirroring the server [33m 1277[2mms[22m[39m
+     [33m[2m✓[22m[39m mirrors the server across environments: the origin must be a destination of EVERY tier the ref is configured in [33m 896[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the OAuth provider option disabled with ask-an-administrator guidance when no providers are configured [33m 847[2mms[22m[39m
+     [33m[2m✓[22m[39m hides the Required switch until a provider is chosen and saves it as the manifest field it is [33m 826[2mms[22m[39m
+     [33m[2m✓[22m[39m drives the credential select, the provider picker, and the Required switch without a pointer [33m 779[2mms[22m[39m
+[90mstderr[2m | src/test/visitors-section.test.tsx[2m > [22m[2mVisitorsSection[2m > [22m[2mshows the KPIs with deltas against the prior window
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/visitors-section.test.tsx[2m > [22m[2mVisitorsSection[2m > [22m[2mlists locations, the rolled-up rest, unresolved traffic, and the licence notice
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/visitors-section.test.tsx[2m > [22m[2mVisitorsSection[2m > [22m[2msays location is unavailable instead of showing an empty table
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/visitors-section.test.tsx[2m > [22m[2mVisitorsSection[2m > [22m[2mshows the window when it has visitors but no visit started in it
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/visitors-section.test.tsx[2m > [22m[2mVisitorsSection[2m > [22m[2mrefetches for the selected range
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/visitors-section.test.tsx[2m > [22m[2mVisitorsSection[2m > [22m[2mrefetches for the selected range
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/visitors-section.test.tsx [2m([22m[2m12 tests[22m[2m)[22m[33m 987[2mms[22m[39m
+     [33m[2m✓[22m[39m shows the KPIs with deltas against the prior window [33m 427[2mms[22m[39m
+     [33m[2m✓[22m[39m refetches for the selected range [33m 301[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/capabilities-llm.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 2296[2mms[22m[39m
+     [33m[2m✓[22m[39m renders the advertised catalogue as checkbox rows [33m 605[2mms[22m[39m
+     [33m[2m✓[22m[39m shows the approval warning only above the baseline [33m 305[2mms[22m[39m
+     [33m[2m✓[22m[39m flags an off-catalogue custom model as needing approval [33m 351[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/providers-import-export.test.tsx [2m([22m[2m15 tests[22m[2m)[22m[33m 2939[2mms[22m[39m
+     [33m[2m✓[22m[39m create apply sends document + explicit env + entered credentials, reports created, refetches the list [33m 481[2mms[22m[39m
+     [33m[2m✓[22m[39m update apply: a blank replace-secret keeps the credential, a sensitive delta applies acknowledged, reports updated [33m 379[2mms[22m[39m
+     [33m[2m✓[22m[39m a lost apply response is outcome not confirmed — retry gated on a refresh [33m 405[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/app-create-form.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 652[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/secrets-admin.test.tsx [2m([22m[2m6 tests[22m[2m)[22m[33m 586[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/data-tab.test.tsx [2m([22m[2m18 tests[22m[2m)[22m[33m 1352[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/deploy-modal.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 465[2mms[22m[39m
+[90mstderr[2m | src/test/usage-tab.test.tsx[2m > [22m[2mUsageTab outcome tones[2m > [22m[2mrenders connection_required with its own tone, distinct from refusal
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/usage-tab.test.tsx[2m > [22m[2mUsageTab recent calls[2m > [22m[2mshows a signed-in non-owner aggregates only, and says who sees the feed
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/usage-tab.test.tsx[2m > [22m[2mUsageTab recent calls[2m > [22m[2mnever asks the server for the feed when the viewer cannot have it
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/usage-tab.test.tsx[2m > [22m[2mUsageTab recent calls[2m > [22m[2mshows the owner the app's calls, without the admin-only failure text
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+[90mstderr[2m | src/test/usage-tab.test.tsx[2m > [22m[2mUsageTab recent calls[2m > [22m[2mpoints an admin at the audit log for the full failure detail
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/connections-page.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 722[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/usage-tab.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 745[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/audit-page.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 1104[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/approvals-page.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 430[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/overview-tab.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 882[2mms[22m[39m
+     [33m[2m✓[22m[39m lets the owner edit and save the description via PATCH [33m 427[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/secrets-card.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 403[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/approvals-delegated.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 411[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/deltas.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 373[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/providers-list.test.tsx [2m([22m[2m10 tests[22m[2m)[22m[33m 776[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/sessions-page.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 623[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/help-modal.test.tsx [2m([22m[2m8 tests[22m[2m)[22m[33m 912[2mms[22m[39m
+     [33m[2m✓[22m[39m opens from the sidebar [33m 368[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/dev-mode-tab.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 250[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/upload-step.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 215[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/guards.test.tsx [2m([22m[2m7 tests[22m[2m)[22m[33m 319[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/fix-bundle-flow.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[32m 219[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/versions-tab.test.tsx [2m([22m[2m4 tests[22m[2m)[22m[33m 302[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/approvals.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 285[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/registry-redirect.test.tsx [2m([22m[2m1 test[22m[2m)[22m[32m 268[2mms[22m[39m
+[90mstderr[2m | src/test/usage-charts.test.tsx[2m > [22m[2musage charts[2m > [22m[2mrenders the trend without throwing for a sparse series
+[22m[39mThe width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/usage-charts.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 252[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/pages/tabs/accessTransition.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/test/scroll-fade.test.tsx [2m([22m[2m9 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/api/client.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/deploy/archive.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/lib/format.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[42m portal-web [49m[39m src/deploy/report.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m232 passed[39m[22m[90m (232)[39m
+[2m      Tests [22m [1m[32m3223 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (3224)[39m
+[2m   Start at [22m 22:44:48
+[2m   Duration [22m 60.16s[2m (transform 7.05s, setup 1.52s, import 42.19s, tests 106.66s, environment 10.88s)[22m
+
+✔ tests passed (60s)
+
+────────────────────────────────────────
+timing: typecheck=17s lint=7s refs=0s format=6s docs=3s tests=60s total=108s
+✔ All checks passed

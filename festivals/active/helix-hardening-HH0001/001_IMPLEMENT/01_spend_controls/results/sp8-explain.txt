@@ -1,0 +1,10 @@
+EXPLAIN for the platform_llm_spend_micro_usd aggregate body (dev database, 2026-10-09):
+
+                                                       QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=9.79..9.80 rows=1 width=16)
+   ->  Index Scan using "gateway_calls_appId_env_createdAt_idx" on gateway_calls  (cost=0.15..9.76 rows=1 width=16)
+         Index Cond: ((env = 'prod'::text) AND ("createdAt" >= (date_trunc('day'::text, now()) - '01:00:00'::interval)))
+         Filter: (capability = 'llm'::text)
+
+The scan is index-assisted via gateway_calls_appId_env_createdAt_idx (gateway_calls_createdAt_idx from the older migration name may differ on this schema). A partial index on ("createdAt") WHERE capability = 'llm' is not part of SP-8; add it only if day-scale volume makes the scan costly.
