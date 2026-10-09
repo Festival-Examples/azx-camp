@@ -4,12 +4,13 @@ fest_id: 04_sp4_provider_usage_events.md
 fest_name: sp4 provider usage events
 fest_parent: 01_spend_controls
 fest_order: 4
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.33423-06:00
-fest_updated: 2026-10-09T15:31:32.555516-06:00
+fest_updated: 2026-10-09T15:41:05.780671-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: sp4 provider usage events

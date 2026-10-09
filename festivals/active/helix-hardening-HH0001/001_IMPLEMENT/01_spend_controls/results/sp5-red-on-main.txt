@@ -1,0 +1,8 @@
+     × charges an input-byte estimate and blocks the next call when the budget is tight 48ms
+     × prefers measured input and estimates relayed output on a mixed hang-up 12ms
+     × charges a post-200 OpenAI-shaped stream failure and keeps the in-band error frame 7ms
+     ✓ does not estimate a vendor rejection before the stream starts 11ms
+     × keeps the usage marker when the upstream error text is very long 4ms
+     × charges the non-streaming path the same way on a hang-up 21ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  5 failed | 1 passed | 36 skipped (42)

@@ -4,11 +4,13 @@ fest_id: 05_sp5_charge_cut_and_failed_calls.md
 fest_name: sp5 charge cut and failed calls
 fest_parent: 01_spend_controls
 fest_order: 5
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.334848-06:00
+fest_updated: 2026-10-09T15:41:12.347902-06:00
 fest_tracking: true
 ---
+
 
 # Task: sp5 charge cut and failed calls
 
