@@ -4,11 +4,13 @@ fest_id: 11_sp11_llm_concurrency_caps_and_deadline.md
 fest_name: sp11 llm concurrency caps and deadline
 fest_parent: 01_spend_controls
 fest_order: 11
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.336951-06:00
+fest_updated: 2026-10-09T17:18:10.702087-06:00
 fest_tracking: true
 ---
+
 
 # Task: sp11 llm concurrency caps and deadline
 
