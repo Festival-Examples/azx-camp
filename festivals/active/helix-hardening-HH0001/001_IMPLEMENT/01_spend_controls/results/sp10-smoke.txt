@@ -1,0 +1,40 @@
+  ✓ discovery document  http://localhost:4002
+  ✓ authorize → interaction → code  alice@azx.dev
+  ✓ token exchange yields an ID token with inline groups  alice@azx.dev [eng-team, platform-admin]
+
+portal — fastify + Prisma control plane
+  ✓ public bootstrap config  https://local.helix.azxlabs.io:9080
+  ✓ unauthenticated read is rejected
+  ✓ authenticated app list (Prisma read)  2 apps
+  ✓ create app (Prisma write)  smoke-da10946d
+  ✓ read back the created app
+  ✓ zod boundary rejects a malformed body
+
+edge — data/policy plane (https, host routing, session gate)
+  ✓ health reports registry-projection freshness  ok / projection ok
+  ✓ public app is served from Blob  smoke-public
+  ✓ CSP is injected
+  ✓ session gate: 401 for API-style request
+  ✓ session gate: 302 to auth host for a navigation  /start
+  ✓ unknown host is 404
+
+egress — mechanism plane (attested instruction verification)
+  ✓ health is liveness-only
+  ✓ missing instruction headers → 400
+  ✓ forged instruction is refused before dialing the target
+
+portal SPA — vite build, served by the portal
+  ✓ vite production build  1730 modules
+  ✓ portal serves the built index.html  2 hashed assets
+  ✓ hashed assets resolve with correct content types  2 ok
+  ✓ SPA deep link falls through to index (client routing)
+
+browser — real Chromium over CDP
+  • SPA renders in a real browser  SKIP — no cached Chromium (set HELIX_SMOKE_CHROME)
+
+helix CLI — esbuild bundle driven against the live portal
+  ✓ esbuild bundle  built
+  ✓ CLI reads versions from the live portal  smoke-public: 1 versions
+
+────────────────────────────────────────────────────────────
+31 passed, 0 failed, 1 skipped
