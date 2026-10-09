@@ -4,11 +4,13 @@ fest_id: 03_sp3_cut_stream_usage_estimate.md
 fest_name: sp3 cut stream usage estimate
 fest_parent: 01_spend_controls
 fest_order: 3
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.333874-06:00
+fest_updated: 2026-10-09T15:15:10.33359-06:00
 fest_tracking: true
 ---
+
 
 # Task: sp3 cut stream usage estimate
 

@@ -4,12 +4,13 @@ fest_id: 02_sp2_egress_upstream_abort.md
 fest_name: sp2 egress upstream abort
 fest_parent: 01_spend_controls
 fest_order: 2
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.333475-06:00
-fest_updated: 2026-10-09T14:44:58.002485-06:00
+fest_updated: 2026-10-09T15:14:59.860256-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: sp2 egress upstream abort
