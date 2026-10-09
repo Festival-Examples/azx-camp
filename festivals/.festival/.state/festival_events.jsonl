@@ -1,1 +1,2 @@
 {"ts":"2026-10-09T01:45:32.322049Z","event":"create","id":"HH0001","name":"helix-hardening","status":"planning"}
+{"ts":"2026-10-09T20:05:42.385852Z","event":"move","id":"HH0001","from":"planning","to":"ready"}

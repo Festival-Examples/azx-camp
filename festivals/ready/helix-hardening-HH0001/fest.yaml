@@ -12,6 +12,9 @@ metadata:
       timestamp: 2026-10-09T01:45:32.30689Z
       path: festivals/planning/helix-hardening-HH0001
       notes: Festival created
+    - status: ready
+      timestamp: 2026-10-09T14:05:42.40486-06:00
+      path: festivals/ready/helix-hardening-HH0001
 project_path: projects/helix
 type_config:
   auto_phases:
