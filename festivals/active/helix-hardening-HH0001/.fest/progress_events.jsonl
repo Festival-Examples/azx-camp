@@ -3,3 +3,5 @@
 {"ts":"2026-10-09T20:44:58.002322Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/02_sp2_egress_upstream_abort.md","percent":10}
 {"ts":"2026-10-09T21:14:59.859981Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/02_sp2_egress_upstream_abort.md","minutes":30}
 {"ts":"2026-10-09T21:15:10.33345Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/03_sp3_cut_stream_usage_estimate.md","percent":10}
+{"ts":"2026-10-09T21:31:25.792566Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/03_sp3_cut_stream_usage_estimate.md","minutes":16}
+{"ts":"2026-10-09T21:31:32.555403Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/04_sp4_provider_usage_events.md","percent":10}
