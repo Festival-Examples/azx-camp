@@ -1,0 +1,27 @@
+{
+  "version": "v1",
+  "updated": "2026-10-09T01:51:15.180217Z",
+  "files": {
+    "commit.md": {
+      "hash": "bab7c41801b0363fc953211d94059e4c9a2762e6e7125b8efc54a8d307cfa0b5"
+    },
+    "debug.md": {
+      "hash": "52e79110c6bea767cc14e755443340b75e67c4c45089f74fe850cc7f2eb9ec92"
+    },
+    "impl.md": {
+      "hash": "5abb8a1ae9bde8687adf658255f528aead73acd69e9681cdd71b164f061fe8f8"
+    },
+    "judge.md": {
+      "hash": "9514480e77ef33334b807a8037c49b8e94fdaf9f6fec598a569a2828ebbb7b2e"
+    },
+    "plan.md": {
+      "hash": "cdc210e64fef5c03f059247480f7d8f3bb117668a63be9f7fd244115d2e57795"
+    },
+    "review.md": {
+      "hash": "63e01f0a5d9a7f42fabfa4f2259bf01c6df94d7ffe2e152bbdd341aafc4b4960"
+    },
+    "testgen.md": {
+      "hash": "83a54aafa7483cd029e8a68ad232b55d674950ba152e5041aec1855e4cea3100"
+    }
+  }
+}

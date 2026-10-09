@@ -1,19 +1,51 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-09T01:50:45.865Z",
+  "updatedAt": "2026-10-09T02:21:08.691Z",
   "activeWorkspaceTabId": "workspace-tab-1",
   "workspaceTabs": [
     {
       "id": "workspace-tab-1",
       "title": "Tab 1",
       "paneTree": {
-        "content": {
-          "type": "terminal"
-        },
-        "id": "pane-1",
-        "type": "pane"
+        "children": [
+          {
+            "content": {
+              "chatSessionId": null,
+              "filePath": null,
+              "type": "terminal"
+            },
+            "id": "pane-7",
+            "type": "pane"
+          },
+          {
+            "content": {
+              "chatSessionId": "d0b9bc04-3d90-47c4-993b-f958a3d526d9",
+              "type": "chat"
+            },
+            "id": "pane-19",
+            "type": "pane"
+          }
+        ],
+        "direction": "vertical",
+        "id": "split-20",
+        "sizes": [
+          50,
+          50
+        ],
+        "type": "split"
       },
-      "activePaneId": "pane-1",
+      "openFiles": [
+        {
+          "path": "/Users/lancerogers/campaigns/azx/README.md",
+          "name": "README.md"
+        },
+        {
+          "path": "/Users/lancerogers/campaigns/azx/AGENTS.md",
+          "name": "AGENTS.md"
+        }
+      ],
+      "currentPath": "/Users/lancerogers/campaigns/azx/AGENTS.md",
+      "activePaneId": "pane-7",
       "chainConfig": {
         "leftSessionId": null,
         "rightSessionId": null
