@@ -1,0 +1,19 @@
+▶ typecheck
+✔ typecheck passed (27s)
+▶ lint
+✔ lint passed (24s)
+▶ refs
+✔ refs passed (0s)
+▶ format
+✔ format passed (13s)
+▶ docs
+✔ docs passed (5s)
+▶ tests
+ FAIL   node  apps/edge/src/auth/password-login.test.ts > POST /_auth/login (verification) > throttles brute force — blocks after the failure budget (429)
+ FAIL   node  apps/edge/src/auth/password.test.ts > verifyPassword > stays correct under concurrency beyond the cap
+ FAIL   node  apps/edge/src/routing/connectionsJourney.integration.test.ts > two approved apps share one connection > the second app's consult answers already-connected and its calls ride the same connection
+ FAIL   node  apps/portal/src/routes/data.test.ts > export + delete > keeps the newest rows when the collection outgrows the export cap
+ Test Files  4 failed | 227 passed (231)
+✗ tests FAILED (211s)
+timing: typecheck=27s lint=24s refs=0s format=13s docs=5s tests=211s total=280s
+✗ 1 step(s) failed: tests
