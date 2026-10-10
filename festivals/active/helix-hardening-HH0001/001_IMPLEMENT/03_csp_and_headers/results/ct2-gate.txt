@@ -1,0 +1,51 @@
+# CT-2 checks, run by the coordinator
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3540 passed | 1 skipped (3541)
+✔ tests passed (54s)
+✔ All checks passed
+## just infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+
+## just dev smoke with HELIX_SMOKE_CHROME (real Chromium), after the coordinator's smoke fixes
+  ✓ dev-idp healthy on :4002  true
+  ✓ portal healthy on :4001  true
+  ✓ egress healthy on :9081  true
+  ✓ edge healthy on :9080  true
+  ✓ cli bundle for seeding  built
+  ✓ live public app (smoke-public)  reused
+  ✓ live internal app (smoke-internal)  reused
+  ✓ live public app (smoke-csp)  deployed
+  ✓ discovery document  http://localhost:4002
+  ✓ authorize → interaction → code  alice@azx.dev
+  ✓ token exchange yields an ID token with inline groups  alice@azx.dev [eng-team, platform-admin]
+  ✓ public bootstrap config  https://local.helix.azxlabs.io:9080
+  ✓ unauthenticated read is rejected
+  ✓ authenticated app list (Prisma read)  3 apps
+  ✓ create app (Prisma write)  smoke-c59f3d88
+  ✓ read back the created app
+  ✓ zod boundary rejects a malformed body
+  ✓ health reports registry-projection freshness  ok / projection ok
+  ✓ public app is served from Blob  smoke-public
+  ✓ CSP is injected
+  ✓ session gate: 401 for API-style request
+  ✓ session gate: 302 to auth host for a navigation  /start
+  ✓ unknown host is 404
+  ✓ health is liveness-only
+  ✓ missing instruction headers → 400
+  ✓ forged instruction is refused before dialing the target
+  ✓ vite production build  1730 modules
+  ✓ portal serves the built index.html  2 hashed assets
+  ✓ hashed assets resolve with correct content types  2 ok
+  ✓ SPA deep link falls through to index (client routing)
+  ✓ signed-out shell renders without page errors  /tmp/helix-smoke-Ln3j0o/signed-out.png
+  ✓ authenticated dashboard renders  /tmp/helix-smoke-Ln3j0o/dashboard.png
+  ✓ authenticated apps-list renders  /tmp/helix-smoke-Ln3j0o/apps-list.png
+  ✓ Report-Only CSP violation is recorded for smoke-csp  5 report(s); disposition="report"
+  ✓ esbuild bundle  built
+  ✓ CLI reads versions from the live portal  smoke-public: 1 versions
+36 passed, 0 failed, 0 skipped
