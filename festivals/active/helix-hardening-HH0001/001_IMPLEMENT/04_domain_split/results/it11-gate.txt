@@ -1,0 +1,25 @@
+# IT-11 checks, run by the coordinator
+## gate run 1
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  242 passed (242)
+      Tests  3669 passed | 1 skipped (3670)
+✔ tests passed (56s)
+✔ All checks passed
+## gate run 2
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  242 passed (242)
+      Tests  3669 passed | 1 skipped (3670)
+✔ tests passed (55s)
+✔ All checks passed
+## usage.rls x3
+      Tests  15 passed (15)
+      Tests  15 passed (15)
+      Tests  15 passed (15)
