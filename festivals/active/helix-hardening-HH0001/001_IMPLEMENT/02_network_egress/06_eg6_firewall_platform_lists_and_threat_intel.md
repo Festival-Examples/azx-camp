@@ -4,12 +4,13 @@ fest_id: 06_eg6_firewall_platform_lists_and_threat_intel.md
 fest_name: eg6 firewall platform lists and threat intel
 fest_parent: 02_network_egress
 fest_order: 6
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.025112-06:00
-fest_updated: 2026-10-10T02:39:51.52614-06:00
+fest_updated: 2026-10-10T02:46:09.226918-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: eg6 firewall platform lists and threat intel
