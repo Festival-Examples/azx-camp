@@ -4,12 +4,13 @@ fest_id: 02_eg2_deployment_supplied_extra_block_list.md
 fest_name: eg2 deployment supplied extra block list
 fest_parent: 02_network_egress
 fest_order: 2
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.023909-06:00
-fest_updated: 2026-10-10T01:35:32.703228-06:00
+fest_updated: 2026-10-10T01:53:05.450329-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: eg2 deployment supplied extra block list

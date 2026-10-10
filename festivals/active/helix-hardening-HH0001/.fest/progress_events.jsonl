@@ -32,3 +32,5 @@
 {"ts":"2026-10-10T07:26:57.726751Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/01_eg1_block_list_additions_and_boundary_tests.md","percent":10}
 {"ts":"2026-10-10T07:35:23.460539Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/01_eg1_block_list_additions_and_boundary_tests.md","minutes":8}
 {"ts":"2026-10-10T07:35:32.703127Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/02_eg2_deployment_supplied_extra_block_list.md","percent":10}
+{"ts":"2026-10-10T07:53:05.450044Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/02_eg2_deployment_supplied_extra_block_list.md","minutes":17}
+{"ts":"2026-10-10T07:53:14.095062Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/03_eg3_special_purpose_registry_completeness_test.md","percent":10}
