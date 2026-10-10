@@ -4,11 +4,13 @@ fest_id: 04_ct7_smoke_runner_split_mode_and_connections_lane.md
 fest_name: ct7 smoke runner split mode and connections lane
 fest_parent: 04_domain_split
 fest_order: 4
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:11:05.359305-06:00
+fest_updated: 2026-10-10T08:26:51.726432-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct7 smoke runner split mode and connections lane
 

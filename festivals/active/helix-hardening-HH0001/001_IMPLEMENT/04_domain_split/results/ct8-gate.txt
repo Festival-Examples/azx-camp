@@ -1,0 +1,21 @@
+# CT-8 checks, run by the coordinator
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  242 passed (242)
+      Tests  3667 passed | 1 skipped (3668)
+✔ tests passed (56s)
+✔ All checks passed
+## adversarial suites (OTEL off)
+ Test Files  4 passed (4)
+      Tests  57 passed (57)
+## single-domain smoke
+37 passed, 0 failed, 0 skipped
+## split smoke
+  ✓ legacy control host redirects to apps origin  https://smoke-internal.helix-apps.localhost:9080/
+47 passed, 0 failed, 0 skipped
+## lane split
+  10 passed (12.6s)
+leftover watchers: 0

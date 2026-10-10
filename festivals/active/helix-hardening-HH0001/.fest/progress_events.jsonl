@@ -62,3 +62,4 @@
 {"ts":"2026-10-10T12:52:15.24618Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/01_ct4_second_loopback_dev_domain.md"}
 {"ts":"2026-10-10T13:48:26.799136Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/02_ct5_edge_control_and_apps_domain_split.md"}
 {"ts":"2026-10-10T13:57:34.508683Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/03_ct6_portal_control_origin.md"}
+{"ts":"2026-10-10T14:26:51.72609Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/04_ct7_smoke_runner_split_mode_and_connections_lane.md"}
