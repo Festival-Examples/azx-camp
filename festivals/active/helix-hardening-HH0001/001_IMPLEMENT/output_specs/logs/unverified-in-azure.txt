@@ -1,0 +1,27 @@
+$ git grep -i -c "unverified in Azure" (files and match counts at 97b3fe1)
+infra/azure/README.md:9
+infra/azure/main.bicep:7
+apps/docs/src/deploy/updates.md:6
+docs/features/network-controls.md:5
+apps/docs/src/deploy/configuration.md:3
+infra/azure/modules/private-endpoint.bicep:2
+infra/azure/modules/nsg.bicep:2
+infra/azure/modules/alerts-netprobe.bicep:2
+docs/features/observability.md:2
+docs/adr/0028-deployment-model-customer-deployed.md:2
+docs/adr/0005-ssrf-egress-controls.md:2
+infra/netsim/run.mjs:1
+infra/azure/modules/network.bicep:1
+infra/azure/modules/netprobe-job.bicep:1
+infra/azure/modules/firewall.bicep:1
+infra/azure/modules/firewall-diagnostics.bicep:1
+infra/azure/modules/alerts.bicep:1
+docs/features/llm-gateway.md:1
+docs/features/connection-providers.md:1
+docs/features/authentication.md:1
+docs/adr/0051-llm-admission-control.md:1
+docs/adr/0044-declarative-wildcard-tls-bindings.md:1
+.justfiles/infra.just:1
+
+$ git grep -i -c "unverified in Azure" | awk -F: '{s+=$2} END {print s}'
+54 matches in 23 files

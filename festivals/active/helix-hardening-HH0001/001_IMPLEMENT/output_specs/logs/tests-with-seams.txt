@@ -1,0 +1,120 @@
+# For each change that adds a seam: the test files changed in the SAME commit (git show --name-only, filtered to tests)
+
+$ git show --name-only --format='%h %s' 62c4059 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+62c4059 [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-2: abort the egress upstream call when the edge hangs up
+apps/egress/src/adversarial.test.ts
+apps/egress/src/proxy.test.ts
+apps/egress/src/spanAttributes.test.ts
+
+$ git show --name-only --format='%h %s' f1b43a2 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+f1b43a2 [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-5: charge cut and failed LLM calls
+apps/edge/src/gateway/llm.test.ts
+apps/edge/src/gateway/telemetry.test.ts
+apps/edge/src/spanRedaction.test.ts
+
+$ git show --name-only --format='%h %s' 494776b | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+494776b [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-7: throttle and count LLM admission denials
+apps/edge/src/gateway/denialThrottle.test.ts
+apps/edge/src/gateway/llm.test.ts
+apps/edge/src/gateway/telemetry.test.ts
+apps/edge/src/spanRedaction.test.ts
+packages/shared/src/telemetry.test.ts
+
+$ git show --name-only --format='%h %s' 3e82db5 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+3e82db5 [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-9: enforce the platform daily LLM ceiling
+apps/edge/src/app.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/gateway/llm.test.ts
+apps/edge/src/gateway/telemetry.test.ts
+apps/edge/src/gateway/usage.platformSpendCheck.test.ts
+apps/edge/src/gateway/usage.rls.integration.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/edge/src/spanRedaction.test.ts
+packages/shared/src/telemetry.test.ts
+
+$ git show --name-only --format='%h %s' f5c315d | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+f5c315d [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-11: cap concurrent LLM calls and add a call deadline
+apps/edge/src/app.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/gateway/llm.test.ts
+apps/edge/src/gateway/replicaGate.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/edge/src/spanRedaction.test.ts
+packages/shared/src/telemetry.test.ts
+
+$ git show --name-only --format='%h %s' 00e626e | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+00e626e [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-1: block Azure platform and special-purpose ranges in the SSRF filter
+apps/egress/src/adversarial.test.ts
+apps/egress/src/ssrf.test.ts
+
+$ git show --name-only --format='%h %s' d6043ff | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+d6043ff [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-2: add a deployment-supplied extra SSRF block list
+apps/edge/src/routing/connectionsJourney.integration.test.ts
+apps/egress/src/adversarial.test.ts
+apps/egress/src/config.test.ts
+apps/egress/src/delegated.integration.test.ts
+apps/egress/src/exchange.test.ts
+apps/egress/src/managedIdentity.test.ts
+apps/egress/src/proxy.test.ts
+apps/egress/src/renewal.integration.test.ts
+apps/egress/src/requestId.test.ts
+apps/egress/src/retire.integration.test.ts
+apps/egress/src/spanAttributes.test.ts
+apps/egress/src/spanOutcome.test.ts
+apps/egress/src/ssrf.test.ts
+apps/portal/src/routes/connectionsCallback.integration.test.ts
+
+$ git show --name-only --format='%h %s' a8ca07a | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+a8ca07a [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-8: network probe entry point for egress; host-node checks informational (NSGs do not filter them)
+apps/egress/src/netprobe.test.ts
+
+$ git show --name-only --format='%h %s' 04bfd6b | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+04bfd6b [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-1: strip policy and reporting headers from proxied responses
+apps/edge/src/gateway/fetch.test.ts
+apps/egress/src/proxy.test.ts
+packages/shared/src/fetch.test.ts
+
+$ git show --name-only --format='%h %s' 836673e | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+836673e [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-2: Report-Only tightened CSP, EDGE_IMG_SRC_EXTRA, and the CSP report counter
+apps/edge/src/app.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/serving/csp.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/edge/src/serving/serviceWorker.test.ts
+apps/edge/src/spanRedaction.test.ts
+apps/edge/src/traceBoundary.test.ts
+
+$ git show --name-only --format='%h %s' 19f4ca7 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+19f4ca7 [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-3: enforce tightened img-src and object-src, add EDGE_IMG_SRC_ALLOW_ALL and the EDGE_IMG_SRC_REPORT_O
+apps/edge/src/app.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/serving/csp.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/edge/src/serving/serviceWorker.test.ts
+apps/portal/src/routes/csp.test.ts
+
+$ git show --name-only --format='%h %s' 1aa32c8 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+1aa32c8 [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-5: edge control/apps domain split with adversarial tests
+apps/edge/src/app.test.ts
+apps/edge/src/auth/adversarial.test.ts
+apps/edge/src/auth/flow.integration.test.ts
+apps/edge/src/auth/gate.test.ts
+apps/edge/src/auth/validate.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/devGateway/consentStart.test.ts
+apps/edge/src/routing/connectionsProxy.test.ts
+apps/edge/src/routing/consentStart.test.ts
+apps/edge/src/routing/hosts.test.ts
+apps/edge/src/serving/connectHelper.test.ts
+apps/edge/src/serving/cspReport.test.ts
+
+$ git show --name-only --format='%h %s' c3f75df | grep -E 'test|Redaction|traceBoundary|spanAttributes'
+c3f75df [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-8: legacy app-host redirect (EDGE_LEGACY_APP_REDIRECT) with the sunset counter
+apps/edge/src/app.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/routing/hosts.test.ts
+apps/edge/src/routing/legacyRedirect.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/edge/src/spanRedaction.test.ts
+apps/edge/src/traceBoundary.test.ts
+packages/shared/src/telemetry.test.ts

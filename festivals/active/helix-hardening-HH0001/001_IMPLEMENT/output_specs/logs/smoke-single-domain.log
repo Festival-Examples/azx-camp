@@ -1,0 +1,63 @@
+node .claude/skills/run-helix/smoke.mjs "$@"
+Helix smoke test   artifacts → /tmp/helix-smoke-BrblJQ
+isolated stack: offset 1000, ports 9080 9081 9082 4001 4002 6173 4003 4443, db helix_smoke
+
+  reusing database helix_smoke
+building the SPA…
+booting services…
+  ✓ dev-idp healthy on :4002  true
+  ✓ portal healthy on :4001  true
+  ✓ egress healthy on :9081  true
+  ✓ edge healthy on :9080  true
+
+seed — a live public + internal app for the edge to serve
+  ✓ cli bundle for seeding  built
+  ✓ live public app (smoke-public)  deployed
+  ✓ live internal app (smoke-internal)  reused
+  ✓ live public app (smoke-csp)  deployed
+
+dev-idp — oidc-provider authorization_code + PKCE
+  ✓ discovery document  http://localhost:4002
+  ✓ authorize → interaction → code  alice@azx.dev
+  ✓ token exchange yields an ID token with inline groups  alice@azx.dev [eng-team, platform-admin]
+
+portal — fastify + Prisma control plane
+  ✓ public bootstrap config  https://local.helix.azxlabs.io:9080
+  ✓ unauthenticated read is rejected
+  ✓ authenticated app list (Prisma read)  3 apps
+  ✓ create app (Prisma write)  smoke-839e0fe6
+  ✓ read back the created app
+  ✓ zod boundary rejects a malformed body
+
+edge — data/policy plane (https, host routing, session gate)
+  ✓ health reports registry-projection freshness  ok / projection ok
+  ✓ public app is served from Blob  smoke-public
+  ✓ CSP is injected
+  ✓ session gate: 401 for API-style request
+  ✓ session gate: 302 to auth host for a navigation  /start
+  ✓ unknown host is 404
+
+egress — mechanism plane (attested instruction verification)
+  ✓ health is liveness-only
+  ✓ missing instruction headers → 400
+  ✓ forged instruction is refused before dialing the target
+
+portal SPA — vite build, served by the portal
+  ✓ vite production build  1730 modules
+  ✓ portal serves the built index.html  2 hashed assets
+  ✓ hashed assets resolve with correct content types  2 ok
+  ✓ SPA deep link falls through to index (client routing)
+
+browser — real Chromium over CDP
+  ✓ signed-out shell renders without page errors  /tmp/helix-smoke-BrblJQ/signed-out.png
+  ✓ authenticated dashboard renders  /tmp/helix-smoke-BrblJQ/dashboard.png
+  ✓ authenticated apps-list renders  /tmp/helix-smoke-BrblJQ/apps-list.png
+  ✓ enforced CSP blocks remote image and records violation for smoke-csp  22 report(s); disposition="enforce"
+  ✓ granted origin appears in smoke-csp CSP  https://smoke-public.local.helix.azxlabs.io:9080
+
+helix CLI — esbuild bundle driven against the live portal
+  ✓ esbuild bundle  built
+  ✓ CLI reads versions from the live portal  smoke-public: 47 versions
+
+────────────────────────────────────────────────────────────
+37 passed, 0 failed, 0 skipped

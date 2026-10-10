@@ -1,0 +1,11 @@
+check-and-lint exit=1
+adversarial suites (OTEL off) exit=0
+infra build exit=0
+smoke single-domain (real browser) exit=0
+smoke split helix-apps.localhost (real browser) exit=0
+smoke same-site pair (real browser) exit=0
+connections lane single-domain exit=0
+connections lane split exit=0
+netsim translator tests exit=0
+net-sim (host Docker) exit=0
+modified files after runs: 0

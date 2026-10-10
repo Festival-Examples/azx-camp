@@ -7,16 +7,20 @@ agent:
   require_auto_commit: false
 
 # Approval judge: lets agents pass blocking checkpoints on evidence instead of
-# waiting for you. Install the reference judge by running:
+# waiting for you. The reference judge is installed with:
 #   go install github.com/Obedience-Corp/judge-agent/cmd/judge-agent@latest
-# then uncomment the block below.
-#
-# hooks:
-#   definitions:
-#     approval_judge:
-#       # Command run by 'fest workflow judge' and by 'fest next' at a checkpoint.
-#       # It receives the approval request as JSON on stdin and must print a JSON
-#       # verdict on stdout (schema fest.approval.judge/v1). Any tool that speaks
-#       # the protocol works; swap claude for grok, codex, or fx.
-#       command: judge-agent --agent claude
-#       timeout: 0
+hooks:
+  definitions:
+    approval_judge:
+      # Command run by 'fest workflow judge' and by 'fest next' at a checkpoint.
+      # It receives the approval request as JSON on stdin and must print a JSON
+      # verdict on stdout (schema fest.approval.judge/v1). Any tool that speaks
+      # the protocol works; swap claude for grok, codex, or fx.
+      #
+      # This campaign uses a wrapper instead of the built-in `--agent claude`
+      # preset (judge/claude-judge.sh, selected by judge/judge-agent.json): the
+      # preset cannot parse Claude Code's output when the user's settings have
+      # "verbose": true, and it grants the judge every tool. The wrapper turns
+      # verbose off for the call and limits the judge to Read, Grep and Glob.
+      command: judge-agent --config /Users/lancerogers/campaigns/azx/festivals/.festival/judge/judge-agent.json
+      timeout: 0

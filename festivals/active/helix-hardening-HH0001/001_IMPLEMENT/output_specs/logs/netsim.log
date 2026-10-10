@@ -1,0 +1,69 @@
+node infra/netsim/run.mjs "$@"
+✔ every (direction, priority) is unique within pinned variant (0.636833ms)
+✔ every (direction, priority) is unique within unpinned variant (0.081916ms)
+✔ every $-ref in the rule file exists in networks.json refs (0.116875ms)
+✔ every non-literal destination prefix is a known tag or ref (0.088208ms)
+✔ no deny-wire-server row (Microsoft warns against denying 168.63.129.16 on ACA subnets) (0.052375ms)
+✔ allow-apps-subnet includes ILB backend ports 31080 and 31443 (0.062042ms)
+✔ deny-vnet-in and deny-cgnat are enforce-only (0.295708ms)
+✔ allow-key-vault-endpoints resolves pinned vault IPs (0.065ms)
+✔ deny-vnet is after postgres, vault, dns and own-subnet allows (0.057042ms)
+✔ deny-all-outbound in enforce only (0.086792ms)
+✔ off mode yields no NSG rows (only baseline chains) (0.499084ms)
+✔ golden: allow-postgres (0.19125ms)
+✔ golden: deny-private-ranges (three DROP rules) (0.138541ms)
+✔ golden: allow-internet-web (0.072708ms)
+✔ golden: allow-azure-dns tcp and udp 53 (0.056208ms)
+✔ golden: deny-all-outbound (0.048666ms)
+✔ golden: Azure host-node exemption lines before NSG rows (0.045875ms)
+✔ applyBreak remove and renumber (0.096125ms)
+✔ applyBreak rejects unknown name (0.167125ms)
+✔ pinned vs unpinned active rules at priority 120 (0.043416ms)
+✔ resolveRule expands allowedPorts (0.026ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39.159709
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 330B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24-bookworm-slim
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+#4 resolve docker.io/library/node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 done
+#4 DONE 0.0s
+
+#5 [2/2] RUN apt-get update  && apt-get install -y --no-install-recommends iptables iproute2 dnsmasq  && update-alternatives --set iptables /usr/sbin/iptables-legacy  && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy  && rm -rf /var/lib/apt/lists/*
+#5 CACHED
+
+#6 exporting to image
+#6 exporting layers done
+#6 exporting manifest sha256:a4051447d65809bac9cfc39354d90941795ee58521fec9cabaa16290ea39ee58 done
+#6 exporting config sha256:7d1bb51124eaff1407c0ca0c0cb246ab879a59a5dc6e48fcee1fc758947bec3b done
+#6 exporting attestation manifest sha256:2a71d05cf7481a854fffcdf2e0c187133b732aee9afee43dba15bacad537442d done
+#6 exporting manifest list sha256:75dd263bbd139361c82b9579603d238cda52ceb663033db6d6adb36e8edc3bd6 done
+#6 naming to docker.io/library/helix-netsim:latest done
+#6 unpacking to docker.io/library/helix-netsim:latest done
+#6 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/default/default/03a5qcxrbru5b3znts08gj3pb
+scenario	result	detail
+off	PASS	exit 0 (want 0)
+deny-list-only	PASS	exit 0 (want 0)
+enforce	PASS	exit 0 (want 0)
+deny-list-only-unpinned	PASS	exit 0 (want 0)
+break-kv	PASS	exit 1 (want 1)
+break-order	PASS	exit 1 (want 1)
+broken-closing-deny	PASS	exit 1 (want 1)
