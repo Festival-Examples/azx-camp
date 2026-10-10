@@ -1,0 +1,10 @@
+# EG-9 gate: ./check-and-lint.sh in the dev container
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3491 passed | 1 skipped (3492)
+✔ tests passed (55s)
+✔ All checks passed
