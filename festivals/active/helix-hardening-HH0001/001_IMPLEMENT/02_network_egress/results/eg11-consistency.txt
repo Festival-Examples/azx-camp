@@ -1,0 +1,24 @@
+# EG-11 consistency check (step 10), run by the coordinator after its edits
+## consistency check: mentions per name in docs, apps/docs/src, infra/azure/README.md
+egressNsgEnforce             11
+egressAllowedPorts           2
+egressFqdnMode               11
+egressAllowedFqdns           11
+threatIntelMode              5
+privateEndpointAddresses     5
+deployNetprobe               5
+netControls                  11
+EGRESS_EXTRA_BLOCKED_CIDRS   10
+net-sim                      5
+net-verify                   14
+egress-hosts                 7
+egress.netprobe_result       14
+
+## 'unverified in Azure' hits
+docs/features/network-controls.md:4
+docs/adr/0005-ssrf-egress-controls.md:2
+
+## ADR-0028 amendment sections
+44:## Amendment (2026-10-09): admission controls are per-install settings
+## ADR-0005 diff hunks (additions after line 89 only)
+@@ -89,0 +90,53 @@ the present live one.

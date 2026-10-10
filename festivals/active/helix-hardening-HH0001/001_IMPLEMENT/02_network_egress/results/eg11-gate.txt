@@ -1,0 +1,18 @@
+# EG-11 dev-container checks, run by the coordinator
+## node --test infra/netsim/translate.test.mjs
+ℹ tests 18
+ℹ pass 18
+ℹ fail 0
+## just infra build
+az bicep build --file infra/entra/main.bicep --stdout > /dev/null
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## ./check-and-lint.sh
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3491 passed | 1 skipped (3492)
+✔ tests passed (55s)
+✔ All checks passed
