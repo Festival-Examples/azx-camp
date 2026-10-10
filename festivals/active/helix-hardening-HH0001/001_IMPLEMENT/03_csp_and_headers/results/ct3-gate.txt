@@ -1,0 +1,45 @@
+# CT-3 checks, run by the coordinator
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✗ format FAILED (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3551 passed | 1 skipped (3552)
+✔ tests passed (55s)
+✗ 1 step(s) failed: format
+## just infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## edge env booleans in built main.json
+EDGE_IMG_SRC_EXTRA). Operator-trusted image hosts only — never list an image proxy that fetches attacker-chosen URLs. Empty sets the variable to an empty stri
+EDGE_IMG_SRC_ALLOW_ALL). For one-org installs that accept the open image channel. Default false; object-src stays none either way."
+EDGE_IMG_SRC_EXTRA",
+EDGE_IMG_SRC_REPORT_ONLY",
+## smoke with real browser
+  ✓ live public app (smoke-csp)  deployed
+  ✓ CSP is injected
+  ✓ enforced CSP blocks remote image and records violation for smoke-csp  7 report(s); disposition="enforce"
+  ✓ granted origin appears in smoke-csp CSP  https://auth.local.helix.azxlabs.io:9080
+37 passed, 0 failed, 0 skipped
+## connections lane
+  10 passed (11.8s)
+leftover watchers: 0
+
+## after the coordinator's renames and prettier
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3551 passed | 1 skipped (3552)
+✔ tests passed (54s)
+✔ All checks passed
+
+## built edge env values
+EDGE_IMG_SRC_EXTRA => [parameters('imgSrcExtra')]
+EDGE_IMG_SRC_REPORT_ONLY => [if(parameters('imgSrcReportOnly'), 'true', 'false')]
+EDGE_IMG_SRC_ALLOW_ALL => [if(parameters('imgSrcAllowAll'), 'true', 'false')]
+
+## measurement mode vs CT-2 (836673e) csp.ts, four https cases
+enforced true, reportOnly true for all four: BYTE-IDENTICAL

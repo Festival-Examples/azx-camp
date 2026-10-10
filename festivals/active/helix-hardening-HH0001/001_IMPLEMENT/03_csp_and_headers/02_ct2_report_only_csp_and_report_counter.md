@@ -4,11 +4,13 @@ fest_id: 02_ct2_report_only_csp_and_report_counter.md
 fest_name: ct2 report only csp and report counter
 fest_parent: 03_csp_and_headers
 fest_order: 2
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:09:12.786482-06:00
+fest_updated: 2026-10-10T05:29:48.266058-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct2 report only csp and report counter
 
