@@ -1,0 +1,17 @@
+# CT-6 checks, run by the coordinator
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3648 passed | 1 skipped (3649)
+✔ tests passed (55s)
+✔ All checks passed
+## smoke run 1 (real browser)
+37 passed, 0 failed, 0 skipped
+## smoke run 2 (real browser)
+37 passed, 0 failed, 0 skipped
+## lane
+  10 passed (12.2s)
+leftover watchers: 0

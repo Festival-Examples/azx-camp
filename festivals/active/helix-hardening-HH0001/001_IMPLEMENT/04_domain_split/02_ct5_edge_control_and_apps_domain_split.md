@@ -4,11 +4,13 @@ fest_id: 02_ct5_edge_control_and_apps_domain_split.md
 fest_name: ct5 edge control and apps domain split
 fest_parent: 04_domain_split
 fest_order: 2
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:11:05.357999-06:00
+fest_updated: 2026-10-10T07:48:26.799438-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct5 edge control and apps domain split
 
