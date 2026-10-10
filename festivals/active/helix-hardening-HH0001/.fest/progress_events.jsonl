@@ -34,3 +34,5 @@
 {"ts":"2026-10-10T07:35:32.703127Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/02_eg2_deployment_supplied_extra_block_list.md","percent":10}
 {"ts":"2026-10-10T07:53:05.450044Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/02_eg2_deployment_supplied_extra_block_list.md","minutes":17}
 {"ts":"2026-10-10T07:53:14.095062Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/03_eg3_special_purpose_registry_completeness_test.md","percent":10}
+{"ts":"2026-10-10T08:06:22.291233Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/03_eg3_special_purpose_registry_completeness_test.md","minutes":13}
+{"ts":"2026-10-10T08:06:29.572064Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/04_eg4_fixed_private_endpoint_addresses.md","percent":10}

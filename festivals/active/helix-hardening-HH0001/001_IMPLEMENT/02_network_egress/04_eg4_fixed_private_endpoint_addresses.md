@@ -4,11 +4,13 @@ fest_id: 04_eg4_fixed_private_endpoint_addresses.md
 fest_name: eg4 fixed private endpoint addresses
 fest_parent: 02_network_egress
 fest_order: 4
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.024514-06:00
+fest_updated: 2026-10-10T02:06:29.572181-06:00
 fest_tracking: true
 ---
+
 
 # Task: eg4 fixed private endpoint addresses
 
