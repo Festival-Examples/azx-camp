@@ -1,0 +1,36 @@
+# CT-4 checks, run by the coordinator
+## stack-env single-domain diff vs HEAD (offsets 0 and 1000)
+offset 0 --env: identical
+offset 0 --ports: identical
+offset 1000 --env: identical
+offset 1000 --ports: identical
+## bad domain
+HELIX_APPS_DOMAIN must be a bare hostname, got: https://x.example:443
+exit=2
+## gate
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3569 passed | 1 skipped (3570)
+✔ tests passed (54s)
+✔ All checks passed
+## single-domain smoke (real browser)
+  • split-domain checks  SKIP — HELIX_APPS_DOMAIN is unset
+37 passed, 0 failed, 1 skipped
+## split-tls
+  ✓ dev-idp healthy on :4002  true
+  ✓ portal healthy on :4001  true
+  ✓ egress healthy on :9081  true
+  ✓ edge healthy on :9080  true
+  ✓ split TLS cert and key exist  local-helix-split.pem
+  ✓ TLS handshake authorizes apps-domain SNI  DNS:*.local.helix.azxlabs.io, DNS:local.helix.azxlabs.io
+  ✓ fetch reaches the edge on the apps domain (404)  undici-global-dispatcher
+  ✓ Chromium reaches the apps domain without cert errors  smoke-x.helix-apps.localhost
+8 passed, 0 failed, 0 skipped
+leftover watchers: 0
+
+## after the coordinator's fixes (split-tls gated to split mode; plan IDs removed)
+format/lint pass; single-domain smoke (real browser): 37 passed, 0 failed, 0 skipped; split-tls: 8 passed, 0 failed, 0 skipped; --only split-tls without HELIX_APPS_DOMAIN exits 2 (intended)
