@@ -1,0 +1,24 @@
+# PR #2 review fixes: checks run by the coordinator on hardening/01-spend-controls
+✔ typecheck passed (21s)
+✔ lint passed (7s)
+✔ refs passed (0s)
+✔ format passed (7s)
+✔ docs passed (3s)
+ Test Files  238 passed (238)
+      Tests  3332 passed | 1 skipped (3333)
+✔ tests passed (85s)
+✔ All checks passed
+## just infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## built EGRESS_LLM_TIMEOUT_MS
+"name": "EGRESS_LLM_TIMEOUT_MS", 
+## smoke (real browser)
+34 passed, 0 failed, 0 skipped
+## lane
+  10 passed (15.5s)
+leftover watchers: 0
+
+## revert checks
+(a) reasoning cap reverted: 3 tests fail (pricing floor; usageEstimate relayed-output; gateway cut reasoning call)
+(b) timeout cut-charge reverted: 3 tests fail (upstream_timeout streaming, non-streaming; input-only reasoning timeout)
+both files restored from backup; focused suites then 133 of 133
