@@ -4,11 +4,13 @@ fest_id: 12_sp12_fetch_lease_caps.md
 fest_name: sp12 fetch lease caps
 fest_parent: 01_spend_controls
 fest_order: 12
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.337254-06:00
+fest_updated: 2026-10-09T17:39:49.524538-06:00
 fest_tracking: true
 ---
+
 
 # Task: sp12 fetch lease caps
 

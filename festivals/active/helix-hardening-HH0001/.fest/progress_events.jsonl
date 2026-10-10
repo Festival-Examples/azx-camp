@@ -19,3 +19,5 @@
 {"ts":"2026-10-09T23:03:40.323544Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/10_sp10_inflight_lease_store.md","percent":10}
 {"ts":"2026-10-09T23:18:03.421263Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/10_sp10_inflight_lease_store.md","minutes":14}
 {"ts":"2026-10-09T23:18:10.701966Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/11_sp11_llm_concurrency_caps_and_deadline.md","percent":10}
+{"ts":"2026-10-09T23:39:40.568361Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/11_sp11_llm_concurrency_caps_and_deadline.md","minutes":21}
+{"ts":"2026-10-09T23:39:49.524414Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/12_sp12_fetch_lease_caps.md","percent":10}
