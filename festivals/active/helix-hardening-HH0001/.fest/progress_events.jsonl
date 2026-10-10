@@ -23,3 +23,7 @@
 {"ts":"2026-10-09T23:39:49.524414Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/12_sp12_fetch_lease_caps.md","percent":10}
 {"ts":"2026-10-10T00:06:35.460207Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/12_sp12_fetch_lease_caps.md","minutes":26}
 {"ts":"2026-10-10T00:06:51.91431Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/13_sp13_adr_and_docs.md","percent":10}
+{"ts":"2026-10-10T00:17:30.585656Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/13_sp13_adr_and_docs.md","minutes":10}
+{"ts":"2026-10-10T00:25:42.859598Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/14_testing.md"}
+{"ts":"2026-10-10T05:57:27.830383Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/15_review.md"}
+{"ts":"2026-10-10T05:59:10.851326Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/16_iterate.md","percent":10}

@@ -4,12 +4,13 @@ fest_id: 13_sp13_adr_and_docs.md
 fest_name: sp13 adr and docs
 fest_parent: 01_spend_controls
 fest_order: 13
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T19:47:17.337557-06:00
-fest_updated: 2026-10-09T18:06:51.914402-06:00
+fest_updated: 2026-10-09T18:17:30.585771-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: sp13 adr and docs

@@ -1,18 +1,20 @@
 ---
+fest_type: gate
+fest_id: 14_testing.md
+fest_name: Testing and Verification
+fest_parent: 01_spend_controls
+fest_order: 14
+fest_status: completed
 fest_autonomy: medium
-fest_created: 2026-10-08T20:21:49.590143-06:00
 fest_gate_id: testing
 fest_gate_type: testing
-fest_id: 14_testing.md
 fest_managed: true
-fest_name: Testing and Verification
-fest_order: 14
-fest_parent: 01_spend_controls
-fest_status: pending
+fest_created: 2026-10-08T20:21:49.590143-06:00
+fest_updated: 2026-10-09T18:25:42.859689-06:00
 fest_tracking: true
-fest_type: gate
 fest_version: "1.0"
 ---
+
 
 # Gate: Testing and Verification
 
