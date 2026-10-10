@@ -1,0 +1,6 @@
+# CT-9 checks, run by the coordinator
+## just infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## build-params with split parameters set
+split params build: ok
+./check-and-lint.sh: 242 of 242 test files (agent run; no code changed)

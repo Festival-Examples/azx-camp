@@ -4,11 +4,13 @@ fest_id: 05_ct8_legacy_app_host_redirect.md
 fest_name: ct8 legacy app host redirect
 fest_parent: 04_domain_split
 fest_order: 5
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:11:05.359667-06:00
+fest_updated: 2026-10-10T08:47:08.524921-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct8 legacy app host redirect
 
