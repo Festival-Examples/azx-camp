@@ -4,11 +4,13 @@ fest_id: 03_ct6_portal_control_origin.md
 fest_name: ct6 portal control origin
 fest_parent: 04_domain_split
 fest_order: 3
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:11:05.358329-06:00
+fest_updated: 2026-10-10T07:57:34.508799-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct6 portal control origin
 

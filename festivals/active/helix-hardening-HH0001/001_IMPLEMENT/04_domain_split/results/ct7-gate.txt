@@ -1,0 +1,82 @@
+# CT-7 checks, run by the coordinator (after the Sec-Fetch-Site probe fix)
+All matched files use Prettier code style!
+## split group, HELIX_APPS_DOMAIN=helix-apps.localhost (real browser)
+Helix smoke test   artifacts → /tmp/helix-smoke-cSf6Nh
+  ✓ dev-idp healthy on :4002  true
+  ✓ portal healthy on :4001  true
+  ✓ egress healthy on :9081  true
+  ✓ edge healthy on :9080  true
+  ✓ cli bundle for seeding  built
+  ✓ live public app (smoke-public)  deployed
+  ✓ live internal app (smoke-internal)  reused
+  ✓ live public app (smoke-csp)  deployed
+split — cross-domain login, Sec-Fetch-Site, cookies, silent refresh
+  ✓ HTTP login across control and apps domains  smoke-internal on helix-apps.localhost
+  ✓ browser login lands on the app host  https://smoke-internal.helix-apps.localhost:9080/
+  Sec-Fetch-Site on the handoff: none
+  ✓ Sec-Fetch-Site on handoff and credentialed fetches  handoff=none, me=same-origin, sibling=same-site, control=cross-site
+  ✓ app-set cookies do not reach the control host  no probe or session on control host
+  ✓ silent refresh through auth host  silent=1 chain completed
+13 passed, 0 failed, 0 skipped
+sec-fetch-site.json:
+{
+  "handoff": "none",
+  "apiMe": "same-origin",
+  "siblingApp": "same-site",
+  "appToControl": "cross-site",
+  "appsDomain": "helix-apps.localhost",
+  "controlDomain": "local.helix.azxlabs.io",
+  "fallbackPair": false,
+  "chromeVersion": "Chrome/156.0.8078.4"
+}
+## split group, HELIX_APPS_DOMAIN=apps.local.helix.azxlabs.io (real browser)
+Helix smoke test   artifacts → /tmp/helix-smoke-aA6wSD
+  ✓ dev-idp healthy on :4002  true
+  ✓ portal healthy on :4001  true
+  ✓ egress healthy on :9081  true
+  ✓ edge healthy on :9080  true
+  ✓ cli bundle for seeding  built
+  ✓ live public app (smoke-public)  deployed
+  ✓ live internal app (smoke-internal)  reused
+  ✓ live public app (smoke-csp)  deployed
+split — cross-domain login, Sec-Fetch-Site, cookies, silent refresh
+  ✓ HTTP login across control and apps domains  smoke-internal on apps.local.helix.azxlabs.io
+  ✓ browser login lands on the app host  https://smoke-internal.apps.local.helix.azxlabs.io:9080/
+  Sec-Fetch-Site on the handoff: none
+  ✓ Sec-Fetch-Site on handoff and credentialed fetches  handoff=none, me=same-origin, sibling=same-site, control=same-site
+  ✓ app-set cookies do not reach the control host  fallback pair: probe_ctl reached auth (expected without PSL)
+  ✓ silent refresh through auth host  silent=1 chain completed
+13 passed, 0 failed, 0 skipped
+sec-fetch-site.json:
+{
+  "handoff": "none",
+  "apiMe": "same-origin",
+  "siblingApp": "same-site",
+  "appToControl": "same-site",
+  "appsDomain": "apps.local.helix.azxlabs.io",
+  "controlDomain": "local.helix.azxlabs.io",
+  "fallbackPair": true,
+  "chromeVersion": "Chrome/156.0.8078.4"
+}
+leftover watchers: 0
+
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3648 passed | 1 skipped (3649)
+✔ tests passed (55s)
+✔ All checks passed
+## single-domain smoke (real browser)
+37 passed, 0 failed, 0 skipped
+## full split smoke (real browser)
+46 passed, 0 failed, 0 skipped
+## lane, single-domain
+  10 passed (12.0s)
+## lane, split (run 1)
+  10 passed (12.0s)
+## lane, split (run 2)
+  10 passed (12.4s)
+leftover watchers: 0

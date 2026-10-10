@@ -1,0 +1,10 @@
+{
+  "handoff": "none",
+  "apiMe": "same-origin",
+  "siblingApp": "same-site",
+  "appToControl": "same-site",
+  "appsDomain": "apps.local.helix.azxlabs.io",
+  "controlDomain": "local.helix.azxlabs.io",
+  "fallbackPair": true,
+  "chromeVersion": "Chrome/156.0.8078.4"
+}
