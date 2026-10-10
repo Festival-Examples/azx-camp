@@ -4,11 +4,13 @@ fest_id: 09_eg9_probe_job_posture_output_and_alerts.md
 fest_name: eg9 probe job posture output and alerts
 fest_parent: 02_network_egress
 fest_order: 9
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.025992-06:00
+fest_updated: 2026-10-10T03:33:37.450727-06:00
 fest_tracking: true
 ---
+
 
 # Task: eg9 probe job posture output and alerts
 

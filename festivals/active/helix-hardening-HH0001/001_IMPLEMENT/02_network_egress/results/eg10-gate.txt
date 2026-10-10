@@ -1,0 +1,54 @@
+# EG-10 dev-container checks (Node v24.21.0), run by the coordinator
+# First pass: node --test with a directory argument fails on Node 24 (treated as a module path); the format step failed on translate.test.mjs
+## node --test infra/netsim
+ℹ tests 1
+ℹ pass 0
+ℹ fail 1
+## just infra --list
+Available recipes:
+    build                                         # Compile the templates and parameter files without deploying, as the CI bicep job does (needs az)
+    egress-hosts *args                            # Print the hosts approved apps and connection providers need and mark those missing from a deployed allow-list; arguments go to the script, e.g. --deployed a.example.com,b.example.com
+    net-sim *args                                 # Simulate the egress NSG rule table with Docker networks and iptables, run the probe against stand-ins (needs a Docker daemon on this host, not the dev container); --static runs only the translator tests
+    net-verify resource-group prefix='helix-prod' # OPERATOR STEP, not CI: start the network probe job in a deployed install and print its result. Unverified in Azure by the work that added it; needs `az login` and the containerapp extension.
+## just --dry-run infra net-verify rg-test
+#!/usr/bin/env bash
+set -euo pipefail
+job_name="helix-prod-netprobe"
+rg="rg-test"
+exec_name="$(az containerapp job start -g "$rg" -n "$job_name" --query name -o tsv)"
+## just infra build
+az bicep build --file infra/azure/main.bicep --stdout > /dev/null
+az bicep build-params --file infra/azure/main.bicepparam --stdout > /dev/null
+az bicep build-params --file infra/azure/main.bootstrap.bicepparam --stdout > /dev/null
+az bicep build --file infra/entra/main.bicep --stdout > /dev/null
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## ./check-and-lint.sh
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✗ format FAILED (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3491 passed | 1 skipped (3492)
+✔ tests passed (56s)
+✗ 1 step(s) failed: format
+
+# After the fixes
+## node --test infra/netsim/translate.test.mjs
+ℹ tests 18
+ℹ pass 18
+ℹ fail 0
+## just infra net-sim --static
+ℹ tests 18
+ℹ pass 18
+ℹ fail 0
+## ./check-and-lint.sh
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3491 passed | 1 skipped (3492)
+✔ tests passed (54s)
+✔ All checks passed
