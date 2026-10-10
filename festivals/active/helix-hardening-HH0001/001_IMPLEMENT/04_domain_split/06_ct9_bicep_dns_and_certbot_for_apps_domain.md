@@ -4,11 +4,13 @@ fest_id: 06_ct9_bicep_dns_and_certbot_for_apps_domain.md
 fest_name: ct9 bicep dns and certbot for apps domain
 fest_parent: 04_domain_split
 fest_order: 6
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:11:05.359987-06:00
+fest_updated: 2026-10-10T08:53:36.682821-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct9 bicep dns and certbot for apps domain
 

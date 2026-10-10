@@ -64,3 +64,4 @@
 {"ts":"2026-10-10T13:57:34.508683Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/03_ct6_portal_control_origin.md"}
 {"ts":"2026-10-10T14:26:51.72609Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/04_ct7_smoke_runner_split_mode_and_connections_lane.md"}
 {"ts":"2026-10-10T14:47:08.524812Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/05_ct8_legacy_app_host_redirect.md"}
+{"ts":"2026-10-10T14:53:36.682707Z","event":"completed","task":"001_IMPLEMENT/04_domain_split/06_ct9_bicep_dns_and_certbot_for_apps_domain.md"}

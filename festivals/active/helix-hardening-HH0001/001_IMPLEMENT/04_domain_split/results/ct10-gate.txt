@@ -1,0 +1,12 @@
+# CT-10 checks, run by the coordinator
+ADR-0028 amendment sections: 1
+plan IDs or code constants in operator docs: none
+✔ typecheck passed (14s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  242 passed (242)
+      Tests  3667 passed | 1 skipped (3668)
+✔ tests passed (55s)
+✔ All checks passed
