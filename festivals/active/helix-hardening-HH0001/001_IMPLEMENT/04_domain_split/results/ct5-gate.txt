@@ -1,0 +1,28 @@
+# CT-5 checks, run by the coordinator
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (6s)
+✔ docs passed (2s)
+ Test Files  241 passed (241)
+      Tests  3634 passed | 1 skipped (3635)
+✔ tests passed (56s)
+✔ All checks passed
+## focused CT-5 suites
+ Test Files  6 passed (6)
+      Tests  220 passed (220)
+## smoke (real browser)
+37 passed, 0 failed, 0 skipped
+## lane
+  10 passed (12.0s)
+leftover watchers: 0
+
+## Split-mode boot check (kept smoke stack, apps=helix-apps.localhost, control=local.helix.azxlabs.io, EDGE_OIDC_ISSUER pointed at the smoke IdP)
+7 passed, 0 failed, 1 skipped
+## curl --resolve (split stack: apps=helix-apps.localhost, control=local.helix.azxlabs.io; EDGE_OIDC_ISSUER pointed at the smoke IdP)
+auth.local.helix.azxlabs.io    /start?app=smoke-internal -> 302  location=http://localhost:4002/auth?redirect_uri=https%3A%2F%2Fauth.local.helix.azxlabs.io%3A9080%2Fcallback&  set-cookie=1
+auth.helix-apps.localhost      /start?app=smoke-internal -> 404  location=  set-cookie=0
+portal.helix-apps.localhost    /start?app=smoke-internal -> 404  location=  set-cookie=0
+www.helix-apps.localhost       /start?app=smoke-internal -> 404  location=  set-cookie=0
+## redirect_uri in the 302 (must be the control auth host)
+redirect_uri=https://auth.local.helix.azxlabs.io:9080/callback
