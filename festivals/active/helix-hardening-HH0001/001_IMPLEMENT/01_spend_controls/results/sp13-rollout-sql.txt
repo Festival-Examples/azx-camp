@@ -1,0 +1,13 @@
+BEGIN
+INSERT 0 1
+      slug      
+----------------
+ sp13-sql-probe
+(1 row)
+
+UPDATE 1
+ slug 
+------
+(0 rows)
+
+ROLLBACK

@@ -21,3 +21,5 @@
 {"ts":"2026-10-09T23:18:10.701966Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/11_sp11_llm_concurrency_caps_and_deadline.md","percent":10}
 {"ts":"2026-10-09T23:39:40.568361Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/11_sp11_llm_concurrency_caps_and_deadline.md","minutes":21}
 {"ts":"2026-10-09T23:39:49.524414Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/12_sp12_fetch_lease_caps.md","percent":10}
+{"ts":"2026-10-10T00:06:35.460207Z","event":"completed","task":"001_IMPLEMENT/01_spend_controls/12_sp12_fetch_lease_caps.md","minutes":26}
+{"ts":"2026-10-10T00:06:51.91431Z","event":"progress","task":"001_IMPLEMENT/01_spend_controls/13_sp13_adr_and_docs.md","percent":10}
