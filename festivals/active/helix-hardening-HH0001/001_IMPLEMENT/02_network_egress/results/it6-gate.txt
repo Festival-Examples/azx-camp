@@ -1,0 +1,53 @@
+# IT-6 checks, run by the coordinator
+## negative: misspelled privateEndpointAddresses key
+exit=1
+ERROR: /workspace/infra/azure/zz-negative.bicepparam(1,7) : Error BCP258: The following parameters are declared in the Bicep file but are missing an assignment in the params file: "azxCliClientId", "azxWebClientId", "connectionsVaultName", "delegatedVaultName", "edgeAuthSecret", "edgeOidcCertificate", "edgeOidcClientId", "edgeOidcPrivateKey", "exchangeSecret", "instructionSecret", "internalSecret", "platformVaultName", "portalAdminGroupId", "portalOidcAudience", "portalSecret", "postgresAdminPassword", "postgresServerName", "storageAccountName". [https://aka.ms/bicep/core-diagnostics#BCP258]
+/workspace/infra/azure/zz-negative.bicepparam(4,36) : Error BCP089: The property "kvConnection" is not allowed on objects of type "{ kvPlatform: null | string, kvConnections: null | string, kvDelegated: null | string, blob: null | string }". Did you mean "kvConnections"? [https://aka.ms/bicep/core-diagnostics#BCP089]
+## node --test infra/netsim/translate.test.mjs
+ℹ tests 21
+ℹ pass 21
+ℹ fail 0
+## just infra build
+az bicep build --file infra/entra/main.bicep --stdout > /dev/null
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## firewall-diagnostics query
+[format('AZFWApplicationRule | where Action == "Deny" | where ipv4_is_in_range(SourceIp, "{0}") | where Fqdn != "{1}" | project TimeGenerated, SourceIp, Fqdn', parameters('egressSubnetPrefix'), parameters('netprobeCanaryHost'))]
+newline: False
+## ./check-and-lint.sh
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3491 passed | 1 skipped (3492)
+✔ tests passed (54s)
+✔ All checks passed
+
+## just infra net-sim
+scenario	result	detail
+off	PASS	exit 0 (want 0)
+deny-list-only	PASS	exit 0 (want 0)
+enforce	PASS	exit 0 (want 0)
+deny-list-only-unpinned	PASS	exit 0 (want 0)
+break-kv	PASS	exit 1 (want 1)
+break-order	PASS	exit 1 (want 1)
+broken-closing-deny	PASS	exit 1 (want 1)
+
+## enforce probe lines (pinned)
+wire-server-80         expected=informational actual=reachable  ok=True
+wire-server-32526      expected=informational actual=reachable  ok=True
+imds-80                expected=informational actual=reachable  ok=True
+apps-env-443           expected=informational actual=blocked    ok=True
+kv-platform-443        expected=reachable     actual=reachable  ok=True
+blob-pe-443            expected=blocked       actual=blocked    ok=True
+kv-connections-443     expected=reachable     actual=reachable  ok=True
+kv-delegated-443       expected=reachable     actual=reachable  ok=True
+postgres-5432          expected=reachable     actual=reachable  ok=True
+public-allowed-443     expected=reachable     actual=reachable  ok=True
+public-canary-443      expected=reachable     actual=reachable  ok=True
+public-port-25         expected=blocked       actual=blocked    ok=True
+public-port-22         expected=blocked       actual=blocked    ok=True
+public-port-8443       expected=blocked       actual=blocked    ok=True
+dns-resolve            expected=reachable     actual=reachable  ok=True
+summary: {'ok': True, 'checks': 15, 'failed': 0, 'nsg': 'enforce', 'peAddresses': 'pinned'}
