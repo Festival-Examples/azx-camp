@@ -4,11 +4,13 @@ fest_id: 05_eg5_nsg_module_and_subnet_attachment.md
 fest_name: eg5 nsg module and subnet attachment
 fest_parent: 02_network_egress
 fest_order: 5
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.024795-06:00
+fest_updated: 2026-10-10T02:31:11.748197-06:00
 fest_tracking: true
 ---
+
 
 # Task: eg5 nsg module and subnet attachment
 
