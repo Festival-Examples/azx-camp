@@ -1,0 +1,28 @@
+# IT-8 checks, run by the coordinator
+## Bicep both-flags refusal: build-params on a minimal file exits 1 (inconclusive: required params also missing); the fail() message is present in the compiled template; fail() fires at deploy time, unverified in Azure
+## byte-identity vs CT-2 (https origins)
+BYTE-IDENTICAL
+## gate
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  241 passed (241)
+      Tests  3569 passed | 1 skipped (3570)
+✔ tests passed (54s)
+✔ All checks passed
+## infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## smoke (real browser)
+  ✓ live public app (smoke-public)  deployed
+  ✓ live public app (smoke-csp)  deployed
+  ✓ public app is served from Blob  smoke-public
+  ✓ CSP is injected
+  ✓ enforced CSP blocks remote image and records violation for smoke-csp  2 report(s); disposition="enforce"
+  ✓ granted origin appears in smoke-csp CSP  https://smoke-public.local.helix.azxlabs.io:9080
+  ✓ CLI reads versions from the live portal  smoke-public: 3 versions
+37 passed, 0 failed, 0 skipped
+## lane
+  10 passed (11.5s)
+leftover watchers: 0

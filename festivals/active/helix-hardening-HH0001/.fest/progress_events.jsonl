@@ -54,3 +54,6 @@
 {"ts":"2026-10-10T11:01:02.975581Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/15_fest_commit.md"}
 {"ts":"2026-10-10T11:07:18.9534Z","event":"completed","task":"001_IMPLEMENT/03_csp_and_headers/01_ct1_proxied_response_header_blocklist.md"}
 {"ts":"2026-10-10T11:29:48.265928Z","event":"completed","task":"001_IMPLEMENT/03_csp_and_headers/02_ct2_report_only_csp_and_report_counter.md"}
+{"ts":"2026-10-10T11:47:02.852669Z","event":"completed","task":"001_IMPLEMENT/03_csp_and_headers/03_ct3_enforce_img_src_and_object_src.md"}
+{"ts":"2026-10-10T11:51:30.135151Z","event":"completed","task":"001_IMPLEMENT/03_csp_and_headers/04_testing.md"}
+{"ts":"2026-10-10T12:12:36.01946Z","event":"completed","task":"001_IMPLEMENT/03_csp_and_headers/05_review.md"}

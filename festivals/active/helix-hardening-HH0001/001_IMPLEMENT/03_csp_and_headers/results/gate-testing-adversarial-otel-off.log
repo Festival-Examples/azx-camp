@@ -1,0 +1,37 @@
+
+ RUN  v4.1.11 /workspace
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "helix_test", schema "public" at "db:5432"
+
+47 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+NOTICE:  truncate cascades to table "versions"
+NOTICE:  truncate cascades to table "sessions"
+NOTICE:  truncate cascades to table "approval_requests"
+NOTICE:  truncate cascades to table "app_secrets"
+NOTICE:  truncate cascades to table "app_secret_grants"
+NOTICE:  truncate cascades to table "app_dev_token"
+NOTICE:  truncate cascades to table "apps"
+NOTICE:  truncate cascades to table "sessions"
+NOTICE:  truncate cascades to table "approval_requests"
+NOTICE:  truncate cascades to table "app_secrets"
+NOTICE:  truncate cascades to table "app_secret_grants"
+NOTICE:  truncate cascades to table "app_dev_token"
+NOTICE:  truncate cascades to table "app_secret_grants"
+DO
+ ✓  node  apps/egress/src/spanAttributes.test.ts (12 tests) 149ms
+ ✓  node  apps/edge/src/traceBoundary.test.ts (9 tests) 65ms
+ ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 32ms
+ ✓  node  apps/edge/src/spanRedaction.test.ts (19 tests) 455ms
+     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  317ms
+
+ Test Files  4 passed (4)
+      Tests  48 passed (48)
+   Start at  11:50:20
+   Duration  1.94s (transform 1.06s, setup 0ms, import 1.72s, tests 701ms, environment 0ms)
+
