@@ -1,0 +1,15 @@
+▶ typecheck
+✔ typecheck passed (15s)
+▶ lint
+✔ lint passed (6s)
+▶ refs
+✔ refs passed (0s)
+▶ format
+✔ format passed (6s)
+▶ docs
+✔ docs passed (4s)
+▶ tests
+ Test Files  237 passed (237)
+✔ tests passed (63s)
+timing: typecheck=15s lint=6s refs=0s format=6s docs=4s tests=63s total=94s
+✔ All checks passed
