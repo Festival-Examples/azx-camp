@@ -4,12 +4,13 @@ fest_id: 01_eg1_block_list_additions_and_boundary_tests.md
 fest_name: eg1 block list additions and boundary tests
 fest_parent: 02_network_egress
 fest_order: 1
-fest_status: in_progress
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.023011-06:00
-fest_updated: 2026-10-10T01:26:57.726871-06:00
+fest_updated: 2026-10-10T01:35:23.460846-06:00
 fest_tracking: true
 ---
+
 
 
 # Task: eg1 block list additions and boundary tests
