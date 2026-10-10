@@ -42,3 +42,5 @@
 {"ts":"2026-10-10T08:39:51.526042Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/06_eg6_firewall_platform_lists_and_threat_intel.md","percent":10}
 {"ts":"2026-10-10T08:46:09.226652Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/06_eg6_firewall_platform_lists_and_threat_intel.md","minutes":6}
 {"ts":"2026-10-10T08:46:23.680792Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/07_eg7_firewall_allow_list_tier_and_drift_tooling.md","percent":10}
+{"ts":"2026-10-10T08:56:48.104746Z","event":"completed","task":"001_IMPLEMENT/02_network_egress/07_eg7_firewall_allow_list_tier_and_drift_tooling.md","minutes":10}
+{"ts":"2026-10-10T08:56:58.787264Z","event":"progress","task":"001_IMPLEMENT/02_network_egress/08_eg8_probe_entry_point.md","percent":10}

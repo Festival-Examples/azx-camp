@@ -1,0 +1,18 @@
+# EG-8 gate: ./check-and-lint.sh in the dev container (before the host-node expectation change)
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (6s)
+✔ docs passed (2s)
+ Test Files  241 passed (241)
+      Tests  3486 passed | 1 skipped (3487)
+✔ tests passed (56s)
+✔ All checks passed
+
+# After the host-node expectation change: netprobe.test.ts plus static checks
+ Test Files  1 passed (1)
+      Tests  43 passed (43)
+✔ typecheck passed (13s)
+✔ lint passed (6s)
+✔ format passed (5s)
+✔ All checks passed

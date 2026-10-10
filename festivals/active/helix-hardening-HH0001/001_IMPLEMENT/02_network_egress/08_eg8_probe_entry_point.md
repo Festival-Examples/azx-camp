@@ -4,11 +4,13 @@ fest_id: 08_eg8_probe_entry_point.md
 fest_name: eg8 probe entry point
 fest_parent: 02_network_egress
 fest_order: 8
-fest_status: pending
+fest_status: in_progress
 fest_autonomy: medium
 fest_created: 2026-10-08T20:22:04.025682-06:00
+fest_updated: 2026-10-10T02:56:58.787369-06:00
 fest_tracking: true
 ---
+
 
 # Task: eg8 probe entry point
 
