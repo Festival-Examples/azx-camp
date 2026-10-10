@@ -102,3 +102,18 @@ These are answered inside a specific change or left to AZX's operators:
 Planning follows the camp's festival rules: create it, then drive `fest next` and answer what it asks, rather than scaffolding every phase and task up front. Each task document points at its change in the design's work breakdown, names the files it touches, and states the failure paths. The design documents stay the source of detail.
 
 Nothing is created until the owner agrees.
+
+## Follow-ups recorded during sequence 01
+
+From the sequence 01 iterate gate (`festivals/active/helix-hardening-HH0001/001_IMPLEMENT/01_spend_controls/results/gate-iterate.md`): the portal does not show the install default for unset budgets (S-14); app creation with `visibility: public` skips the visibility classifier; the dev container cannot run the browser lane without `xauth` and the lane's Playwright build; a duplicated output-token default between `pricing.ts` and `provider.ts`; lock-timeout refusals share the `concurrency_app` reason; model limits in `pricing.ts` unverified against vendor docs; and low-value hardening (`pg_temp`, unused `hour`, partial index, `truncate` location, `retry-after` time zone).
+
+## Follow-ups recorded during sequence 02
+
+- From EG-8 (`festivals/active/helix-hardening-HH0001/001_IMPLEMENT/02_network_egress/results/eg8-probe-entry-point.md`): the EG-5 rule-table notes for `deny-wire-server` and `deny-link-local` were corrected in EG-11, and EG-11's ADR-0005 amendment says the application block list is the only control on WireServer and IMDS. Still open: decide whether an `AzurePlatformIMDS` service-tag deny is safe on the Container Apps subnet; that is unverified, and it could break managed identity.
+- From the sequence 02 iterate gate (`festivals/active/helix-hardening-HH0001/001_IMPLEMENT/02_network_egress/results/gate-iterate.md`):
+  - Narrow egress's kv-platform grant: per-secret role assignments, or a separate egress-only vault for its three secrets.
+  - The `AzurePlatformIMDS` decision.
+  - Simulation fidelity: the `Internet` tag, the unpinned endpoint-subnet allow, inbound rows.
+  - The registry test's parser should read the real snapshot.
+  - `egress-hosts` should report ports.
+  - Before turning any of this on, an operator needs the scratch-copy `net-verify` run plus the edge→egress `/health` check.
