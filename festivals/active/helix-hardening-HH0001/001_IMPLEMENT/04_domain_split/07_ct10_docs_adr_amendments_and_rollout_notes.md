@@ -4,11 +4,13 @@ fest_id: 07_ct10_docs_adr_amendments_and_rollout_notes.md
 fest_name: ct10 docs adr amendments and rollout notes
 fest_parent: 04_domain_split
 fest_order: 7
-fest_status: pending
+fest_status: completed
 fest_autonomy: medium
 fest_created: 2026-10-09T12:11:05.360307-06:00
+fest_updated: 2026-10-10T09:05:50.181019-06:00
 fest_tracking: true
 ---
+
 
 # Task: ct10 docs adr amendments and rollout notes
 

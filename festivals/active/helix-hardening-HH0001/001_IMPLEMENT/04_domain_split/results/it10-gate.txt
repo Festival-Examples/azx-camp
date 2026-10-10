@@ -1,0 +1,25 @@
+# IT-10 checks, run by the coordinator
+split params, hostedAppsLive=false: compiles
+split params, hostedAppsLive=true: compiles
+## just infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## gate
+✔ typecheck passed (14s)
+✔ lint passed (6s)
+✔ refs passed (0s)
+✔ format passed (5s)
+✔ docs passed (3s)
+ Test Files  242 passed (242)
+      Tests  3669 passed | 1 skipped (3670)
+✔ tests passed (55s)
+✔ All checks passed
+## smoke single (real browser)
+37 passed, 0 failed, 0 skipped
+## smoke split (real browser)
+  Sec-Fetch-Site on the handoff: none
+  ✓ Sec-Fetch-Site on handoff and credentialed fetches  handoff=none, me=same-origin, sibling=same-site, control=cross-site
+  ✓ app-set cookies do not reach the control host  no probe or session on control host
+47 passed, 0 failed, 0 skipped
+## lane split
+  10 passed (12.2s)
+leftover watchers: 0
