@@ -1,0 +1,13 @@
+# IT-9 checks, run by the coordinator
+✔ typecheck passed (13s)
+✔ lint passed (5s)
+✔ refs passed (0s)
+✔ format passed (6s)
+✔ docs passed (2s)
+ Test Files  241 passed (241)
+      Tests  3569 passed | 1 skipped (3570)
+✔ tests passed (55s)
+✔ All checks passed
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+
+## audit query: runs read-only on the dev DB (0 rows; no approved origins there); against sample values it flags http://, wildcard and ws:// and passes https://, wss:// and uppercase HTTPS://
