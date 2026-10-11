@@ -1,0 +1,117 @@
+# Review findings and their dispositions
+
+## Sequence reviews: every row of each results/gate-iterate.md, counted by the first word of its Disposition column
+
+$ awk -F'|' '/^\| /{print $3}' 01_spend_controls/results/gate-iterate.md | (skip the header rows) | awk '{print $1}' | sort | uniq -c
+   3 Deferred
+   1 Documented
+  18 Fixed
+rows: 22
+
+$ awk -F'|' '/^\| /{print $3}' 02_network_egress/results/gate-iterate.md | (skip the header rows) | awk '{print $1}' | sort | uniq -c
+   3 Deferred
+   1 Deferred.
+  14 Fixed
+   1 Not
+   1 Recorded
+   1 Unverified
+rows: 21
+
+$ awk -F'|' '/^\| /{print $3}' 03_csp_and_headers/results/gate-iterate.md | (skip the header rows) | awk '{print $1}' | sort | uniq -c
+   1 Bicep
+   1 Deferred
+   9 Fixed
+   1 Unverified
+rows: 12
+
+$ awk -F'|' '/^\| /{print $3}' 04_domain_split/results/gate-iterate.md | (skip the header rows) | awk '{print $1}' | sort | uniq -c
+   2 Documented
+  12 Fixed
+   1 Open;
+   1 Recorded
+rows: 16
+
+## Every row that is not simply Fixed, in full (the deferral or the reason is in the row)
+
+$ grep '^| ' 01_spend_controls/results/gate-iterate.md | grep -v -E '^\| (Finding|---)' | awk -F'|' '$3 !~ /^ Fixed/'
+| S-2 dev gateway outside the ceiling | Documented as an accepted precondition (ADR-0051, rollout notes) | IT-1 |
+| S-14 portal shows no cap for unset budgets | Deferred: needs the install default exposed through `GET /api/v1/config` and UI work in the portal SPA | Follow-up |
+| Suggestions: `pg_temp` in the definer's `search_path`, unused `hour` column, partial index, `truncate` import location, `retry-after` time zone | Deferred: low value now; adopt when the code next changes | Follow-up |
+| Testing gate: dev container cannot run the browser lane (no `xauth`, Playwright build mismatch) | Deferred: fix in `.devcontainer/Dockerfile` and `post-create.sh` | Follow-up |
+
+$ grep '^| ' 02_network_egress/results/gate-iterate.md | grep -v -E '^\| (Finding|---)' | awk -F'|' '$3 !~ /^ Fixed/'
+| R-4 residual: egress identity has Secrets User on all of kv-platform | Deferred: per-secret grants or a separate egress-only vault (`TODO.md`) | Follow-up |
+| G-2 simulation gaps (`Internet` as `0.0.0.0/0` with a blanket accept; the unpinned scenario never exercises the endpoint-subnet allow; no inbound simulation) | Deferred. The inbound rows have static tests (IT-6); the other two are documented limits of the simulation | Follow-up |
+| G-3 registry test's CSV parser never reads the real snapshot | Recorded: the EG-3 claim that "a layout guard fails loudly if the CSV format changes" overstates it; the coverage assertions are sound. Committing the CSVs or dropping the parser is follow-up | Follow-up |
+| G-4 `egress-hosts` drops ports; platform-covered hosts show as MISSING | Deferred | Follow-up |
+| G-7 firewall denial rule deploys on the infra-only first apply | Not changed: harmless (no action group yet), noted | — |
+| Carried: EG-8 `AzurePlatformIMDS` decision | Deferred, now in `TODO.md` | IT-7 |
+| Carried: Azure-only behaviors (EG-4, EG-5, EG-6, EG-7, EG-9, EG-10) | Unverified in Azure, listed in the feature page and the ADR-0005 probe table | — |
+
+$ grep '^| ' 03_csp_and_headers/results/gate-iterate.md | grep -v -E '^\| (Finding|---)' | awk -F'|' '$3 !~ /^ Fixed/'
+| G-2 strict parsing of non-boolean flag values; Bicep both-true | Bicep `fail()` added (deploy-time, unverified in Azure). Strict parsing not done: the repo uses `=== "true"` for every allow-polarity flag | IT-8 |
+| G-4 `img-src` spike alert; `disposition` column on `csp_reports` | Deferred (`TODO.md` for the alert; the column needs a migration) | Follow-up |
+| Carried: Firefox and Safari behavior, WebRTC and DNS hints, Azure env pass-through | Unverified, labeled in docs | — |
+
+$ grep '^| ' 04_domain_split/results/gate-iterate.md | grep -v -E '^\| (Finding|---)' | awk -F'|' '$3 !~ /^ Fixed/'
+| G-3 the control `*` record is absent on new split installs | Documented as unverified in Azure | IT-11 |
+| G-5 leftover split environment in a dev container created with `HELIX_APPS_DOMAIN` | Documented: recreate the container | IT-11 |
+| Testing: `usage.rls.integration.test.ts` failed once during IT-11 | Recorded as a rare flake (three isolated reruns and two full gates passed) | Follow-up |
+| Owner question: does the configured portal control origin need its own ADR? | Open; currently in the ADR-0028 amendment and the feature docs | Owner |
+
+## Dedicated review passes (the definer function and owner policy; the OIDC handoff change)
+$ wc -l 01_spend_controls/results/sp8-review.md 04_domain_split/results/ct5-review.md
+      24 01_spend_controls/results/sp8-review.md
+     288 04_domain_split/results/ct5-review.md
+     312 total
+$ grep -n -E '^\*\*F-[0-9]+\.' 04_domain_split/results/ct5-review.md | cut -c1-110
+191:**F-1. Should fix. Confirmed.** `auth/flow.integration.test.ts:117`: `loginAs` sends `/callback` with the 
+197:**F-2. Should fix. Confirmed.** Test 4 (`adversarial.test.ts`, "split layout: cookie scope across domains"
+209:**F-3. Should fix (fix or record). Confirmed.** Step 9 calls Test 9 "concurrent redeem race and `prompt=no
+214:**F-4. Should fix. Confirmed.** `results/` contains no CT-5 records yet; only `ct4-*` files are there. The
+226:**F-5. Note. Confirmed by code reading (not executed).** An app whose slug is a reserved label (`www`, `ap
+234:**F-6. Note. Confirmed (revert 3c).** `FakeOidcClient.exchangeCode` (`test/fakes.ts:490`) ignores the call
+239:**F-7. Note. Confirmed that the config is accepted (by reading `resolveControlDomain`); the browser impact
+246:**F-8. Note. Confirmed.** Smaller gaps against the step 9 list. The behavior holds in each case, but the t
+258:**F-9. Note. Confirmed.** `apps/connections-lane/src/world.ts:291`: the comment still says the edge builds
+$ grep -n -i -E '^#+ .*(disposition|fix|after the review|resolution)' 04_domain_split/results/ct5-review.md 04_domain_split/results/ct5-control-apps-split.md
+04_domain_split/results/ct5-review.md:272:## Resolution (coordinator, 2026-10-10)
+
+## Pull-request reviews (obey-agent, 2026-10-10)
+$ gh api repos/lancekrogers/helix/pulls/2/reviews --jq '.[] | (state, submitted_at, issue counts from the body)'
+PR #2: CHANGES_REQUESTED 2026-10-10T23:12:00Z - bugs: 2 - suggestions: 0 - nits: 0
+$ gh api repos/lancekrogers/helix/pulls/3/reviews --jq '.[] | (state, submitted_at, issue counts from the body)'
+PR #3: CHANGES_REQUESTED 2026-10-10T23:12:01Z - bugs: 1 - suggestions: 0 - nits: 0
+$ gh api repos/lancekrogers/helix/pulls/4/reviews --jq '.[] | (state, submitted_at, issue counts from the body)'
+PR #4: APPROVED 2026-10-10T23:12:02Z - bugs: 0 - suggestions: 0 - nits: 0
+$ gh api repos/lancekrogers/helix/pulls/5/reviews --jq '.[] | (state, submitted_at, issue counts from the body)'
+PR #5: APPROVED 2026-10-10T23:12:03Z - bugs: 0 - suggestions: 0 - nits: 0
+$ gh api repos/lancekrogers/helix/pulls/2/comments --jq '.[] | (path, line, first 200 characters)'
+apps/edge/src/gateway/llm.ts:562 **[bug]** `EDGE_LLM_MAX_CALL_MS` defaults to 600000 and is composed into `callSignal`, but the edge-to-egress client and the egress-to-vendor dispatcher still use a 120s `headersTimeout` and `bodyTime
+packages/shared/src/pricing.ts:343 **[bug]** `outputTokenCapForEstimate` returns `min(maxTokens, maxOutputTokens)` whenever the client set `maxTokens`. `openAiRequestBody` does not send that value for reasoning models; it sends `max_co
+$ gh api repos/lancekrogers/helix/pulls/3/comments --jq '.[] | (path, line, first 200 characters)'
+apps/egress/src/netprobe.ts:184 **[bug]** `buildChecks` has no scored deny in the configuration this template actually deploys, so `egress.netprobe_result` with `ok: true` (and `just infra net-verify` exiting 0 on job status Succeed
+
+## The fix for each pull-request finding
+$ git log --format='%h %s' -1 c41a69c ; git log --format='%h %s' -1 149ac5a   (in projects/helix)
+c41a69c Review fix (PR #2): LLM call deadline governs both hops, timeouts after dispatch are charged as a cut, reasoning cap matches the request builder
+149ac5a Review fix (PR #3): the probe reports whether a deny was proven, net-verify exits 3 when none was, port checks no longer count, detached-NSG simulation scenario
+$ grep -n -E '^## Finding|^\*\*Confirmed' 01_spend_controls/results/pr2-review-fixes.md 02_network_egress/results/pr3-review-fixes.md | cut -c1-190
+01_spend_controls/results/pr2-review-fixes.md:5:## Finding 1: the call deadline never won against the hop timeouts; a silent call that timed out was charged $0
+01_spend_controls/results/pr2-review-fixes.md:7:**Confirmed.** `EDGE_LLM_MAX_CALL_MS` defaults to 600000, but the edge-to-egress hop used `EDGE_FETCH_TIMEOUT_MS` (120000) and egress-to-vendo
+01_spend_controls/results/pr2-review-fixes.md:17:## Finding 2: the cut-call output estimate was clamped below what the vendor request allows for reasoning models
+01_spend_controls/results/pr2-review-fixes.md:19:**Confirmed.** `outputTokenCapForEstimate` returned `min(maxTokens, maxOutputTokens)` when `maxTokens` was set, while the request builder sen
+02_network_egress/results/pr3-review-fixes.md:5:## Finding: a green probe did not prove the NSG
+02_network_egress/results/pr3-review-fixes.md:7:**Confirmed.** In the default configuration (`deny-list-only`, unpinned private endpoints) every scored check expected `reachable`, so `ok: tr
+$ gh pr list -R lancekrogers/helix --state open --json number,reviewDecision,headRefOid --jq '.[] | (number, decision, head)'
+#5 APPROVED head=ca0afd1
+#4 APPROVED head=e1e071e
+#3 CHANGES_REQUESTED head=149ac5a
+#2 CHANGES_REQUESTED head=c41a69c
+# #2 and #3 stay CHANGES_REQUESTED until the reviewer reads c41a69c and 149ac5a. No re-review has been requested.
+
+## Tasks
+$ grep -h '^fest_status' 0*/[0-9]*.md | sort | uniq -c
+  50 fest_status: completed
+$ fest progress | grep -E 'Overall|blocked'
+Overall ███████████████████░ 98% (53/54 tasks)
