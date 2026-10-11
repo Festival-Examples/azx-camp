@@ -12,17 +12,17 @@ $ gh pr list -R lancekrogers/helix --state all --json number,state,reviewDecisio
 #2 [OPEN] review=CHANGES_REQUESTED hardening/01-spend-controls@c41a69c -> main | Hardening 1/4: LLM spend controls
 #1 [MERGED] review= chore/justfile@11b4f14 -> main | Add modular justfile and disable automatic CI/CD
 
-$ gh api repos/lancekrogers/helix/pulls/2/reviews --jq '.[] | "PR #2 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #2 review: 2026-10-10T23:12:00Z obey-agent CHANGES_REQUESTED
+$ gh api repos/lancekrogers/helix/pulls/2/reviews --jq '.[] | "PR #2 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #2 review: 2026-10-10T23:12:00Z obey-agent CHANGES_REQUESTED commit_id=ecdc5b3
 
-$ gh api repos/lancekrogers/helix/pulls/3/reviews --jq '.[] | "PR #3 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #3 review: 2026-10-10T23:12:01Z obey-agent CHANGES_REQUESTED
+$ gh api repos/lancekrogers/helix/pulls/3/reviews --jq '.[] | "PR #3 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #3 review: 2026-10-10T23:12:01Z obey-agent CHANGES_REQUESTED commit_id=74b1484
 
-$ gh api repos/lancekrogers/helix/pulls/4/reviews --jq '.[] | "PR #4 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #4 review: 2026-10-10T23:12:02Z obey-agent APPROVED
+$ gh api repos/lancekrogers/helix/pulls/4/reviews --jq '.[] | "PR #4 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #4 review: 2026-10-10T23:12:02Z obey-agent APPROVED commit_id=e1e071e
 
-$ gh api repos/lancekrogers/helix/pulls/5/reviews --jq '.[] | "PR #5 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #5 review: 2026-10-10T23:12:03Z obey-agent APPROVED
+$ gh api repos/lancekrogers/helix/pulls/5/reviews --jq '.[] | "PR #5 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #5 review: 2026-10-10T23:12:03Z obey-agent APPROVED commit_id=ca0afd1
 
 $ for c in c41a69c 955af5e 149ac5a e1e071e ca0afd1; do TZ=UTC git log -1 --date=format-local:%FT%TZ --format='%h committed %cd' $c; done
 c41a69c committed 2026-10-10T23:55:11Z
@@ -30,6 +30,10 @@ c41a69c committed 2026-10-10T23:55:11Z
 149ac5a committed 2026-10-11T00:19:53Z
 e1e071e committed 2026-10-11T00:22:22Z
 ca0afd1 committed 2026-10-11T00:27:12Z
+
+$ for t in e1e071e ca0afd1; do git merge-base --is-ancestor c41a69c $t && echo "c41a69c (the fix for the PR #2 review findings) is an ancestor of $t"; done
+c41a69c (the fix for the PR #2 review findings) is an ancestor of e1e071e
+c41a69c (the fix for the PR #2 review findings) is an ancestor of ca0afd1
 
 $ gh api repos/lancekrogers/helix --jq '{visibility, default_branch}'
 {"default_branch":"main","visibility":"private"}

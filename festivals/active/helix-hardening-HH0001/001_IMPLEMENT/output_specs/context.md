@@ -26,17 +26,17 @@ $ gh pr list -R lancekrogers/helix --state all --json number,state,reviewDecisio
 #2 [OPEN] review=CHANGES_REQUESTED hardening/01-spend-controls@c41a69c -> main | Hardening 1/4: LLM spend controls
 #1 [MERGED] review= chore/justfile@11b4f14 -> main | Add modular justfile and disable automatic CI/CD
 
-$ gh api repos/lancekrogers/helix/pulls/2/reviews --jq '.[] | "PR #2 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #2 review: 2026-10-10T23:12:00Z obey-agent CHANGES_REQUESTED
+$ gh api repos/lancekrogers/helix/pulls/2/reviews --jq '.[] | "PR #2 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #2 review: 2026-10-10T23:12:00Z obey-agent CHANGES_REQUESTED commit_id=ecdc5b3
 
-$ gh api repos/lancekrogers/helix/pulls/3/reviews --jq '.[] | "PR #3 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #3 review: 2026-10-10T23:12:01Z obey-agent CHANGES_REQUESTED
+$ gh api repos/lancekrogers/helix/pulls/3/reviews --jq '.[] | "PR #3 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #3 review: 2026-10-10T23:12:01Z obey-agent CHANGES_REQUESTED commit_id=74b1484
 
-$ gh api repos/lancekrogers/helix/pulls/4/reviews --jq '.[] | "PR #4 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #4 review: 2026-10-10T23:12:02Z obey-agent APPROVED
+$ gh api repos/lancekrogers/helix/pulls/4/reviews --jq '.[] | "PR #4 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #4 review: 2026-10-10T23:12:02Z obey-agent APPROVED commit_id=e1e071e
 
-$ gh api repos/lancekrogers/helix/pulls/5/reviews --jq '.[] | "PR #5 review: \(.submitted_at) \(.user.login) \(.state)"'
-PR #5 review: 2026-10-10T23:12:03Z obey-agent APPROVED
+$ gh api repos/lancekrogers/helix/pulls/5/reviews --jq '.[] | "PR #5 review: \(.submitted_at) \(.user.login) \(.state) commit_id=\(.commit_id[0:7])"'
+PR #5 review: 2026-10-10T23:12:03Z obey-agent APPROVED commit_id=ca0afd1
 
 $ for c in c41a69c 955af5e 149ac5a e1e071e ca0afd1; do TZ=UTC git log -1 --date=format-local:%FT%TZ --format='%h committed %cd' $c; done
 c41a69c committed 2026-10-10T23:55:11Z
@@ -44,6 +44,10 @@ c41a69c committed 2026-10-10T23:55:11Z
 149ac5a committed 2026-10-11T00:19:53Z
 e1e071e committed 2026-10-11T00:22:22Z
 ca0afd1 committed 2026-10-11T00:27:12Z
+
+$ for t in e1e071e ca0afd1; do git merge-base --is-ancestor c41a69c $t && echo "c41a69c (the fix for the PR #2 review findings) is an ancestor of $t"; done
+c41a69c (the fix for the PR #2 review findings) is an ancestor of e1e071e
+c41a69c (the fix for the PR #2 review findings) is an ancestor of ca0afd1
 
 $ gh api repos/lancekrogers/helix --jq '{visibility, default_branch}'
 {"default_branch":"main","visibility":"private"}
@@ -147,7 +151,7 @@ An automated reviewer (`obey-agent`) reviewed all four PRs on 2026-10-10 at 23:1
    97b3fe1..ca0afd1  hardening/04-domain-split        merge of 03
 ```
 
-The fix records are `01_spend_controls/results/pr2-review-fixes.md` and `02_network_egress/results/pr3-review-fixes.md`. #2 and #3 still show changes requested until the reviewer looks at the new commits. The approvals on #4 and #5 were given before the merge commits `e1e071e` and `ca0afd1` existed (see the review and commit times in the block above), so they cover those branches as they stood at `6cc3753` and `97b3fe1`, not the fixes merged in afterwards. GitHub still reports both as approved. No re-review has been requested; that is left to the owner.
+The fix records are `01_spend_controls/results/pr2-review-fixes.md` and `02_network_egress/results/pr3-review-fixes.md`. #2 and #3 still show changes requested until the reviewer looks at the new commits. GitHub's API attributes the approvals on #4 and #5 to the current heads, `e1e071e` and `ca0afd1` (`commit_id` in the block above). That cannot be what the reviewer read. Both commits contain `c41a69c`, which was written to fix the findings in the review of #2, and that review was submitted two and three seconds before the two approvals. So the approvals cover those branches as they stood at `6cc3753` and `97b3fe1`, and the reviewer has not seen the fix content on any of the four branches. GitHub still reports #4 and #5 as approved. No re-review has been requested; that is left to the owner.
 
 So today: 50 commits are on the private remote (34 planned changes, 11 sequence-review fix batches, 2 PR-review fixes and 3 merge commits), on four stacked branches, in four open, ready-for-review PRs (#2 to #5). **They are not merged into `main`.** Merging is the owner's step. Merging in order with merge commits keeps the original commit objects.
 
@@ -207,7 +211,7 @@ Time by Phase Type
 
 Content Delta
   Initial 19.6 KB (~5009 tokens)
-  Current 1054.5 KB (~269960 tokens)
+  Current 1054.5 KB (~269961 tokens)
   Delta +1035.0 KB (~+264951 tokens)
 
 Phases
