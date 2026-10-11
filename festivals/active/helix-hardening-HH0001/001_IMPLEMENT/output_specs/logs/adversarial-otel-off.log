@@ -24,14 +24,14 @@ NOTICE:  truncate cascades to table "app_secret_grants"
 NOTICE:  truncate cascades to table "app_dev_token"
 NOTICE:  truncate cascades to table "app_secret_grants"
 DO
- ✓  node  apps/egress/src/spanAttributes.test.ts (12 tests) 147ms
- ✓  node  apps/edge/src/traceBoundary.test.ts (10 tests) 74ms
- ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 41ms
- ✓  node  apps/edge/src/spanRedaction.test.ts (20 tests) 451ms
-     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  311ms
+ ✓  node  apps/egress/src/spanAttributes.test.ts (12 tests) 148ms
+ ✓  node  apps/edge/src/traceBoundary.test.ts (10 tests) 82ms
+ ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 38ms
+ ✓  node  apps/edge/src/spanRedaction.test.ts (20 tests) 478ms
+     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  328ms
 
  Test Files  4 passed (4)
       Tests  50 passed (50)
-   Start at  23:05:46
-   Duration  2.23s (transform 1.33s, setup 0ms, import 2.13s, tests 713ms, environment 0ms)
+   Start at  00:29:29
+   Duration  2.13s (transform 1.24s, setup 0ms, import 1.97s, tests 746ms, environment 0ms)
 

@@ -1,4 +1,4 @@
-check-and-lint exit=1
+check-and-lint exit=0
 adversarial suites (OTEL off) exit=0
 infra build exit=0
 smoke single-domain (real browser) exit=0

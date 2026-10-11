@@ -14,6 +14,7 @@ Every change was run through the full gate by the coordinator before its commit,
 01_spend_controls: it3-gate.txt
 01_spend_controls: it4-gate.txt
 01_spend_controls: it5-gate.txt
+01_spend_controls: pr2-review-fixes-gate.txt
 01_spend_controls: sp1-gate.txt
 01_spend_controls: sp10-gate.txt
 01_spend_controls: sp11-gate.txt
@@ -40,6 +41,7 @@ Every change was run through the full gate by the coordinator before its commit,
 02_network_egress: eg9-gate.txt
 02_network_egress: it6-gate.txt
 02_network_egress: it7-gate.txt
+02_network_egress: pr3-review-fixes-gate.txt
 03_csp_and_headers: ct1-gate.txt
 03_csp_and_headers: ct2-gate.txt
 03_csp_and_headers: ct3-gate.txt
@@ -71,24 +73,31 @@ Every change was run through the full gate by the coordinator before its commit,
 
 Sequence 01's run 1 failed on a pre-existing timing test (`apps/portal/src/deploy/diagnose.test.ts`) and passed on run 2; see `01_spend_controls/results/gate-testing.md`.
 
-**final run at 97b3fe1: logs/check-and-lint.log, last 12 lines**
+**final run at ca0afd1: logs/check-and-lint.log, last 12 lines**
 
 ```text
- ✓  portal-web  src/deploy/report.test.ts (2 tests) 7ms
+ ✓  portal-web  src/deploy/report.test.ts (2 tests) 6ms
 
- Test Files  242 passed (242)
-      Tests  3669 passed | 1 skipped (3670)
-   Start at  23:10:44
-   Duration  67.58s (transform 6.04s, setup 1.39s, import 46.83s, tests 119.89s, environment 11.12s)
+ Test Files  243 passed (243)
+      Tests  3704 passed | 1 skipped (3705)
+   Start at  00:28:29
+   Duration  59.84s (transform 5.09s, setup 1.33s, import 38.54s, tests 110.15s, environment 10.19s)
 
-✔ tests passed (68s)
+✔ tests passed (61s)
 
 ────────────────────────────────────────
-timing: typecheck=17s lint=7s refs=0s format=6s docs=3s tests=68s total=101s
+timing: typecheck=14s lint=7s refs=0s format=6s docs=2s tests=61s total=90s
 ✔ All checks passed
 ```
 
-Known flaky tests seen during the phase, none touched by it: `apps/portal/src/deploy/diagnose.test.ts`, `apps/edge/src/routing/connectionsJourney.integration.test.ts`, `apps/edge/src/gateway/usage.rls.integration.test.ts` (once), `apps/portal/src/routes/sessions.test.ts` (once, in the final run 1). Each passed on rerun.
+Tests that failed intermittently during the phase, each passing on rerun with no code change:
+
+- `apps/edge/src/routing/connectionsJourney.integration.test.ts`: flaky before this work (it is the one failure in the baseline run at `792557a`, `01_spend_controls/results/00-baseline-gate.md`). The phase only added config fields to its fixtures.
+- `apps/portal/src/deploy/diagnose.test.ts` (a timing bound) and `apps/portal/src/routes/sessions.test.ts` (once): the phase did not change either file.
+- `apps/edge/src/gateway/usage.rls.integration.test.ts`: **this one is in tests the phase added.** The platform-sum cases from SP-8 and SP-9 asserted an exact total while other test files insert rows; IT-5 changed them to compare deltas. One of them (`prodAfterDev`) still failed once during IT-11, then passed three isolated reruns and two full gates. The cause was not established (`04_domain_split/results/it11-split-rollout-docs.md`).
+- Under heavy host load (load average 60 to 80 during SP-2) three more files failed in one run and passed when rerun alone; they are named in `01_spend_controls/results/sp2-egress-upstream-abort.md`.
+
+The `sessions.test.ts` failure happened on the first full-gate run of the earlier final verification at `97b3fe1`; its log and six clean reruns are kept in `logs/earlier-run-at-97b3fe1/`. The final run at `ca0afd1` above passed first time.
 
 ## 2. Changes to running services pass `just dev smoke`
 
@@ -132,7 +141,7 @@ Changes after sequence 02 record their smoke result inside the change's `*-gate.
 **logs/summary.txt**
 
 ```text
-check-and-lint exit=1
+check-and-lint exit=0
 adversarial suites (OTEL off) exit=0
 infra build exit=0
 smoke single-domain (real browser) exit=0
@@ -171,29 +180,30 @@ For each change that added a seam (an outbound hop, a decision point that can de
 
 ```text
 # For each change that adds a seam: the test files changed in the SAME commit (git show --name-only, filtered to tests)
+# The last four entries are the sequence 03 review fix and the PR review fixes, which each added a decision point.
 
-$ git show --name-only --format='%h %s' 62c4059 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-62c4059 [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-2: abort the egress upstream call when the edge hangs up
+$ git log -1 --format='%h %s' 62c4059; git show --name-only --format= 62c4059 | grep -E '\.test\.'
+62c4059 SP-2: abort the egress upstream call when the edge hangs up
 apps/egress/src/adversarial.test.ts
 apps/egress/src/proxy.test.ts
 apps/egress/src/spanAttributes.test.ts
 
-$ git show --name-only --format='%h %s' f1b43a2 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-f1b43a2 [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-5: charge cut and failed LLM calls
+$ git log -1 --format='%h %s' f1b43a2; git show --name-only --format= f1b43a2 | grep -E '\.test\.'
+f1b43a2 SP-5: charge cut and failed LLM calls
 apps/edge/src/gateway/llm.test.ts
 apps/edge/src/gateway/telemetry.test.ts
 apps/edge/src/spanRedaction.test.ts
 
-$ git show --name-only --format='%h %s' 494776b | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-494776b [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-7: throttle and count LLM admission denials
+$ git log -1 --format='%h %s' 494776b; git show --name-only --format= 494776b | grep -E '\.test\.'
+494776b SP-7: throttle and count LLM admission denials
 apps/edge/src/gateway/denialThrottle.test.ts
 apps/edge/src/gateway/llm.test.ts
 apps/edge/src/gateway/telemetry.test.ts
 apps/edge/src/spanRedaction.test.ts
 packages/shared/src/telemetry.test.ts
 
-$ git show --name-only --format='%h %s' 3e82db5 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-3e82db5 [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-9: enforce the platform daily LLM ceiling
+$ git log -1 --format='%h %s' 3e82db5; git show --name-only --format= 3e82db5 | grep -E '\.test\.'
+3e82db5 SP-9: enforce the platform daily LLM ceiling
 apps/edge/src/app.test.ts
 apps/edge/src/config.test.ts
 apps/edge/src/gateway/llm.test.ts
@@ -204,8 +214,8 @@ apps/edge/src/serving/cspReport.test.ts
 apps/edge/src/spanRedaction.test.ts
 packages/shared/src/telemetry.test.ts
 
-$ git show --name-only --format='%h %s' f5c315d | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-f5c315d [azx:8817364a-FE-HH0001-PH-001-SQ-01] SP-11: cap concurrent LLM calls and add a call deadline
+$ git log -1 --format='%h %s' f5c315d; git show --name-only --format= f5c315d | grep -E '\.test\.'
+f5c315d SP-11: cap concurrent LLM calls and add a call deadline
 apps/edge/src/app.test.ts
 apps/edge/src/config.test.ts
 apps/edge/src/gateway/llm.test.ts
@@ -214,13 +224,22 @@ apps/edge/src/serving/cspReport.test.ts
 apps/edge/src/spanRedaction.test.ts
 packages/shared/src/telemetry.test.ts
 
-$ git show --name-only --format='%h %s' 00e626e | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-00e626e [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-1: block Azure platform and special-purpose ranges in the SSRF filter
+$ git log -1 --format='%h %s' df397a2; git show --name-only --format= df397a2 | grep -E '\.test\.'
+df397a2 SP-12: add an optional per-app lease cap on the fetch path
+apps/edge/src/app.test.ts
+apps/edge/src/config.test.ts
+apps/edge/src/gateway/fetch.test.ts
+apps/edge/src/routing/connectionsJourney.integration.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/edge/src/spanRedaction.test.ts
+
+$ git log -1 --format='%h %s' 00e626e; git show --name-only --format= 00e626e | grep -E '\.test\.'
+00e626e EG-1: block Azure platform and special-purpose ranges in the SSRF filter
 apps/egress/src/adversarial.test.ts
 apps/egress/src/ssrf.test.ts
 
-$ git show --name-only --format='%h %s' d6043ff | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-d6043ff [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-2: add a deployment-supplied extra SSRF block list
+$ git log -1 --format='%h %s' d6043ff; git show --name-only --format= d6043ff | grep -E '\.test\.'
+d6043ff EG-2: add a deployment-supplied extra SSRF block list
 apps/edge/src/routing/connectionsJourney.integration.test.ts
 apps/egress/src/adversarial.test.ts
 apps/egress/src/config.test.ts
@@ -236,18 +255,18 @@ apps/egress/src/spanOutcome.test.ts
 apps/egress/src/ssrf.test.ts
 apps/portal/src/routes/connectionsCallback.integration.test.ts
 
-$ git show --name-only --format='%h %s' a8ca07a | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-a8ca07a [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-8: network probe entry point for egress; host-node checks informational (NSGs do not filter them)
+$ git log -1 --format='%h %s' a8ca07a; git show --name-only --format= a8ca07a | grep -E '\.test\.'
+a8ca07a EG-8: network probe entry point for egress; host-node checks informational (NSGs do not filter them)
 apps/egress/src/netprobe.test.ts
 
-$ git show --name-only --format='%h %s' 04bfd6b | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-04bfd6b [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-1: strip policy and reporting headers from proxied responses
+$ git log -1 --format='%h %s' 04bfd6b; git show --name-only --format= 04bfd6b | grep -E '\.test\.'
+04bfd6b CT-1: strip policy and reporting headers from proxied responses
 apps/edge/src/gateway/fetch.test.ts
 apps/egress/src/proxy.test.ts
 packages/shared/src/fetch.test.ts
 
-$ git show --name-only --format='%h %s' 836673e | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-836673e [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-2: Report-Only tightened CSP, EDGE_IMG_SRC_EXTRA, and the CSP report counter
+$ git log -1 --format='%h %s' 836673e; git show --name-only --format= 836673e | grep -E '\.test\.'
+836673e CT-2: Report-Only tightened CSP, EDGE_IMG_SRC_EXTRA, and the CSP report counter
 apps/edge/src/app.test.ts
 apps/edge/src/config.test.ts
 apps/edge/src/serving/csp.test.ts
@@ -256,8 +275,8 @@ apps/edge/src/serving/serviceWorker.test.ts
 apps/edge/src/spanRedaction.test.ts
 apps/edge/src/traceBoundary.test.ts
 
-$ git show --name-only --format='%h %s' 19f4ca7 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-19f4ca7 [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-3: enforce tightened img-src and object-src, add EDGE_IMG_SRC_ALLOW_ALL and the EDGE_IMG_SRC_REPORT_O
+$ git log -1 --format='%h %s' 19f4ca7; git show --name-only --format= 19f4ca7 | grep -E '\.test\.'
+19f4ca7 CT-3: enforce tightened img-src and object-src, add EDGE_IMG_SRC_ALLOW_ALL and the EDGE_IMG_SRC_REPORT_ONLY measurement mode
 apps/edge/src/app.test.ts
 apps/edge/src/config.test.ts
 apps/edge/src/serving/csp.test.ts
@@ -265,8 +284,8 @@ apps/edge/src/serving/cspReport.test.ts
 apps/edge/src/serving/serviceWorker.test.ts
 apps/portal/src/routes/csp.test.ts
 
-$ git show --name-only --format='%h %s' 1aa32c8 | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-1aa32c8 [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-5: edge control/apps domain split with adversarial tests
+$ git log -1 --format='%h %s' 1aa32c8; git show --name-only --format= 1aa32c8 | grep -E '\.test\.'
+1aa32c8 CT-5: edge control/apps domain split with adversarial tests
 apps/edge/src/app.test.ts
 apps/edge/src/auth/adversarial.test.ts
 apps/edge/src/auth/flow.integration.test.ts
@@ -280,8 +299,8 @@ apps/edge/src/routing/hosts.test.ts
 apps/edge/src/serving/connectHelper.test.ts
 apps/edge/src/serving/cspReport.test.ts
 
-$ git show --name-only --format='%h %s' c3f75df | grep -E 'test|Redaction|traceBoundary|spanAttributes'
-c3f75df [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-8: legacy app-host redirect (EDGE_LEGACY_APP_REDIRECT) with the sunset counter
+$ git log -1 --format='%h %s' c3f75df; git show --name-only --format= c3f75df | grep -E '\.test\.'
+c3f75df CT-8: legacy app-host redirect (EDGE_LEGACY_APP_REDIRECT) with the sunset counter
 apps/edge/src/app.test.ts
 apps/edge/src/config.test.ts
 apps/edge/src/routing/hosts.test.ts
@@ -290,22 +309,68 @@ apps/edge/src/serving/cspReport.test.ts
 apps/edge/src/spanRedaction.test.ts
 apps/edge/src/traceBoundary.test.ts
 packages/shared/src/telemetry.test.ts
+
+$ git log -1 --format='%h %s' 1b0eef3; git show --name-only --format= 1b0eef3 | grep -E '\.test\.'
+1b0eef3 Iterate IT-8: refuse worker loads on the gateway, default-src none on proxied responses, keep wss origins, cap CSP report inserts, harden the smoke check
+apps/edge/src/config.test.ts
+apps/edge/src/gateway/fetch.test.ts
+apps/edge/src/serving/csp.test.ts
+apps/edge/src/serving/cspReport.test.ts
+apps/egress/src/proxy.test.ts
+apps/portal/src/routes/csp.test.ts
+packages/shared/src/fetch.test.ts
+
+$ git log -1 --format='%h %s' c41a69c; git show --name-only --format= c41a69c | grep -E '\.test\.'
+c41a69c Review fix (PR #2): LLM call deadline governs both hops, timeouts after dispatch are charged as a cut, reasoning cap matches the request builder
+apps/edge/src/gateway/egressLlmProvider.test.ts
+apps/edge/src/gateway/llm.test.ts
+apps/edge/src/routing/connectionsJourney.integration.test.ts
+apps/egress/src/adversarial.test.ts
+apps/egress/src/delegated.integration.test.ts
+apps/egress/src/exchange.test.ts
+apps/egress/src/managedIdentity.test.ts
+apps/egress/src/proxy.test.ts
+apps/egress/src/requestId.test.ts
+apps/egress/src/spanAttributes.test.ts
+apps/egress/src/spanOutcome.test.ts
+apps/portal/src/routes/connectionsCallback.integration.test.ts
+packages/shared/src/fetch.test.ts
+packages/shared/src/llmTimeouts.test.ts
+packages/shared/src/pricing.test.ts
+packages/shared/src/usageEstimate.test.ts
+
+$ git log -1 --format='%h %s' 955af5e; git show --name-only --format= 955af5e | grep -E '\.test\.'
+955af5e Merge hardening/01-spend-controls (PR #2 review fix) into network egress; the llm dispatcher keeps the extra SSRF block list
+apps/edge/src/routing/connectionsJourney.integration.test.ts
+apps/egress/src/adversarial.test.ts
+apps/egress/src/delegated.integration.test.ts
+apps/egress/src/exchange.test.ts
+apps/egress/src/managedIdentity.test.ts
+apps/egress/src/proxy.test.ts
+apps/egress/src/requestId.test.ts
+apps/egress/src/spanAttributes.test.ts
+apps/egress/src/spanOutcome.test.ts
+apps/portal/src/routes/connectionsCallback.integration.test.ts
+
+$ git log -1 --format='%h %s' 149ac5a; git show --name-only --format= 149ac5a | grep -E '\.test\.'
+149ac5a Review fix (PR #3): the probe reports whether a deny was proven, net-verify exits 3 when none was, port checks no longer count, detached-NSG simulation scenario
+apps/egress/src/netprobe.test.ts
 ```
 
-**adversarial telemetry suites at 97b3fe1 with OTEL_SDK_DISABLED=1 (logs/adversarial-otel-off.log), last 8 lines**
+**adversarial telemetry suites at ca0afd1 with OTEL_SDK_DISABLED=1 (logs/adversarial-otel-off.log), last 8 lines**
 
 ```text
- ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 41ms
- ✓  node  apps/edge/src/spanRedaction.test.ts (20 tests) 451ms
-     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  311ms
+ ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 38ms
+ ✓  node  apps/edge/src/spanRedaction.test.ts (20 tests) 478ms
+     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  328ms
 
  Test Files  4 passed (4)
       Tests  50 passed (50)
-   Start at  23:05:46
-   Duration  2.23s (transform 1.33s, setup 0ms, import 2.13s, tests 713ms, environment 0ms)
+   Start at  00:29:29
+   Duration  2.13s (transform 1.24s, setup 0ms, import 1.97s, tests 746ms, environment 0ms)
 ```
 
-**instrument constants added in this phase (git diff 792557a..97b3fe1 -- packages/shared/src/telemetry.ts | grep '^+export const INSTR_')**
+**instrument constants added in this phase (git diff 792557a..ca0afd1 -- packages/shared/src/telemetry.ts | grep '^+export const INSTR_')**
 
 ```text
 +export const INSTR_EGRESS_UPSTREAM_ABORTS = "helix.egress.upstream_aborts";
@@ -324,18 +389,18 @@ The OIDC handoff change (CT-5) also had the dedicated review pass the project ru
 **output_specs/logs/unverified-in-azure.txt**
 
 ```text
-$ git grep -i -c "unverified in Azure" (files and match counts at 97b3fe1)
-infra/azure/README.md:9
+$ git grep -i -c "unverified in Azure" origin/hardening/04-domain-split (files and match counts at ca0afd1)
+infra/azure/README.md:10
 infra/azure/main.bicep:7
 apps/docs/src/deploy/updates.md:6
 docs/features/network-controls.md:5
+docs/adr/0005-ssrf-egress-controls.md:3
 apps/docs/src/deploy/configuration.md:3
 infra/azure/modules/private-endpoint.bicep:2
 infra/azure/modules/nsg.bicep:2
 infra/azure/modules/alerts-netprobe.bicep:2
 docs/features/observability.md:2
 docs/adr/0028-deployment-model-customer-deployed.md:2
-docs/adr/0005-ssrf-egress-controls.md:2
 infra/netsim/run.mjs:1
 infra/azure/modules/network.bicep:1
 infra/azure/modules/netprobe-job.bicep:1
@@ -349,8 +414,8 @@ docs/adr/0051-llm-admission-control.md:1
 docs/adr/0044-declarative-wildcard-tls-bindings.md:1
 .justfiles/infra.just:1
 
-$ git grep -i -c "unverified in Azure" | awk -F: '{s+=$2} END {print s}'
-54 matches in 23 files
+$ totals
+56 matches in 23 files
 ```
 
 Nothing in this phase was applied to Azure. Each operator rollout section in `apps/docs/src/deploy/updates.md` marks the steps only a real install can verify, and the ADR-0005 amendment carries an empty probe-results table for an operator to fill in.

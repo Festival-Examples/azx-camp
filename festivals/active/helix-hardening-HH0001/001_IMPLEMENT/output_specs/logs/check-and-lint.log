@@ -4,8 +4,8 @@
 $ pnpm -r typecheck
 Scope: 14 of 15 workspace projects
 apps/dev-idp typecheck$ tsc
-apps/dev-oauth-vendor typecheck$ tsc
 packages/deploy-skill typecheck$ tsc
+apps/dev-oauth-vendor typecheck$ tsc
 packages/directory typecheck$ tsc
 packages/deploy-skill typecheck: Done
 packages/secret-store typecheck$ tsc
@@ -17,10 +17,10 @@ apps/dev-oauth-vendor typecheck: Done
 packages/secret-store typecheck: Done
 packages/telemetry typecheck: Done
 packages/shared typecheck: Done
-apps/portal-web typecheck$ tsc && tsc -p tsconfig.node.json
 apps/docs typecheck$ tsc --noEmit
-apps/egress typecheck$ tsc
+apps/portal-web typecheck$ tsc && tsc -p tsconfig.node.json
 packages/cli typecheck$ tsc
+apps/egress typecheck$ tsc
 apps/docs typecheck: Done
 packages/cli typecheck: Done
 apps/egress typecheck: Done
@@ -31,7 +31,7 @@ apps/edge typecheck$ tsc
 apps/edge typecheck: Done
 apps/connections-lane typecheck$ tsc
 apps/connections-lane typecheck: Done
-✔ typecheck passed (17s)
+✔ typecheck passed (14s)
 
 ▶ lint
   $ pnpm lint
@@ -67,18 +67,18 @@ llmstxt »   Generating full documentation bundle (llms-full.txt)...
 llmstxt » ✓ Processed deploy/access-control.md
 llmstxt » ✓ Processed apps/manifest.md
 llmstxt » ✓ Generated llms.txt (~733 tokens, 2.77 kB) with 13 documentation links
-llmstxt » ✓ Generated llms-full.txt (~46.4K tokens, 174 kB) with 13 markdown files
-llmstxt » ✓ Processed deploy/foundry.md
-llmstxt » ✓ Processed contributing.md
-llmstxt » ✓ Processed deploy/local-dev.md
-llmstxt » ✓ Processed deploy/updates.md
-llmstxt » ✓ Processed apps/quickstart.md
-llmstxt » ✓ Processed deploy/getting-started.md
-llmstxt » ✓ Processed apps/cli.md
 llmstxt » ✓ Processed deploy/configuration.md
+llmstxt » ✓ Processed contributing.md
+llmstxt » ✓ Generated llms-full.txt (~46.7K tokens, 175 kB) with 13 markdown files
+llmstxt » ✓ Processed apps/quickstart.md
+llmstxt » ✓ Processed deploy/local-dev.md
 llmstxt » ✓ Processed apps/gateway.md
-llmstxt » ✓ Processed deploy/database.md
 llmstxt » ✓ Processed deploy/entra-setup.md
+llmstxt » ✓ Processed apps/cli.md
+llmstxt » ✓ Processed deploy/getting-started.md
+llmstxt » ✓ Processed deploy/foundry.md
+llmstxt » ✓ Processed deploy/database.md
+llmstxt » ✓ Processed deploy/updates.md
 llmstxt »   vitepress-plugin-llms initialized (SSR build) with workDir: /workspace/apps/docs/src
 llmstxt »   Build started, file collection cleared
 llmstxt »   Skipping LLMs docs generation in SSR build
@@ -87,8 +87,8 @@ llmstxt »   Skipping LLMs docs generation in SSR build
 ✓ rendering pages...
 - generating sitemap...
 ✓ generating sitemap...
-build complete in 2.57s.
-✔ docs passed (3s)
+build complete in 2.39s.
+✔ docs passed (2s)
 
 ▶ tests
   $ pnpm test
@@ -138,25 +138,25 @@ stdout | packages/cli/src/auth/deviceFlow.integration.test.ts > device flow agai
 oidc-provider NOTICE: default features.deviceFlow.successSource function called, you SHOULD change it in order to customize the look of the device code success page.
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > the prod consent journey through the real entry points > start → consult → vendor authorize → callback → saved connection → delegated call in the configured placement
-TEMP-DEBUG cache wait took 105ms
+TEMP-DEBUG cache wait took 110ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > the connection-status read tracks the journey (ADR-0031 as amended) > not_connected before consent → connected after the callback → not_connected after disconnect
-TEMP-DEBUG cache wait took 103ms
+TEMP-DEBUG cache wait took 112ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > the connection-status read tracks the journey (ADR-0031 as amended) > the dev tier's status read keys to the developer identity through the dev gateway
-TEMP-DEBUG cache wait took 107ms
+TEMP-DEBUG cache wait took 106ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > the dev-tier journey > bearer POST → single-use popup URL → nonce entry → vendor → completion keyed to the developer identity
 TEMP-DEBUG cache wait took 105ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > development and production separation > a dev connection and a prod connection never serve each other's tier
-TEMP-DEBUG cache wait took 103ms
+TEMP-DEBUG cache wait took 107ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > two approved apps share one connection > the second app's consult answers already-connected and its calls ride the same connection
-TEMP-DEBUG cache wait took 104ms
+TEMP-DEBUG cache wait took 119ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > both rotation modes through real expiry > rotating: the renewal replaces the material, ledger-marks the old, and the call succeeds
-TEMP-DEBUG cache wait took 104ms
+TEMP-DEBUG cache wait took 103ms
 
 stdout | packages/cli/src/auth/deviceFlow.integration.test.ts > device flow against dev-idp > logs in as alice and refreshes the grant
 oidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change it in order to define the expiration for AccessToken artifacts.
@@ -167,21 +167,21 @@ oidc-provider NOTICE: default ttl.RefreshToken function called, you SHOULD chang
 stdout | packages/cli/src/auth/deviceFlow.integration.test.ts > device flow against dev-idp > logs in as alice and refreshes the grant
 oidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
 
- ✓  node  packages/cli/src/auth/deviceFlow.integration.test.ts (1 test) 5107ms
-     ✓ logs in as alice and refreshes the grant  5063ms
+ ✓  node  packages/cli/src/auth/deviceFlow.integration.test.ts (1 test) 5072ms
+     ✓ logs in as alice and refreshes the grant  5049ms
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > both rotation modes through real expiry > non-rotating: the renewal retains the refresh token, writes no ledger mark, and the call succeeds
-TEMP-DEBUG cache wait took 126ms
+TEMP-DEBUG cache wait took 111ms
 
- ✓  node  apps/portal/src/routes/connectionsCallback.integration.test.ts (16 tests) 5587ms
-     ✓ a hung vendor token endpoint renders the failed-service page  5019ms
+ ✓  node  apps/portal/src/routes/connectionsCallback.integration.test.ts (16 tests) 5559ms
+     ✓ a hung vendor token endpoint renders the failed-service page  5030ms
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > disconnection, sensitive edits, deletion > disconnect stops use immediately; the ledger labels connection_required apart from refusal
-TEMP-DEBUG cache wait took 103ms
+TEMP-DEBUG cache wait took 116ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > disconnection, sensitive edits, deletion > a sensitive edit mid-consent kills the attempt — the callback cannot establish anything
-TEMP-DEBUG cache wait took 102ms
+TEMP-DEBUG cache wait took 112ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts > disconnection, sensitive edits, deletion > a sensitive edit kills the live connection, and deletion makes later calls report provider unavailability
-TEMP-DEBUG cache wait took 102ms
+TEMP-DEBUG cache wait took 103ms
 
 stdout | apps/edge/src/routing/connectionsJourney.integration.test.ts
 REGISTRY-WARN: {
@@ -240,8 +240,8 @@ REGISTRY-WARN: {
       connection: [Connection],
       _queryQueue: [],
       binary: false,
-      processID: 302293,
-      secretKey: 1759394098,
+      processID: 320142,
+      secretKey: 1893849244,
       ssl: false,
       _connectionTimeoutMillis: 0,
       _connectionCallback: null,
@@ -286,90 +286,82 @@ REGISTRY-WARN: {
     line: '3354',
     routine: 'ProcessInterrupts'
   }
-} registry LISTEN connection down; reconnecting in 451ms
+} registry LISTEN connection down; reconnecting in 535ms
 
- ✓  node  apps/edge/src/routing/connectionsJourney.integration.test.ts (11 tests) 7195ms
-     ✓ start → consult → vendor authorize → callback → saved connection → delegated call in the configured placement  442ms
-     ✓ the second app's consult answers already-connected and its calls ride the same connection  384ms
-     ✓ rotating: the renewal replaces the material, ledger-marks the old, and the call succeeds  1385ms
-     ✓ non-rotating: the renewal retains the refresh token, writes no ledger mark, and the call succeeds  1406ms
-     ✓ disconnect stops use immediately; the ledger labels connection_required apart from refusal  350ms
-     ✓ a sensitive edit mid-consent kills the attempt — the callback cannot establish anything  368ms
-     ✓ a sensitive edit kills the live connection, and deletion makes later calls report provider unavailability  486ms
- ✓  node  apps/egress/src/renewal.integration.test.ts (15 tests) 4013ms
-     ✓ concurrent renewals on distinct users/providers run in parallel, not serialized  1038ms
-     ✓ temporary failure (hang): the row is untouched, no retry within the attempt  1031ms
-     ✓ a holder of the EXPORTED lock key bounded-blocks a renewal into temporary failure  428ms
+ ✓  node  apps/edge/src/routing/connectionsJourney.integration.test.ts (11 tests) 7460ms
+     ✓ start → consult → vendor authorize → callback → saved connection → delegated call in the configured placement  469ms
+     ✓ the second app's consult answers already-connected and its calls ride the same connection  413ms
+     ✓ rotating: the renewal replaces the material, ledger-marks the old, and the call succeeds  1438ms
+     ✓ non-rotating: the renewal retains the refresh token, writes no ledger mark, and the call succeeds  1408ms
+     ✓ disconnect stops use immediately; the ledger labels connection_required apart from refusal  335ms
+     ✓ a sensitive edit mid-consent kills the attempt — the callback cannot establish anything  403ms
+     ✓ a sensitive edit kills the live connection, and deletion makes later calls report provider unavailability  531ms
+ ✓  node  apps/egress/src/proxy.test.ts (35 tests) 4052ms
+     ✓ cuts non-LLM fetch calls at EGRESS_TIMEOUT_MS with upstream_timeout  846ms
+     ✓ bounds llm calls at EGRESS_LLM_TIMEOUT_MS, not the fetch timeout  2013ms
+ ✓  node  apps/egress/src/renewal.integration.test.ts (15 tests) 3964ms
+     ✓ concurrent renewals on distinct users/providers run in parallel, not serialized  1035ms
+     ✓ temporary failure (hang): the row is untouched, no retry within the attempt  1034ms
+     ✓ a holder of the EXPORTED lock key bounded-blocks a renewal into temporary failure  419ms
      ✓ releases the lock and the client on every exit path  1139ms
- ✓  node  apps/edge/src/auth/password-login.test.ts (11 tests) 4775ms
-     ✓ 404s on a non-password app (no signal that login even exists)  379ms
-     ✓ mints a session on the correct password and redirects to rd  426ms
-     ✓ rejects a wrong password (401, no cookie, form re-rendered)  401ms
-     ✓ accepts a same-origin form POST that omits Origin (Firefox/Safari behavior)  427ms
-     ✓ accepts a same-origin Sec-Fetch-Site post  700ms
-     ✓ throttles brute force — blocks after the failure budget (429)  1069ms
-     ✓ 401s a fetch (non-navigation) rather than redirecting  417ms
- ✓  node  apps/portal/src/routes/access-password.test.ts (15 tests) 4130ms
-     ✓ flips visibility to password and returns a hyphenated passphrase + url  609ms
-     ✓ rerolls a fresh passphrase  612ms
-     ✓ accepts a manual password of sufficient length  440ms
-     ✓ rejects a too-short manual password (400)  320ms
-     ✓ 409s when password access is not enabled  428ms
-     ✓ is absent from GET /apps/:slug and the manifest  481ms
- ✓  node  apps/egress/src/delegated.integration.test.ts (27 tests) 3173ms
-     ✓ temporary failure (the vendor hangs): 502 upstream_error, connection preserved  2048ms
- ✓  node  apps/egress/src/providers.integration.test.ts (3 tests) 2575ms
-     ✓ reconciles on reconnect after an injected connection failure (self-heal)  1809ms
-     ✓ releases the dedicated client on shutdown — start/stop cycles return to baseline  470ms
- ✓  node  apps/egress/src/retire.integration.test.ts (11 tests) 1977ms
- ✓  node  apps/edge/src/auth/password.test.ts (6 tests) 3127ms
-     ✓ verifies a hash derived at the shared cost (no maxmem throw)  423ms
-     ✓ rejects the wrong password  454ms
-     ✓ stays correct under concurrency beyond the cap  1772ms
- ✓  node  apps/egress/src/providerListener.test.ts (7 tests) 1922ms
-     ✓ keeps trying to reconnect with backoff instead of dying quietly  1563ms
-     ✓ stays silent about failures caused by its own shutdown  330ms
- ✓  node  apps/egress/src/proxy.test.ts (33 tests) 1427ms
- ✓  node  apps/edge/src/gateway/fetch.test.ts (66 tests) 1894ms
-     ✓ refuses at the cap and admits again after the first finishes  608ms
- ✓  node  apps/portal/src/routes/data.test.ts (30 tests) 1385ms
-     ✓ keeps the newest rows when the collection outgrows the export cap  949ms
-(node:706606) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+ ✓  node  apps/edge/src/auth/password-login.test.ts (11 tests) 3996ms
+     ✓ mints a session on the correct password and redirects to rd  427ms
+     ✓ rejects a wrong password (401, no cookie, form re-rendered)  445ms
+     ✓ accepts a same-origin form POST that omits Origin (Firefox/Safari behavior)  464ms
+     ✓ accepts a same-origin Sec-Fetch-Site post  480ms
+     ✓ throttles brute force — blocks after the failure budget (429)  862ms
+ ✓  node  apps/portal/src/routes/access-password.test.ts (15 tests) 3146ms
+     ✓ flips visibility to password and returns a hyphenated passphrase + url  336ms
+     ✓ rerolls a fresh passphrase  479ms
+     ✓ accepts a manual password of sufficient length  472ms
+ ✓  node  apps/egress/src/delegated.integration.test.ts (27 tests) 2620ms
+     ✓ temporary failure (the vendor hangs): 502 upstream_error, connection preserved  2030ms
+ ✓  node  apps/edge/src/auth/password.test.ts (6 tests) 2219ms
+     ✓ verifies a hash derived at the shared cost (no maxmem throw)  443ms
+     ✓ rejects the wrong password  424ms
+     ✓ stays correct under concurrency beyond the cap  907ms
+ ✓  node  apps/egress/src/providerListener.test.ts (7 tests) 1790ms
+     ✓ keeps trying to reconnect with backoff instead of dying quietly  1456ms
+     ✓ stays silent about failures caused by its own shutdown  319ms
+ ✓  node  apps/egress/src/providers.integration.test.ts (3 tests) 3036ms
+     ✓ reconciles on reconnect after an injected connection failure (self-heal)  2295ms
+     ✓ releases the dedicated client on shutdown — start/stop cycles return to baseline  449ms
+ ✓  node  apps/edge/src/gateway/fetch.test.ts (66 tests) 1561ms
+     ✓ refuses at the cap and admits again after the first finishes  606ms
+ ✓  node  apps/egress/src/retire.integration.test.ts (11 tests) 1685ms
+ ✓  node  apps/portal/src/routes/data.test.ts (30 tests) 1085ms
+     ✓ keeps the newest rows when the collection outgrows the export cap  748ms
+ ✓  node  apps/portal/src/access/password.test.ts (8 tests) 1180ms
+     ✓ is verifiable by re-deriving scrypt with the stored salt at the shared cost (the edge's check)  490ms
+     ✓ uses a fresh salt each call  436ms
+ ✓  node  apps/portal/src/routes/apps.test.ts (39 tests) 836ms
+     ✓ hands the losing password-enable a 409 rather than a passphrase that is not stored  471ms
+(node:761609) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
 (Use `node --trace-deprecation ...` to show where the warning was created)
- ✓  node  apps/egress/src/exchange.test.ts (26 tests) 1177ms
-     ✓ a hanging token endpoint surfaces as the opaque outcome  908ms
- ✓  node  apps/portal/src/routes/apps.test.ts (39 tests) 886ms
-     ✓ hands the losing password-enable a 409 rather than a passphrase that is not stored  464ms
- ✓  node  apps/portal/src/access/password.test.ts (8 tests) 1119ms
-     ✓ is verifiable by re-deriving scrypt with the stored salt at the shared cost (the edge's check)  439ms
-     ✓ uses a fresh salt each call  413ms
- ✓  node  apps/portal/src/deploy/diagnose.test.ts (6 tests) 947ms
-     ✓ stays fast on a pathological many-entry zip (bounded enumeration)  914ms
- ✓  node  apps/edge/src/gateway/leaseStore.integration.test.ts (10 tests) 944ms
- ✓  node  apps/portal/src/routes/directory.test.ts (36 tests) 1302ms
-     ✓ 429s the app-scoped resolve once the resolve budget is gone  406ms
- ✓  node  apps/dev-oauth-vendor/src/vendor.test.ts (19 tests) 746ms
- ✓  node  apps/edge/src/registry/role-split.integration.test.ts (22 tests) 849ms
- ✓  node  apps/edge/src/gateway/llm.test.ts (66 tests) 773ms
- ✓  node  apps/edge/src/registry/registry.integration.test.ts (2 tests) 703ms
-     ✓ loads seeded apps on start and refreshes via the NOTIFY trigger  549ms
- ✓  node  apps/portal/src/connections/consent.test.ts (24 tests) 649ms
- ✓  node  apps/portal/src/routes/providers.importexport.test.ts (29 tests) 465ms
- ✓  node  apps/edge/src/registry/listener.test.ts (6 tests) 575ms
-     ✓ stays silent about load failures caused by its own shutdown  313ms
- ✓  node  apps/portal/src/routes/secrets.test.ts (37 tests) 618ms
- ✓  node  apps/portal/src/routes/connectionsPages.test.ts (11 tests) 502ms
- ✓  node  apps/portal/src/routes/providers.invalidation.test.ts (12 tests) 548ms
- ✓  node  apps/portal/src/routes/approvals.test.ts (38 tests) 628ms
- ✓  node  apps/portal/src/routes/connectionsMine.test.ts (10 tests) 557ms
- ✓  node  apps/portal/src/routes/usage.test.ts (23 tests) 427ms
- ✓  node  apps/edge/src/spanRedaction.test.ts (20 tests) 477ms
-     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  308ms
- ✓  node  apps/portal/src/routes/pointer.test.ts (7 tests) 344ms
- ✓  node  apps/portal/src/routes/versions.test.ts (12 tests) 343ms
- ✓  node  apps/portal/src/routes/providers.test.ts (31 tests) 458ms
- ✓  node  apps/portal/src/routes/appsList.test.ts (10 tests) 427ms
- ✓  node  apps/portal/src/routes/catalogue.test.ts (21 tests) 394ms
+ ✓  node  apps/egress/src/exchange.test.ts (26 tests) 1127ms
+     ✓ a hanging token endpoint surfaces as the opaque outcome  915ms
+ ✓  node  apps/edge/src/registry/role-split.integration.test.ts (22 tests) 701ms
+ ✓  node  apps/edge/src/gateway/leaseStore.integration.test.ts (10 tests) 835ms
+ ✓  node  apps/portal/src/routes/directory.test.ts (36 tests) 968ms
+ ✓  node  apps/portal/src/deploy/diagnose.test.ts (6 tests) 758ms
+     ✓ stays fast on a pathological many-entry zip (bounded enumeration)  720ms
+ ✓  node  apps/portal/src/connections/consent.test.ts (24 tests) 565ms
+ ✓  node  apps/dev-oauth-vendor/src/vendor.test.ts (19 tests) 766ms
+ ✓  node  apps/portal/src/routes/providers.importexport.test.ts (29 tests) 406ms
+ ✓  node  apps/edge/src/registry/registry.integration.test.ts (2 tests) 642ms
+     ✓ loads seeded apps on start and refreshes via the NOTIFY trigger  519ms
+ ✓  node  apps/edge/src/gateway/llm.test.ts (73 tests) 652ms
+ ✓  node  apps/edge/src/registry/listener.test.ts (6 tests) 564ms
+     ✓ stays silent about load failures caused by its own shutdown  318ms
+ ✓  node  apps/portal/src/routes/providers.invalidation.test.ts (12 tests) 497ms
+ ✓  node  apps/portal/src/routes/secrets.test.ts (37 tests) 521ms
+ ✓  node  apps/portal/src/routes/pointer.test.ts (7 tests) 421ms
+ ✓  node  apps/portal/src/routes/connectionsPages.test.ts (11 tests) 501ms
+ ✓  node  apps/portal/src/routes/approvals.test.ts (38 tests) 630ms
+ ✓  node  apps/edge/src/spanRedaction.test.ts (20 tests) 466ms
+     ✓ never leaks oid, scope, or path content on a concurrency cap refusal  316ms
+ ✓  node  apps/portal/src/routes/providers.test.ts (31 tests) 375ms
+ ✓  node  apps/portal/src/routes/connectionsInternal.test.ts (14 tests) 473ms
 stderr | apps/edge/src/auth/flow.integration.test.ts
 oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
 
@@ -388,6 +380,21 @@ oidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change
 stdout | apps/edge/src/auth/flow.integration.test.ts > the full Appendix A flow against real oidc-provider + Postgres > logs alice into an internal app and lands on rd
 oidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
 
+ ✓  node  apps/portal/src/routes/appsList.test.ts (10 tests) 377ms
+stderr | apps/edge/src/auth/flow.integration.test.ts > a token without an oid claim refuses the login (ADR-0048 decision 2)
+oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
+
+ ✓  node  apps/edge/src/auth/flow.integration.test.ts (11 tests) 490ms
+ ✓  node  apps/portal/src/approvals/providerBindings.test.ts (12 tests) 447ms
+ ✓  node  apps/portal/src/deploy/multipart.test.ts (4 tests) 367ms
+ ✓  node  apps/portal/src/routes/catalogue.test.ts (21 tests) 296ms
+ ✓  node  apps/portal/src/routes/usage.test.ts (23 tests) 467ms
+ ✓  node  apps/portal/src/routes/versions.test.ts (12 tests) 338ms
+ ✓  node  apps/egress/src/adversarial.test.ts (43 tests) 313ms
+ ✓  node  apps/portal/src/routes/connectionsMine.test.ts (10 tests) 391ms
+ ✓  node  apps/edge/src/gateway/data.integration.test.ts (11 tests) 438ms
+ ✓  node  apps/edge/src/gateway/usage.rls.integration.test.ts (15 tests) 310ms
+ ✓  node  apps/portal/src/routes/sessions.test.ts (14 tests) 286ms
 stderr | apps/portal/src/auth/oidc.integration.test.ts
 oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
 
@@ -406,9 +413,6 @@ oidc-provider NOTICE: default ttl.Grant function called, you SHOULD change it in
 stdout | apps/portal/src/auth/oidc.integration.test.ts
 oidc-provider NOTICE: default features.deviceFlow.successSource function called, you SHOULD change it in order to customize the look of the device code success page.
 
-stderr | apps/edge/src/auth/flow.integration.test.ts > a token without an oid claim refuses the login (ADR-0048 decision 2)
-oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
-
 stdout | apps/portal/src/auth/oidc.integration.test.ts
 oidc-provider NOTICE: default ttl.AccessToken function called, you SHOULD change it in order to define the expiration for AccessToken artifacts.
 
@@ -418,32 +422,22 @@ oidc-provider NOTICE: default ttl.RefreshToken function called, you SHOULD chang
 stdout | apps/portal/src/auth/oidc.integration.test.ts
 oidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it in order to define the expiration for IdToken artifacts.
 
- ✓  node  apps/edge/src/auth/flow.integration.test.ts (11 tests) 451ms
+ ✓  node  apps/portal/src/routes/devTokens.test.ts (7 tests) 258ms
 stderr | apps/portal/src/auth/oidc.integration.test.ts > portal API with real device-flow tokens > rejects a token from a different issuer with the same audience
 oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
 
- ✓  node  apps/portal/src/auth/oidc.integration.test.ts (5 tests) 576ms
-     ✓ authorizes a mutation; ownerId is alice's oid, the audit actor her email  302ms
- ✓  node  apps/portal/src/routes/visitors.test.ts (13 tests) 698ms
-     ✓ refuses a signed-in non-owner, and serves the owner and an admin  300ms
- ✓  node  apps/portal/src/deploy/multipart.test.ts (4 tests) 449ms
- ✓  node  apps/edge/src/gateway/data.integration.test.ts (11 tests) 453ms
- ✓  node  apps/portal/src/approvals/providerBindings.test.ts (12 tests) 639ms
- ✓  node  apps/edge/src/gateway/usage.rls.integration.test.ts (15 tests) 747ms
- ✓  node  apps/edge/src/auth/adversarial.test.ts (73 tests) 557ms
- ✓  node  apps/portal/src/routes/connectionsInternal.test.ts (14 tests) 718ms
- ✓  node  apps/egress/src/adversarial.test.ts (42 tests) 319ms
- ✓  node  apps/portal/src/routes/devTokens.test.ts (7 tests) 275ms
- ✓  node  apps/portal/src/routes/manifest-bindings.test.ts (2 tests) 463ms
- ✓  node  apps/portal/src/routes/auth.test.ts (16 tests) 247ms
- ✓  node  apps/portal/src/routes/csp.test.ts (5 tests) 386ms
- ✓  node  apps/portal/src/routes/ownership.test.ts (29 tests) 342ms
- ✓  node  apps/portal/src/routes/dashboard.test.ts (3 tests) 234ms
- ✓  node  apps/portal/src/routes/sessions.test.ts (14 tests) 505ms
- ✓  node  apps/edge/src/routing/consentStart.test.ts (55 tests) 437ms
- ✓  node  apps/edge/src/gateway/data.test.ts (47 tests) 179ms
- ✓  node  apps/portal/src/deploy/validate.test.ts (11 tests) 178ms
- ✓  node  apps/edge/src/spans.test.ts (11 tests) 189ms
+ ✓  node  apps/portal/src/auth/oidc.integration.test.ts (5 tests) 362ms
+ ✓  node  apps/portal/src/routes/visitors.test.ts (13 tests) 297ms
+ ✓  node  apps/portal/src/routes/manifest-bindings.test.ts (2 tests) 260ms
+ ✓  node  apps/portal/src/routes/auth.test.ts (16 tests) 286ms
+ ✓  node  apps/edge/src/auth/adversarial.test.ts (73 tests) 293ms
+ ✓  node  apps/portal/src/directory/rateLimit.test.ts (7 tests) 150ms
+ ✓  node  apps/portal/src/routes/dashboard.test.ts (3 tests) 231ms
+ ✓  node  apps/portal/src/routes/ownership.test.ts (29 tests) 239ms
+ ✓  node  apps/edge/src/routing/consentStart.test.ts (55 tests) 234ms
+ ✓  node  apps/portal/src/netControls/egressHosts.integration.test.ts (1 test) 175ms
+ ✓  node  apps/portal/src/routes/csp.test.ts (5 tests) 204ms
+ ✓  node  apps/edge/src/spans.test.ts (11 tests) 181ms
 stderr | apps/dev-idp/src/provider.test.ts
 oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
 
@@ -474,188 +468,190 @@ oidc-provider NOTICE: default ttl.IdToken function called, you SHOULD change it 
 stdout | apps/dev-idp/src/provider.test.ts > authorization-code flow (the edge path) > denies an unregistered redirect_uri
 oidc-provider NOTICE: default renderError function called, you SHOULD change it in order to customize the look of the error page.
 
- ✓  node  apps/edge/src/auth/gate.test.ts (28 tests) 149ms
+ ✓  node  apps/edge/src/gateway/data.test.ts (47 tests) 165ms
 stderr | apps/dev-idp/src/provider.test.ts > omitOidClaim (the fail-closed fixture, ADR-0048 decision 2)
 oidc-provider WARNING: a quick start development-only in-memory adapter is used, you MUST change it in order to not lose all stateful provider data upon restart and to be able to share these between processes
 
- ✓  node  apps/dev-idp/src/provider.test.ts (11 tests) 198ms
- ✓  node  apps/edge/src/gateway/openaiCodec.test.ts (35 tests) 192ms
- ✓  node  apps/egress/src/spanAttributes.test.ts (12 tests) 156ms
- ✓  node  apps/edge/src/routing/connectionsProxy.test.ts (16 tests) 130ms
- ✓  node  apps/portal/src/netControls/egressHosts.integration.test.ts (1 test) 170ms
- ✓  node  apps/edge/src/app.test.ts (28 tests) 109ms
- ✓  node  apps/portal/src/directory/rateLimit.test.ts (7 tests) 177ms
- ✓  node  apps/edge/src/serving/visits.test.ts (31 tests) 161ms
- ✓  node  apps/edge/src/routing/consentCancel.test.ts (17 tests) 128ms
+ ✓  node  apps/dev-idp/src/provider.test.ts (11 tests) 187ms
+ ✓  node  apps/edge/src/gateway/openaiCodec.test.ts (35 tests) 199ms
+ ✓  node  apps/portal/src/deploy/validate.test.ts (11 tests) 144ms
+ ✓  node  apps/egress/src/spanAttributes.test.ts (12 tests) 146ms
+ ✓  node  apps/edge/src/routing/consentCancel.test.ts (17 tests) 124ms
+ ✓  node  apps/edge/src/auth/gate.test.ts (28 tests) 132ms
 PROBE_EXPECT_NSG is required
- ✓  node  apps/egress/src/netprobe.test.ts (48 tests) 119ms
- ✓  node  apps/edge/src/routing/legacyRedirect.test.ts (17 tests) 142ms
- ✓  node  apps/egress/src/secrets.integration.test.ts (6 tests) 142ms
- ✓  node  apps/edge/src/routing/connectionStatus.test.ts (9 tests) 105ms
- ✓  node  apps/edge/src/auth/sessions.rls.integration.test.ts (5 tests) 102ms
- ✓  node  apps/edge/src/devGateway/consentStart.test.ts (19 tests) 98ms
- ✓  node  apps/edge/src/registry/telemetry.test.ts (4 tests) 86ms
- ✓  node  apps/edge/src/serving/cspReport.test.ts (22 tests) 112ms
- ✓  node  apps/edge/src/devGateway/connectionStatus.test.ts (9 tests) 84ms
- ✓  node  apps/edge/src/serving/public-visibility.test.ts (13 tests) 98ms
- ✓  node  apps/portal/src/app.test.ts (2 tests) 84ms
- ✓  node  apps/edge/src/auth/sessions.integration.test.ts (8 tests) 80ms
+ ✓  node  apps/egress/src/netprobe.test.ts (64 tests) 122ms
+ ✓  node  apps/edge/src/serving/visits.test.ts (31 tests) 139ms
+ ✓  node  apps/edge/src/routing/legacyRedirect.test.ts (17 tests) 125ms
+ ✓  node  apps/edge/src/routing/connectionStatus.test.ts (9 tests) 111ms
+ ✓  node  apps/portal/src/auth/verifier.test.ts (27 tests) 72ms
+ ✓  node  apps/egress/src/secrets.integration.test.ts (6 tests) 107ms
+ ✓  node  apps/edge/src/app.test.ts (28 tests) 110ms
+ ✓  node  apps/edge/src/routing/connectionsProxy.test.ts (16 tests) 143ms
+ ✓  node  apps/edge/src/serving/cspReport.test.ts (22 tests) 97ms
+ ✓  node  apps/edge/src/devGateway/consentStart.test.ts (19 tests) 90ms
+ ✓  node  apps/edge/src/registry/telemetry.test.ts (4 tests) 91ms
+ ✓  node  apps/edge/src/serving/public-visibility.test.ts (13 tests) 130ms
+ ✓  node  apps/edge/src/auth/sessions.rls.integration.test.ts (5 tests) 94ms
+ ✓  node  apps/portal/src/routes/config.test.ts (11 tests) 79ms
+ ✓  node  apps/edge/src/devGateway/connectionStatus.test.ts (9 tests) 90ms
+ ✓  node  apps/edge/src/traceBoundary.test.ts (10 tests) 81ms
+ ✓  node  apps/portal/src/db/portal-rls.integration.test.ts (2 tests) 82ms
+ ✓  node  apps/portal/src/app.test.ts (2 tests) 77ms
+ ✓  node  apps/edge/src/gateway/counterStore.integration.test.ts (4 tests) 85ms
  ✓  node  apps/edge/src/devGateway/devGateway.test.ts (12 tests) 94ms
- ✓  node  apps/portal/src/auth/verifier.test.ts (27 tests) 86ms
- ✓  node  apps/edge/src/config.test.ts (87 tests) 85ms
- ✓  node  apps/edge/src/traceBoundary.test.ts (10 tests) 86ms
- ✓  node  apps/egress/src/managedIdentity.test.ts (15 tests) 63ms
- ✓  node  apps/edge/src/serving/connectHelper.test.ts (28 tests) 83ms
- ✓  node  apps/edge/src/gateway/dataTelemetry.test.ts (3 tests) 76ms
- ✓  node  apps/portal/src/db/portal-rls.integration.test.ts (2 tests) 84ms
- ✓  node  apps/edge/src/gateway/counterStore.integration.test.ts (4 tests) 94ms
- ✓  node  apps/edge/src/routing/trustProxyHealth.test.ts (12 tests) 99ms
- ✓  node  apps/edge/src/logging.test.ts (9 tests) 94ms
- ✓  node  apps/edge/src/serving/serviceWorker.test.ts (31 tests) 56ms
- ✓  node  apps/portal/src/routes/config.test.ts (11 tests) 84ms
- ✓  node  apps/egress/src/spanOutcome.test.ts (6 tests) 59ms
- ✓  node  apps/portal/src/plugins/auth.test.ts (11 tests) 55ms
- ✓  node  apps/portal/src/routes/spa.test.ts (6 tests) 63ms
- ✓  node  apps/portal/src/blob/store.test.ts (5 tests) 42ms
- ✓  node  apps/edge/src/gateway/usage.integration.test.ts (9 tests) 132ms
- ✓  node  packages/secret-store/src/keyvault.test.ts (37 tests) 68ms
- ✓  node  packages/shared/src/bundlePlan.test.ts (23 tests) 42ms
- ✓  node  apps/edge/src/errorHandler.test.ts (6 tests) 52ms
- ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 42ms
- ✓  node  apps/egress/src/burn.integration.test.ts (3 tests) 42ms
- ✓  node  apps/edge/src/serving/shim.test.ts (13 tests) 46ms
- ✓  node  apps/portal/src/deploy/malformed-bundles.test.ts (2 tests) 35ms
- ✓  node  apps/egress/src/requestId.test.ts (3 tests) 43ms
- ✓  node  packages/telemetry/src/testing.test.ts (6 tests) 43ms
- ✓  node  apps/edge/src/db/partition.integration.test.ts (2 tests) 49ms
- ✓  node  apps/edge/src/blob/client.integration.test.ts (4 tests) 39ms
- ✓  node  apps/egress/src/ssrf.test.ts (116 tests) 24ms
- ✓  node  packages/directory/src/entra.test.ts (26 tests) 23ms
- ✓  node  apps/edge/src/auth/oidc.test.ts (16 tests) 22ms
- ✓  node  packages/cli/src/client.test.ts (17 tests) 23ms
- ✓  node  apps/edge/src/blob/client.test.ts (3 tests) 31ms
- ✓  node  packages/shared/src/providers.test.ts (85 tests) 25ms
- ✓  node  apps/edge/src/telemetry.test.ts (5 tests) 23ms
- ✓  node  packages/shared/src/approval.test.ts (80 tests) 16ms
- ✓  node  apps/edge/src/auth/gateTelemetry.test.ts (3 tests) 22ms
+ ✓  node  apps/edge/src/auth/sessions.integration.test.ts (8 tests) 66ms
+ ✓  node  apps/edge/src/config.test.ts (87 tests) 88ms
+ ✓  node  apps/edge/src/serving/connectHelper.test.ts (28 tests) 74ms
+ ✓  node  apps/edge/src/gateway/dataTelemetry.test.ts (3 tests) 65ms
+ ✓  node  apps/portal/src/routes/spa.test.ts (6 tests) 58ms
+ ✓  node  apps/egress/src/managedIdentity.test.ts (15 tests) 68ms
+ ✓  node  apps/edge/src/routing/trustProxyHealth.test.ts (12 tests) 64ms
+ ✓  node  apps/egress/src/spanOutcome.test.ts (6 tests) 56ms
+ ✓  node  packages/shared/src/bundlePlan.test.ts (23 tests) 56ms
+ ✓  node  apps/edge/src/serving/serviceWorker.test.ts (31 tests) 64ms
+ ✓  node  apps/edge/src/errorHandler.test.ts (6 tests) 47ms
+ ✓  node  apps/edge/src/logging.test.ts (9 tests) 59ms
+ ✓  node  apps/edge/src/gateway/usage.integration.test.ts (9 tests) 40ms
+ ✓  node  apps/portal/src/plugins/auth.test.ts (11 tests) 41ms
+ ✓  node  packages/telemetry/src/testing.test.ts (6 tests) 39ms
+ ✓  node  apps/egress/src/burn.integration.test.ts (3 tests) 37ms
+ ✓  node  packages/secret-store/src/keyvault.test.ts (37 tests) 47ms
+ ✓  node  apps/edge/src/gateway/telemetry.test.ts (8 tests) 37ms
+ ✓  node  apps/edge/src/serving/shim.test.ts (13 tests) 37ms
+ ✓  node  apps/portal/src/deploy/malformed-bundles.test.ts (2 tests) 21ms
+ ✓  node  apps/egress/src/requestId.test.ts (3 tests) 36ms
+ ✓  node  apps/portal/src/blob/store.test.ts (5 tests) 26ms
+ ✓  node  apps/edge/src/blob/client.integration.test.ts (4 tests) 36ms
+ ✓  node  apps/edge/src/db/partition.integration.test.ts (2 tests) 37ms
+ ✓  node  apps/edge/src/blob/client.test.ts (3 tests) 23ms
+ ✓  node  packages/cli/src/client.test.ts (17 tests) 20ms
+ ✓  node  apps/egress/src/ssrf.test.ts (116 tests) 23ms
+ ✓  node  packages/directory/src/entra.test.ts (26 tests) 19ms
+ ✓  node  apps/edge/src/auth/oidc.test.ts (16 tests) 20ms
+ ✓  node  apps/edge/src/serving/serviceWorkerRuntime.test.ts (16 tests) 19ms
+ ✓  node  packages/shared/src/providers.test.ts (85 tests) 23ms
+ ✓  node  apps/edge/src/telemetry.test.ts (5 tests) 18ms
+ ✓  node  packages/shared/src/approval.test.ts (80 tests) 23ms
+ ✓  node  apps/portal/src/internalJwt.test.ts (15 tests) 11ms
+ ✓  node  packages/cli/src/auth/tokenStore.test.ts (9 tests) 18ms
+ ✓  node  packages/shared/src/secrets.test.ts (41 tests) 10ms
  ✓  node  apps/portal/src/db/migrationsLedger.integration.test.ts (1 test) 17ms
- ✓  node  apps/edge/src/serving/serviceWorkerRuntime.test.ts (16 tests) 18ms
- ✓  node  apps/egress/src/config.test.ts (38 tests) 15ms
- ✓  node  apps/edge/src/gateway/provider.test.ts (12 tests | 1 skipped) 25ms
- ✓  node  apps/portal/src/internalJwt.test.ts (15 tests) 10ms
- ✓  node  apps/egress/src/ssrfRegistry.test.ts (37 tests) 11ms
- ✓  node  packages/shared/src/secrets.test.ts (41 tests) 12ms
- ✓  node  packages/cli/src/auth/session.test.ts (7 tests) 20ms
- ✓  node  packages/cli/src/auth/tokenStore.test.ts (9 tests) 53ms
- ✓  node  apps/edge/src/registry/projection.test.ts (23 tests) 21ms
- ✓  node  packages/shared/src/manifest.test.ts (33 tests) 16ms
- ✓  node  packages/shared/src/logging.test.ts (51 tests) 8ms
- ✓  node  apps/portal/src/db/mappers.test.ts (18 tests) 12ms
- ✓  node  apps/egress/src/internalJwt.test.ts (12 tests) 12ms
- ✓  node  apps/edge/src/auth/handoff.test.ts (10 tests) 9ms
- ✓  node  apps/edge/src/gateway/egressLlmProvider.test.ts (6 tests) 12ms
- ✓  node  packages/shared/src/lifecycle.test.ts (14 tests) 9ms
- ✓  node  apps/edge/src/internalJwt.test.ts (8 tests) 17ms
- ✓  node  packages/shared/src/bodyCap.test.ts (7 tests) 9ms
- ✓  node  apps/portal/src/directory/custody.test.ts (12 tests) 16ms
- ✓  node  apps/edge/src/gateway/openaiProvider.test.ts (21 tests) 30ms
- ✓  node  packages/shared/src/consent.test.ts (15 tests) 9ms
- ✓  node  apps/egress/src/providerCache.test.ts (6 tests) 8ms
- ✓  node  packages/shared/src/providers.adversarial.test.ts (15 tests) 8ms
- ✓  node  packages/shared/src/api.test.ts (13 tests) 8ms
- ✓  node  packages/shared/src/visibility.test.ts (11 tests) 4ms
- ✓  node  packages/shared/src/llm.test.ts (14 tests) 8ms
- ✓  node  packages/cli/src/config.test.ts (13 tests) 15ms
- ✓  node  apps/portal/src/deployment.test.ts (34 tests) 5ms
- ✓  node  packages/telemetry/src/index.test.ts (11 tests) 6ms
- ✓  node  packages/shared/src/fetch.test.ts (29 tests) 6ms
- ✓  node  apps/edge/src/auth/flow.test.ts (4 tests) 13ms
- ✓  node  apps/portal/src/secrets/custody.test.ts (8 tests) 6ms
- ✓  node  packages/shared/src/usage.test.ts (5 tests) 8ms
- ✓  node  packages/telemetry/src/correlation.test.ts (3 tests) 4ms
- ✓  node  apps/portal/src/geo/fetchDb.test.ts (9 tests) 10ms
- ✓  node  packages/shared/src/pricing.test.ts (14 tests) 5ms
- ✓  node  packages/secret-store/src/index.test.ts (10 tests) 5ms
- ✓  node  packages/secret-store/src/token.test.ts (14 tests) 7ms
- ✓  node  packages/shared/src/connections.test.ts (7 tests) 5ms
- ✓  node  apps/edge/src/db/pool.test.ts (12 tests) 5ms
- ✓  node  packages/shared/src/collectionTable.test.ts (34 tests) 7ms
+ ✓  node  apps/edge/src/auth/gateTelemetry.test.ts (3 tests) 21ms
+ ✓  node  apps/egress/src/ssrfRegistry.test.ts (37 tests) 13ms
+ ✓  node  packages/shared/src/consent.test.ts (15 tests) 8ms
+ ✓  node  apps/edge/src/gateway/provider.test.ts (12 tests | 1 skipped) 19ms
+ ✓  node  packages/shared/src/manifest.test.ts (33 tests) 10ms
+ ✓  node  apps/egress/src/config.test.ts (38 tests) 11ms
+ ✓  node  apps/edge/src/gateway/egressLlmProvider.test.ts (6 tests) 14ms
+ ✓  node  apps/portal/src/db/mappers.test.ts (18 tests) 11ms
+ ✓  node  packages/shared/src/bodyCap.test.ts (7 tests) 8ms
+ ✓  node  packages/shared/src/lifecycle.test.ts (14 tests) 7ms
+ ✓  node  apps/edge/src/registry/projection.test.ts (23 tests) 11ms
+ ✓  node  apps/edge/src/auth/handoff.test.ts (10 tests) 8ms
+ ✓  node  packages/cli/src/auth/session.test.ts (7 tests) 12ms
  ✓  node  apps/edge/src/auth/validate.test.ts (22 tests) 5ms
- ✓  node  apps/egress/src/pool.test.ts (12 tests) 5ms
+ ✓  node  apps/egress/src/internalJwt.test.ts (12 tests) 8ms
+ ✓  node  apps/edge/src/internalJwt.test.ts (8 tests) 7ms
+ ✓  node  packages/shared/src/fetch.test.ts (30 tests) 13ms
+ ✓  node  packages/shared/src/logging.test.ts (51 tests) 6ms
+ ✓  node  apps/portal/src/geo/fetchDb.test.ts (9 tests) 6ms
+ ✓  node  apps/egress/src/providerCache.test.ts (6 tests) 8ms
+ ✓  node  packages/shared/src/api.test.ts (13 tests) 8ms
+ ✓  node  packages/shared/src/llm.test.ts (14 tests) 8ms
+ ✓  node  packages/shared/src/usage.test.ts (5 tests) 8ms
+ ✓  node  packages/cli/src/config.test.ts (13 tests) 8ms
+ ✓  node  apps/edge/src/gateway/openaiProvider.test.ts (21 tests) 8ms
+ ✓  node  packages/shared/src/providers.adversarial.test.ts (15 tests) 11ms
+ ✓  node  apps/portal/src/directory/custody.test.ts (12 tests) 8ms
+ ✓  node  packages/telemetry/src/index.test.ts (11 tests) 6ms
+ ✓  node  apps/edge/src/auth/flow.test.ts (4 tests) 6ms
+ ✓  node  packages/shared/src/connections.test.ts (7 tests) 5ms
+ ✓  node  packages/shared/src/pricing.test.ts (18 tests) 5ms
+ ✓  node  packages/secret-store/src/token.test.ts (14 tests) 5ms
+ ✓  node  packages/shared/src/collectionTable.test.ts (34 tests) 5ms
+ ✓  node  packages/shared/src/visibility.test.ts (11 tests) 5ms
+ ✓  node  apps/portal/src/secrets/custody.test.ts (8 tests) 5ms
+ ✓  node  apps/egress/src/pool.test.ts (12 tests) 4ms
+ ✓  node  apps/portal/src/deployment.test.ts (34 tests) 4ms
+ ✓  node  apps/edge/src/blob/token.test.ts (9 tests) 5ms
+ ✓  node  packages/secret-store/src/index.test.ts (10 tests) 4ms
+ ✓  node  apps/edge/src/gateway/ipRateLimiter.test.ts (9 tests) 5ms
+ ✓  node  packages/shared/src/providers.prototype.test.ts (3 tests) 2ms
  ✓  node  packages/directory/src/index.test.ts (12 tests) 5ms
- ✓  node  apps/edge/src/serving/csp.test.ts (24 tests) 4ms
- ✓  node  apps/edge/src/routing/hosts.test.ts (13 tests) 4ms
- ✓  node  packages/shared/src/health.test.ts (8 tests) 5ms
- ✓  node  packages/shared/src/telemetry.test.ts (8 tests) 6ms
+ ✓  node  apps/edge/src/db/pool.test.ts (12 tests) 6ms
+ ✓  node  packages/shared/src/telemetry.test.ts (8 tests) 4ms
+ ✓  node  packages/shared/src/providers.misuse.test.ts (3 tests) 4ms
  ✓  node  apps/portal/src/netControls/egressHosts.test.ts (8 tests) 4ms
- ✓  node  packages/shared/src/instruction.test.ts (6 tests) 5ms
- ✓  node  apps/edge/src/gateway/leaseStore.test.ts (9 tests) 3ms
- ✓  node  packages/shared/src/providers.misuse.test.ts (3 tests) 8ms
- ✓  node  packages/telemetry/src/config.test.ts (12 tests) 6ms
- ✓  node  packages/shared/src/usageEstimate.test.ts (14 tests) 4ms
- ✓  node  apps/edge/src/gateway/usage.test.ts (13 tests) 5ms
- ✓  node  packages/deploy-skill/src/index.test.ts (13 tests) 4ms
- ✓  node  apps/edge/src/blob/token.test.ts (9 tests) 4ms
- ✓  node  apps/portal/src/policy/directoryPolicy.test.ts (22 tests) 3ms
- ✓  node  apps/portal/src/geo/resolver.test.ts (20 tests) 5ms
+ ✓  node  packages/telemetry/src/correlation.test.ts (3 tests) 5ms
+ ✓  node  packages/shared/src/instruction.test.ts (6 tests) 4ms
+ ✓  node  apps/edge/src/routing/hosts.test.ts (13 tests) 4ms
+ ✓  node  packages/deploy-skill/src/index.test.ts (13 tests) 5ms
+ ✓  node  packages/shared/src/health.test.ts (8 tests) 5ms
+ ✓  node  apps/egress/src/hmac.test.ts (12 tests) 3ms
+ ✓  node  apps/edge/src/serving/csp.test.ts (24 tests) 3ms
+ ✓  node  apps/edge/src/gateway/leaseStore.test.ts (9 tests) 4ms
  ✓  node  apps/portal/src/deploy/limits.test.ts (10 tests) 3ms
- ✓  node  apps/edge/src/gateway/ipRateLimiter.test.ts (9 tests) 7ms
- ✓  node  apps/edge/src/auth/cookies.test.ts (10 tests) 3ms
- ✓  node  apps/edge/src/auth/identity.test.ts (12 tests) 3ms
- ✓  node  apps/edge/src/auth/secrets.test.ts (4 tests) 15ms
- ✓  node  apps/portal/src/policy/modelPolicy.test.ts (10 tests) 11ms
- ✓  node  apps/edge/src/db/partition.test.ts (5 tests) 5ms
- ✓  node  apps/egress/src/hmac.test.ts (12 tests) 4ms
+ ✓  node  apps/edge/src/gateway/usage.test.ts (13 tests) 4ms
+ ✓  node  packages/shared/src/usageEstimate.test.ts (17 tests) 3ms
+ ✓  node  apps/portal/src/geo/resolver.test.ts (20 tests) 5ms
+ ✓  node  apps/portal/src/db/client.test.ts (5 tests) 2ms
+ ✓  node  apps/edge/src/db/partition.test.ts (5 tests) 3ms
+ ✓  node  packages/telemetry/src/config.test.ts (12 tests) 4ms
+ ✓  node  apps/portal/src/policy/directoryPolicy.test.ts (22 tests) 4ms
+ ✓  node  apps/edge/src/auth/identity.test.ts (12 tests) 2ms
  ✓  node  packages/shared/src/auth.test.ts (8 tests) 3ms
+ ✓  node  apps/portal/src/policy/modelPolicy.test.ts (10 tests) 3ms
+ ✓  node  apps/edge/src/auth/secrets.test.ts (4 tests) 3ms
+ ✓  node  apps/edge/src/auth/cookies.test.ts (10 tests) 3ms
  ✓  node  apps/edge/src/serving/paths.test.ts (24 tests) 3ms
  ✓  node  packages/telemetry/src/propagation.test.ts (7 tests) 3ms
  ✓  node  apps/edge/src/registry/health.test.ts (7 tests) 3ms
- ✓  node  packages/shared/src/devToken.test.ts (2 tests) 3ms
- ✓  node  apps/edge/src/blob/signing.test.ts (6 tests) 3ms
+ ✓  node  apps/edge/src/blob/signing.test.ts (6 tests) 2ms
  ✓  node  packages/cli/src/args.test.ts (4 tests) 2ms
+ ✓  node  packages/shared/src/devToken.test.ts (2 tests) 3ms
  ✓  node  apps/edge/src/gateway/leaseStore.inflightCheck.test.ts (3 tests) 2ms
- ✓  node  apps/edge/src/gateway/denialThrottle.test.ts (6 tests) 2ms
- ✓  node  packages/shared/src/providers.prototype.test.ts (3 tests) 3ms
  ✓  node  apps/edge/src/auth/loginThrottle.test.ts (5 tests) 2ms
- ✓  node  apps/portal/src/db/client.test.ts (5 tests) 2ms
- ✓  node  apps/edge/src/gateway/usage.platformSpendCheck.test.ts (5 tests) 3ms
+ ✓  node  apps/edge/src/gateway/denialThrottle.test.ts (6 tests) 3ms
+ ✓  node  packages/shared/src/internalJwt.test.ts (2 tests) 1ms
+ ✓  node  apps/edge/src/gateway/usage.platformSpendCheck.test.ts (5 tests) 2ms
+ ✓  node  apps/egress/src/burn.test.ts (3 tests) 2ms
  ✓  node  packages/shared/src/app.test.ts (2 tests) 2ms
  ✓  node  apps/edge/src/gateway/replicaGate.test.ts (3 tests) 2ms
- ✓  node  apps/egress/src/burn.test.ts (3 tests) 2ms
- ✓  node  packages/shared/src/internalJwt.test.ts (2 tests) 4ms
- ✓  node  packages/shared/src/index.test.ts (1 test) 8ms
- ✓  portal-web  src/test/access-tab.test.tsx (25 tests) 3528ms
-     ✓ confirms before making an app internal, and cancel applies nothing  573ms
-     ✓ restricts an internal app to groups, stating the narrowing  421ms
+ ✓  node  packages/shared/src/llmTimeouts.test.ts (1 test) 1ms
+ ✓  node  packages/shared/src/index.test.ts (1 test) 1ms
+ ✓  portal-web  src/test/access-tab.test.tsx (25 tests) 3150ms
+     ✓ confirms before making an app internal, and cancel applies nothing  452ms
 stderr | src/test/provider-form.test.tsx > ProviderFormPage deletion > shows the impact before confirming; Confirm deletes; a repeat reports already removed
 No routes matched location "/admin/providers" 
 
- ✓  portal-web  src/test/providers-import-export.test.tsx (15 tests) 2653ms
-     ✓ create apply sends document + explicit env + entered credentials, reports created, refetches the list  365ms
-     ✓ a lost apply response is outcome not confirmed — retry gated on a refresh  346ms
-     ✓ runs create entirely from the keyboard, with the preview tab-reachable and the outcome announced  306ms
- ✓  portal-web  src/test/provider-form.test.tsx (12 tests) 7303ms
-     ✓ submits the full field contract — env, canonical origins, placement — and navigates to the edit route  2192ms
-     ✓ mirrors the server's 422s inline, announces an assertive summary, and sends nothing  1283ms
-     ✓ reports a duplicate create naming the existing ref + environment  1411ms
-     ✓ opens the review panel with the field diff and impact counts BEFORE sending, and Confirm applies with the acknowledgement  401ms
-     ✓ Cancel returns to the form with the draft intact and nothing sent  403ms
-     ✓ operates edit → review → cancel → review → confirm entirely from the keyboard, with modal focus management  440ms
- ✓  portal-web  src/test/capabilities-bindings.test.tsx (13 tests) 8063ms
-     ✓ swaps in the provider picker + Required switch, removes the secret input, and saves the provider-bound origin through the approval flow  2196ms
-     ✓ shows the field error and blocks save when the origin is not one of the provider's API destinations, mirroring the server  1424ms
-     ✓ mirrors the server across environments: the origin must be a destination of EVERY tier the ref is configured in  1020ms
-     ✓ renders the OAuth provider option disabled with ask-an-administrator guidance when no providers are configured  742ms
-     ✓ hides the Required switch until a provider is chosen and saves it as the manifest field it is  827ms
-     ✓ drives the credential select, the provider picker, and the Required switch without a pointer  809ms
- ✓  portal-web  src/test/capabilities-llm.test.tsx (8 tests) 1951ms
-     ✓ renders the advertised catalogue as checkbox rows  582ms
- ✓  portal-web  src/test/apps-list.test.tsx (36 tests) 2452ms
- ✓  portal-web  src/test/data-tab.test.tsx (18 tests) 1358ms
- ✓  portal-web  src/test/audit-page.test.tsx (14 tests) 1145ms
- ✓  portal-web  src/test/overview-tab.test.tsx (14 tests) 888ms
-     ✓ lets the owner edit and save the description via PATCH  437ms
- ✓  portal-web  src/test/providers-list.test.tsx (10 tests) 781ms
+ ✓  portal-web  src/test/apps-list.test.tsx (36 tests) 2212ms
+ ✓  portal-web  src/test/provider-form.test.tsx (12 tests) 6330ms
+     ✓ submits the full field contract — env, canonical origins, placement — and navigates to the edit route  1805ms
+     ✓ mirrors the server's 422s inline, announces an assertive summary, and sends nothing  1197ms
+     ✓ reports a duplicate create naming the existing ref + environment  1019ms
+     ✓ opens the review panel with the field diff and impact counts BEFORE sending, and Confirm applies with the acknowledgement  428ms
+     ✓ Cancel returns to the form with the draft intact and nothing sent  359ms
+     ✓ operates edit → review → cancel → review → confirm entirely from the keyboard, with modal focus management  372ms
+ ✓  portal-web  src/test/capabilities-bindings.test.tsx (13 tests) 7074ms
+     ✓ swaps in the provider picker + Required switch, removes the secret input, and saves the provider-bound origin through the approval flow  1707ms
+     ✓ shows the field error and blocks save when the origin is not one of the provider's API destinations, mirroring the server  1268ms
+     ✓ mirrors the server across environments: the origin must be a destination of EVERY tier the ref is configured in  777ms
+     ✓ renders the OAuth provider option disabled with ask-an-administrator guidance when no providers are configured  657ms
+     ✓ hides the Required switch until a provider is chosen and saves it as the manifest field it is  763ms
+     ✓ drives the credential select, the provider picker, and the Required switch without a pointer  816ms
+ ✓  portal-web  src/test/capabilities-llm.test.tsx (8 tests) 1845ms
+     ✓ renders the advertised catalogue as checkbox rows  551ms
+ ✓  portal-web  src/test/data-tab.test.tsx (18 tests) 1414ms
+ ✓  portal-web  src/test/providers-import-export.test.tsx (15 tests) 2526ms
+     ✓ create apply sends document + explicit env + entered credentials, reports created, refetches the list  355ms
+     ✓ runs create entirely from the keyboard, with the preview tab-reachable and the outcome announced  305ms
+ ✓  portal-web  src/test/audit-page.test.tsx (14 tests) 1135ms
+ ✓  portal-web  src/test/overview-tab.test.tsx (14 tests) 877ms
+     ✓ lets the owner edit and save the description via PATCH  466ms
+ ✓  portal-web  src/test/providers-list.test.tsx (10 tests) 780ms
+ ✓  portal-web  src/test/app-create-form.test.tsx (5 tests) 638ms
+ ✓  portal-web  src/test/secrets-admin.test.tsx (6 tests) 604ms
+ ✓  portal-web  src/test/connections-page.test.tsx (10 tests) 620ms
 stderr | src/test/usage-tab.test.tsx > UsageTab outcome tones > renders connection_required with its own tone, distinct from refusal
 The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
@@ -674,22 +670,13 @@ The width(-1) and height(-1) of chart should be greater than 0,
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
 
-stderr | src/test/usage-tab.test.tsx > UsageTab recent calls > shows the owner the app's calls, without the admin-only failure text
-The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-
-stderr | src/test/usage-tab.test.tsx > UsageTab recent calls > points an admin at the audit log for the full failure detail
-The width(-1) and height(-1) of chart should be greater than 0,
-       please check the style of container, or the props width(100%) and height(100%),
-       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
-       height and width.
-
- ✓  portal-web  src/test/usage-tab.test.tsx (5 tests) 705ms
- ✓  portal-web  src/test/app-create-form.test.tsx (5 tests) 714ms
- ✓  portal-web  src/test/sessions-page.test.tsx (7 tests) 674ms
 stderr | src/test/visitors-section.test.tsx > VisitorsSection > shows the KPIs with deltas against the prior window
+The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
+stderr | src/test/usage-tab.test.tsx > UsageTab recent calls > shows the owner the app's calls, without the admin-only failure text
 The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
@@ -701,20 +688,25 @@ The width(-1) and height(-1) of chart should be greater than 0,
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
 
+stderr | src/test/usage-tab.test.tsx > UsageTab recent calls > points an admin at the audit log for the full failure detail
+The width(-1) and height(-1) of chart should be greater than 0,
+       please check the style of container, or the props width(100%) and height(100%),
+       or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
+       height and width.
+
 stderr | src/test/visitors-section.test.tsx > VisitorsSection > says location is unavailable instead of showing an empty table
 The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
 
- ✓  portal-web  src/test/connections-page.test.tsx (10 tests) 771ms
 stderr | src/test/visitors-section.test.tsx > VisitorsSection > shows the window when it has visitors but no visit started in it
 The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
 
- ✓  portal-web  src/test/help-modal.test.tsx (8 tests) 693ms
+ ✓  portal-web  src/test/usage-tab.test.tsx (5 tests) 698ms
 stderr | src/test/visitors-section.test.tsx > VisitorsSection > refetches for the selected range
 The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
@@ -727,43 +719,42 @@ The width(-1) and height(-1) of chart should be greater than 0,
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
 
- ✓  portal-web  src/test/visitors-section.test.tsx (12 tests) 706ms
- ✓  portal-web  src/test/deploy-modal.test.tsx (8 tests) 550ms
- ✓  portal-web  src/test/secrets-admin.test.tsx (6 tests) 655ms
- ✓  portal-web  src/test/approvals-delegated.test.tsx (8 tests) 530ms
- ✓  portal-web  src/test/secrets-card.test.tsx (3 tests) 493ms
-     ✓ reports a load failure instead of rendering a blank panel  305ms
- ✓  portal-web  src/test/deltas.test.tsx (14 tests) 388ms
- ✓  portal-web  src/test/approvals-page.test.tsx (3 tests) 596ms
- ✓  portal-web  src/test/approvals.test.tsx (5 tests) 316ms
- ✓  portal-web  src/test/versions-tab.test.tsx (4 tests) 324ms
- ✓  portal-web  src/test/guards.test.tsx (7 tests) 342ms
+ ✓  portal-web  src/test/visitors-section.test.tsx (12 tests) 636ms
+ ✓  portal-web  src/test/help-modal.test.tsx (8 tests) 648ms
+ ✓  portal-web  src/test/sessions-page.test.tsx (7 tests) 652ms
+ ✓  portal-web  src/test/deploy-modal.test.tsx (8 tests) 525ms
+ ✓  portal-web  src/test/approvals-page.test.tsx (3 tests) 442ms
+ ✓  portal-web  src/test/secrets-card.test.tsx (3 tests) 440ms
+ ✓  portal-web  src/test/approvals-delegated.test.tsx (8 tests) 480ms
+ ✓  portal-web  src/test/deltas.test.tsx (14 tests) 363ms
+ ✓  portal-web  src/test/approvals.test.tsx (5 tests) 276ms
+ ✓  portal-web  src/test/versions-tab.test.tsx (4 tests) 303ms
+ ✓  portal-web  src/test/guards.test.tsx (7 tests) 349ms
 stderr | src/test/usage-charts.test.tsx > usage charts > renders the trend without throwing for a sparse series
 The width(-1) and height(-1) of chart should be greater than 0,
        please check the style of container, or the props width(100%) and height(100%),
        or add a minWidth(0) or minHeight(undefined) or use aspect(undefined) to control the
        height and width.
 
- ✓  portal-web  src/test/usage-charts.test.tsx (2 tests) 262ms
- ✓  portal-web  src/test/fix-bundle-flow.test.tsx (4 tests) 286ms
- ✓  portal-web  src/test/registry-redirect.test.tsx (1 test) 325ms
-     ✓ redirects a non-admin to the apps page at scope=all  325ms
- ✓  portal-web  src/test/scroll-fade.test.tsx (9 tests) 46ms
- ✓  portal-web  src/test/upload-step.test.tsx (2 tests) 214ms
- ✓  portal-web  src/test/dev-mode-tab.test.tsx (2 tests) 247ms
+ ✓  portal-web  src/test/fix-bundle-flow.test.tsx (4 tests) 213ms
+ ✓  portal-web  src/test/usage-charts.test.tsx (2 tests) 263ms
+ ✓  portal-web  src/test/registry-redirect.test.tsx (1 test) 272ms
+ ✓  portal-web  src/test/scroll-fade.test.tsx (9 tests) 36ms
+ ✓  portal-web  src/test/dev-mode-tab.test.tsx (2 tests) 220ms
+ ✓  portal-web  src/test/upload-step.test.tsx (2 tests) 208ms
  ✓  portal-web  src/pages/tabs/accessTransition.test.ts (20 tests) 31ms
- ✓  portal-web  src/deploy/archive.test.ts (8 tests) 18ms
- ✓  portal-web  src/api/client.test.ts (7 tests) 18ms
- ✓  portal-web  src/lib/format.test.ts (4 tests) 7ms
- ✓  portal-web  src/deploy/report.test.ts (2 tests) 7ms
+ ✓  portal-web  src/deploy/archive.test.ts (8 tests) 19ms
+ ✓  portal-web  src/api/client.test.ts (7 tests) 15ms
+ ✓  portal-web  src/lib/format.test.ts (4 tests) 8ms
+ ✓  portal-web  src/deploy/report.test.ts (2 tests) 6ms
 
- Test Files  242 passed (242)
-      Tests  3669 passed | 1 skipped (3670)
-   Start at  23:10:44
-   Duration  67.58s (transform 6.04s, setup 1.39s, import 46.83s, tests 119.89s, environment 11.12s)
+ Test Files  243 passed (243)
+      Tests  3704 passed | 1 skipped (3705)
+   Start at  00:28:29
+   Duration  59.84s (transform 5.09s, setup 1.33s, import 38.54s, tests 110.15s, environment 10.19s)
 
-✔ tests passed (68s)
+✔ tests passed (61s)
 
 ────────────────────────────────────────
-timing: typecheck=17s lint=7s refs=0s format=6s docs=3s tests=68s total=101s
+timing: typecheck=14s lint=7s refs=0s format=6s docs=2s tests=61s total=90s
 ✔ All checks passed

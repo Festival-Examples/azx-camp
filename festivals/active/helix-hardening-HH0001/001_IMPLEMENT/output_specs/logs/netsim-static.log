@@ -1,24 +1,24 @@
-✔ every (direction, priority) is unique within pinned variant (0.538214ms)
-✔ every (direction, priority) is unique within unpinned variant (0.077751ms)
-✔ every $-ref in the rule file exists in networks.json refs (0.138168ms)
-✔ every non-literal destination prefix is a known tag or ref (0.083334ms)
-✔ no deny-wire-server row (Microsoft warns against denying 168.63.129.16 on ACA subnets) (0.051126ms)
-✔ allow-apps-subnet includes ILB backend ports 31080 and 31443 (0.067043ms)
-✔ deny-vnet-in and deny-cgnat are enforce-only (0.286086ms)
-✔ allow-key-vault-endpoints resolves pinned vault IPs (0.063168ms)
-✔ deny-vnet is after postgres, vault, dns and own-subnet allows (0.051334ms)
-✔ deny-all-outbound in enforce only (0.085084ms)
-✔ off mode yields no NSG rows (only baseline chains) (0.106917ms)
-✔ golden: allow-postgres (0.816009ms)
-✔ golden: deny-private-ranges (three DROP rules) (0.265711ms)
-✔ golden: allow-internet-web (0.093585ms)
-✔ golden: allow-azure-dns tcp and udp 53 (0.076251ms)
-✔ golden: deny-all-outbound (0.085043ms)
-✔ golden: Azure host-node exemption lines before NSG rows (0.05675ms)
-✔ applyBreak remove and renumber (0.117001ms)
-✔ applyBreak rejects unknown name (0.245419ms)
-✔ pinned vs unpinned active rules at priority 120 (0.064376ms)
-✔ resolveRule expands allowedPorts (0.034459ms)
+✔ every (direction, priority) is unique within pinned variant (0.52171ms)
+✔ every (direction, priority) is unique within unpinned variant (0.073572ms)
+✔ every $-ref in the rule file exists in networks.json refs (0.098818ms)
+✔ every non-literal destination prefix is a known tag or ref (0.08607ms)
+✔ no deny-wire-server row (Microsoft warns against denying 168.63.129.16 on ACA subnets) (0.050533ms)
+✔ allow-apps-subnet includes ILB backend ports 31080 and 31443 (0.065282ms)
+✔ deny-vnet-in and deny-cgnat are enforce-only (0.265708ms)
+✔ allow-key-vault-endpoints resolves pinned vault IPs (0.060741ms)
+✔ deny-vnet is after postgres, vault, dns and own-subnet allows (0.053033ms)
+✔ deny-all-outbound in enforce only (0.07603ms)
+✔ off mode yields no NSG rows (only baseline chains) (0.112608ms)
+✔ golden: allow-postgres (0.143519ms)
+✔ golden: deny-private-ranges (three DROP rules) (0.802833ms)
+✔ golden: allow-internet-web (0.089153ms)
+✔ golden: allow-azure-dns tcp and udp 53 (0.07753ms)
+✔ golden: deny-all-outbound (0.069989ms)
+✔ golden: Azure host-node exemption lines before NSG rows (0.054783ms)
+✔ applyBreak remove and renumber (0.095527ms)
+✔ applyBreak rejects unknown name (0.184971ms)
+✔ pinned vs unpinned active rules at priority 120 (0.046118ms)
+✔ resolveRule expands allowedPorts (0.030162ms)
 ℹ tests 21
 ℹ suites 0
 ℹ pass 21
@@ -26,4 +26,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 36.332899
+ℹ duration_ms 38.014391

@@ -117,3 +117,9 @@ From the sequence 01 iterate gate (`festivals/active/helix-hardening-HH0001/001_
   - The registry test's parser should read the real snapshot.
   - `egress-hosts` should report ports.
   - Before turning any of this on, an operator needs the scratch-copy `net-verify` run plus the edge→egress `/health` check.
+
+## Follow-ups recorded during pull-request review
+
+- From the PR #2 fix (`festivals/active/helix-hardening-HH0001/001_IMPLEMENT/01_spend_controls/results/pr2-review-fixes.md`): a reasoning-model call that stays silent until its deadline or a hop timeout is charged its input estimate only. Charging a floor on deadline and timeout cuts, not on client hang-ups, is an owner decision.
+- From the PR #3 fix (`festivals/active/helix-hardening-HH0001/001_IMPLEMENT/02_network_egress/results/pr3-review-fixes.md`): feed the private endpoints' assigned addresses into the NSG at deploy time, so an install without pinned addresses can prove its deny rules. Until then `just infra net-verify` exits 3 there.
+- From the phase gate: `usage.rls.integration.test.ts` (the platform-sum cases added in sequence 01) failed once during IT-11 after its IT-5 rework. The cause was not established.

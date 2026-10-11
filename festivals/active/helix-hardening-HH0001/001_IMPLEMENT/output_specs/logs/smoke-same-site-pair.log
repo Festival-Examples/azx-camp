@@ -1,5 +1,5 @@
 node .claude/skills/run-helix/smoke.mjs "$@"
-Helix smoke test   artifacts → /tmp/helix-smoke-orT3F0
+Helix smoke test   artifacts → /tmp/helix-smoke-fUBw8L
 isolated stack: offset 1000, ports 9080 9081 9082 4001 4002 6173 4003 4443, db helix_smoke
 
   reusing database helix_smoke
@@ -25,7 +25,7 @@ portal — fastify + Prisma control plane
   ✓ public bootstrap config  https://apps.local.helix.azxlabs.io:9080
   ✓ unauthenticated read is rejected
   ✓ authenticated app list (Prisma read)  3 apps
-  ✓ create app (Prisma write)  smoke-3c59e935
+  ✓ create app (Prisma write)  smoke-c6c41fed
   ✓ read back the created app
   ✓ zod boundary rejects a malformed body
 
@@ -49,16 +49,16 @@ egress — mechanism plane (attested instruction verification)
   ✓ forged instruction is refused before dialing the target
 
 portal SPA — vite build, served by the portal
-  ✓ vite production build  1730 modules
+  ✓ vite production build  1731 modules
   ✓ portal serves the built index.html  2 hashed assets
   ✓ hashed assets resolve with correct content types  2 ok
   ✓ SPA deep link falls through to index (client routing)
 
 browser — real Chromium over CDP
-  ✓ signed-out shell renders without page errors  /tmp/helix-smoke-orT3F0/signed-out.png
-  ✓ authenticated dashboard renders  /tmp/helix-smoke-orT3F0/dashboard.png
-  ✓ authenticated apps-list renders  /tmp/helix-smoke-orT3F0/apps-list.png
-  ✓ enforced CSP blocks remote image and records violation for smoke-csp  2 report(s); disposition="enforce"
+  ✓ signed-out shell renders without page errors  /tmp/helix-smoke-fUBw8L/signed-out.png
+  ✓ authenticated dashboard renders  /tmp/helix-smoke-fUBw8L/dashboard.png
+  ✓ authenticated apps-list renders  /tmp/helix-smoke-fUBw8L/apps-list.png
+  ✓ enforced CSP blocks remote image and records violation for smoke-csp  3 report(s); disposition="enforce"
   ✓ granted origin appears in smoke-csp CSP  https://smoke-public.apps.local.helix.azxlabs.io:9080
 
 split — cross-domain login, Sec-Fetch-Site, cookies, silent refresh
@@ -72,7 +72,7 @@ split — cross-domain login, Sec-Fetch-Site, cookies, silent refresh
 
 helix CLI — esbuild bundle driven against the live portal
   ✓ esbuild bundle  built
-  ✓ CLI reads versions from the live portal  smoke-public: 49 versions
+  ✓ CLI reads versions from the live portal  smoke-public: 55 versions
 
 ────────────────────────────────────────────────────────────
 47 passed, 0 failed, 0 skipped

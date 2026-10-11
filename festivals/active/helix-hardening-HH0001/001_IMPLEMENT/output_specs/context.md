@@ -5,7 +5,7 @@
 - Code: `projects/helix`, remote `git@github.com:lancekrogers/helix.git` (private).
 - Festival and design records: the camp repo `/Users/lancerogers/campaigns/azx` (local commits; its private remote `lancekrogers/azx-camp` has not been pushed since the festival began).
 - Pre-festival base: `792557a` (merge of PR #1, the justfile change).
-- Last festival commit: `97b3fe1`.
+- Tip of the stack: `ca0afd1` (branch `hardening/04-domain-split`).
 
 ## State of the private remote now
 
@@ -13,20 +13,39 @@
 
 ```text
 $ git ls-remote --heads origin main "hardening/*"
-ecdc5b37f4eb338b1b5bcc2a43bf3484546a62d6	refs/heads/hardening/01-spend-controls
-74b148451194896a6731ec8c8fb6ddd6da34b10e	refs/heads/hardening/02-network-egress
-6cc37531551ec1616e1b6fc07856af4c0845fa71	refs/heads/hardening/03-csp-and-headers
-97b3fe1fc4e1a4c641614818f0c4f7a6b6ff01f4	refs/heads/hardening/04-domain-split
+c41a69c146ce88f5f71d6c4fc6a3bb8ed2460310	refs/heads/hardening/01-spend-controls
+149ac5a44e89730caa756ff25a7fea86712df4c0	refs/heads/hardening/02-network-egress
+e1e071e38232478d377c55075f88109c03743df9	refs/heads/hardening/03-csp-and-headers
+ca0afd1ce96fe2781426ea0ad9a82881dc2ade27	refs/heads/hardening/04-domain-split
 792557ae32aa3fd22d672552fcfb497b98652b1d	refs/heads/main
 
-$ gh pr list -R lancekrogers/helix --state all
-#5 [OPEN] Hardening 4/4: control/apps domain split | hardening/04-domain-split -> hardening/03-csp-and-headers | https://github.com/lancekrogers/helix/pull/5
-#4 [OPEN] Hardening 3/4: CSP and proxied-response headers | hardening/03-csp-and-headers -> hardening/02-network-egress | https://github.com/lancekrogers/helix/pull/4
-#3 [OPEN] Hardening 2/4: network egress controls | hardening/02-network-egress -> hardening/01-spend-controls | https://github.com/lancekrogers/helix/pull/3
-#2 [OPEN] Hardening 1/4: LLM spend controls | hardening/01-spend-controls -> main | https://github.com/lancekrogers/helix/pull/2
-#1 [MERGED] Add modular justfile and disable automatic CI/CD | chore/justfile -> main | https://github.com/lancekrogers/helix/pull/1
+$ gh pr list -R lancekrogers/helix --state all --json number,state,reviewDecision,headRefName,headRefOid,baseRefName,title --jq '.[] | "#\(.number) [\(.state)] review=\(.reviewDecision) \(.headRefName)@\(.headRefOid[0:7]) -> \(.baseRefName) | \(.title)"'
+#5 [OPEN] review=APPROVED hardening/04-domain-split@ca0afd1 -> hardening/03-csp-and-headers | Hardening 4/4: control/apps domain split
+#4 [OPEN] review=APPROVED hardening/03-csp-and-headers@e1e071e -> hardening/02-network-egress | Hardening 3/4: CSP and proxied-response headers
+#3 [OPEN] review=CHANGES_REQUESTED hardening/02-network-egress@149ac5a -> hardening/01-spend-controls | Hardening 2/4: network egress controls
+#2 [OPEN] review=CHANGES_REQUESTED hardening/01-spend-controls@c41a69c -> main | Hardening 1/4: LLM spend controls
+#1 [MERGED] review= chore/justfile@11b4f14 -> main | Add modular justfile and disable automatic CI/CD
 
-$ gh api repos/lancekrogers/helix --jq "{visibility, default_branch}"
+$ gh api repos/lancekrogers/helix/pulls/2/reviews --jq '.[] | "PR #2 review: \(.submitted_at) \(.user.login) \(.state)"'
+PR #2 review: 2026-10-10T23:12:00Z obey-agent CHANGES_REQUESTED
+
+$ gh api repos/lancekrogers/helix/pulls/3/reviews --jq '.[] | "PR #3 review: \(.submitted_at) \(.user.login) \(.state)"'
+PR #3 review: 2026-10-10T23:12:01Z obey-agent CHANGES_REQUESTED
+
+$ gh api repos/lancekrogers/helix/pulls/4/reviews --jq '.[] | "PR #4 review: \(.submitted_at) \(.user.login) \(.state)"'
+PR #4 review: 2026-10-10T23:12:02Z obey-agent APPROVED
+
+$ gh api repos/lancekrogers/helix/pulls/5/reviews --jq '.[] | "PR #5 review: \(.submitted_at) \(.user.login) \(.state)"'
+PR #5 review: 2026-10-10T23:12:03Z obey-agent APPROVED
+
+$ for c in c41a69c 955af5e 149ac5a e1e071e ca0afd1; do TZ=UTC git log -1 --date=format-local:%FT%TZ --format='%h committed %cd' $c; done
+c41a69c committed 2026-10-10T23:55:11Z
+955af5e committed 2026-10-11T00:02:06Z
+149ac5a committed 2026-10-11T00:19:53Z
+e1e071e committed 2026-10-11T00:22:22Z
+ca0afd1 committed 2026-10-11T00:27:12Z
+
+$ gh api repos/lancekrogers/helix --jq '{visibility, default_branch}'
 {"default_branch":"main","visibility":"private"}
 
 $ git log --oneline --reverse 792557a..origin/hardening/01-spend-controls
@@ -48,6 +67,7 @@ a4423eb [azx:8817364a-FE-HH0001-PH-001-SQ-01] Iterate IT-2: bound cut-call charg
 52ab612 [azx:8817364a-FE-HH0001-PH-001-SQ-01] Iterate IT-3: classify new LLM grants and app-creation capabilities, keep create response compatible
 be1e6aa [azx:8817364a-FE-HH0001-PH-001-SQ-01] Iterate IT-4: close hang-up windows, fix egress hang-up telemetry, bound lease lock waits
 ecdc5b3 [azx:8817364a-FE-HH0001-PH-001-SQ-01] Iterate IT-5: make spend-control tests prove their behavior, declare the visibilityGroupIds default
+c41a69c [azx:8817364a-FE-HH0001-PH-001-SQ-01] Review fix (PR #2): LLM call deadline governs both hops, timeouts after dispatch are charged as a cut, reasoning cap matches the request builder
 
 $ git log --oneline --reverse origin/hardening/01-spend-controls..origin/hardening/02-network-egress
 00e626e [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-1: block Azure platform and special-purpose ranges in the SSRF filter
@@ -63,6 +83,8 @@ e78b716 [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-9: scheduled network probe job,
 96e54b3 [azx:8817364a-FE-HH0001-PH-001-SQ-02] EG-11: network egress docs, ADR amendments and rollout notes
 0f4e5de [azx:8817364a-FE-HH0001-PH-001-SQ-02] Iterate IT-6: open the ILB backend ports, drop the 168.63.129.16 deny, allow egress's own Key Vault, keep the CGNAT deny out of the default mode
 74b1484 [azx:8817364a-FE-HH0001-PH-001-SQ-02] Iterate IT-7: network upgrade section with NSG hold-off, outbound-only probe caveat, kv-platform limit, corrected docs and parameter files
+955af5e [azx:8817364a-FE-HH0001-PH-001-SQ-02] Merge hardening/01-spend-controls (PR #2 review fix) into network egress; the llm dispatcher keeps the extra SSRF block list
+149ac5a [azx:8817364a-FE-HH0001-PH-001-SQ-02] Review fix (PR #3): the probe reports whether a deny was proven, net-verify exits 3 when none was, port checks no longer count, detached-NSG simulation scenario
 
 $ git log --oneline --reverse origin/hardening/02-network-egress..origin/hardening/03-csp-and-headers
 04bfd6b [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-1: strip policy and reporting headers from proxied responses
@@ -70,6 +92,7 @@ $ git log --oneline --reverse origin/hardening/02-network-egress..origin/hardeni
 19f4ca7 [azx:8817364a-FE-HH0001-PH-001-SQ-03] CT-3: enforce tightened img-src and object-src, add EDGE_IMG_SRC_ALLOW_ALL and the EDGE_IMG_SRC_REPORT_ONLY measurement mode
 1b0eef3 [azx:8817364a-FE-HH0001-PH-001-SQ-03] Iterate IT-8: refuse worker loads on the gateway, default-src none on proxied responses, keep wss origins, cap CSP report inserts, harden the smoke check
 6cc3753 [azx:8817364a-FE-HH0001-PH-001-SQ-03] Iterate IT-9: image-policy hold-off as step 0, origin audit query, proxied-response and report-sink docs, residual channels
+e1e071e [azx:8817364a-FE-HH0001-PH-001-SQ-03] Merge hardening/02-network-egress (PR #2 and PR #3 review fixes) into CSP and headers
 
 $ git log --oneline --reverse origin/hardening/03-csp-and-headers..origin/hardening/04-domain-split
 44b4744 [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-4: second loopback dev domain (HELIX_APPS_DOMAIN)
@@ -81,6 +104,13 @@ f7ef250 [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-9: Bicep, DNS and certbot for a
 5c56761 [azx:8817364a-FE-HH0001-PH-001-SQ-04] CT-10: domain-split docs, ADR-0028/0019/0044 amendments and hosted-app containment rollout notes
 8661102 [azx:8817364a-FE-HH0001-PH-001-SQ-04] Iterate IT-10: hostedAppsLive separates apps-domain provisioning from cutover; domain guards, apps-cert probe, NS output, stricter split smoke
 97b3fe1 [azx:8817364a-FE-HH0001-PH-001-SQ-04] Iterate IT-11: provision/verify/cutover rollout with rollback, containment step 0, callback check, docs aligned with the split boot rules
+ca0afd1 [azx:8817364a-FE-HH0001-PH-001-SQ-04] Merge hardening/03-csp-and-headers (PR #2 and PR #3 review fixes) into domain split
+
+$ git rev-list --count 792557a..origin/hardening/04-domain-split
+50
+
+$ git rev-list --count --merges 792557a..origin/hardening/04-domain-split
+3
 ```
 
 ## What "merged on the private remote" means today
@@ -105,14 +135,28 @@ On 2026-10-10, after sequence 04 closed, the owner asked for pull requests and c
  + 97b3fe1...792557a 792557a -> main (forced update)
 ```
 
-So today: all 45 commits (34 planned changes and 11 review-fix batches) are on the private remote, on four stacked branches, in four open, ready-for-review PRs (#2 to #5). **They are not merged into `main`.** Merging is the owner's step. Merging in order with merge commits restores `main` with the same commit objects.
+## Review on the pull requests
+
+An automated reviewer (`obey-agent`) reviewed all four PRs on 2026-10-10 at 23:12 UTC. It approved #4 and #5 with no issues, and requested changes on #2 (two charging bugs) and #3 (a green probe did not prove the NSG). Each finding was checked against the code and fixed on the PR's own branch, then merged forward so the stack stays consistent:
+
+```text
+   ecdc5b3..c41a69c  hardening/01-spend-controls      review fix for PR #2
+   74b1484..955af5e  hardening/02-network-egress      merge of 01 (the llm dispatcher keeps the extra SSRF block list)
+   955af5e..149ac5a  hardening/02-network-egress      review fix for PR #3
+   6cc3753..e1e071e  hardening/03-csp-and-headers     merge of 02
+   97b3fe1..ca0afd1  hardening/04-domain-split        merge of 03
+```
+
+The fix records are `01_spend_controls/results/pr2-review-fixes.md` and `02_network_egress/results/pr3-review-fixes.md`. #2 and #3 still show changes requested until the reviewer looks at the new commits. The approvals on #4 and #5 were given before the merge commits `e1e071e` and `ca0afd1` existed (see the review and commit times in the block above), so they cover those branches as they stood at `6cc3753` and `97b3fe1`, not the fixes merged in afterwards. GitHub still reports both as approved. No re-review has been requested; that is left to the owner.
+
+So today: 50 commits are on the private remote (34 planned changes, 11 sequence-review fix batches, 2 PR-review fixes and 3 merge commits), on four stacked branches, in four open, ready-for-review PRs (#2 to #5). **They are not merged into `main`.** Merging is the owner's step. Merging in order with merge commits keeps the original commit objects.
 
 ## Commits per change
 
-**git log --oneline 792557a..origin/hardening/04-domain-split | wc -l**
+**git log --oneline 792557a..origin/hardening/04-domain-split | wc -l (includes 3 merge commits)**
 
 ```text
-45
+50
 ```
 
 **change IDs present (one commit each), from the commit subjects**
@@ -126,7 +170,7 @@ IT: 1 2 3 4 5 6 7 8 9 10 11
 
 ## Build provenance
 
-- All checks ran in the project's dev container (compose project `helix`: Node 24, a Postgres 18 database service, Azurite; the `psql` line below is the client inside the app container). CI is off in this fork by the owner's decision, so `./check-and-lint.sh` in the dev container is the gate.
+- All checks ran in the project's dev container (compose project `helix`: Node 24, Postgres 18, Azurite). CI is off in this fork by the owner's decision, so `./check-and-lint.sh` in the dev container is the gate.
 - The network simulation ran on the macOS host's Docker daemon, because the dev container has no Docker socket.
 - No image was built or published, and nothing was applied to Azure or to any live install.
 
@@ -151,8 +195,7 @@ FESTIVAL PROGRESS
 Festival helix-hardening-HH0001
 ────────────────────────────────────────────────────────────
 
-Overall ██████████████████░░ 92% (50/54 tasks)
-■ 1 task(s) blocked
+Overall ██████████████████░░ 94% (51/54 tasks)
 
 Time Tracking
 ────────────────────────────────────────────────────────────
@@ -164,12 +207,12 @@ Time by Phase Type
 
 Content Delta
   Initial 19.6 KB (~5009 tokens)
-  Current 937.7 KB (~240046 tokens)
-  Delta +918.1 KB (~+235036 tokens)
+  Current 1003.9 KB (~256986 tokens)
+  Delta +984.3 KB (~+251977 tokens)
 
 Phases
 ────────────────────────────────────────────────────────────
-● 001_IMPLEMENT  92% (50/54 tasks) | 7h 2m
+● 001_IMPLEMENT  94% (51/54 tasks) | 7h 2m
 ```
 
-`PHASE_GOAL.md`'s checkboxes are unchanged. `fest` has no command that ticks them (`fest task`, `fest progress` and `fest workflow` do not edit that file), and the campaign's rule is not to hand-edit fest-managed state. The completion record is the fest state above: 4 of 4 sequences and 50 of 54 tasks, the remaining 4 being this gate's steps.
+`PHASE_GOAL.md`'s checkboxes are unchanged. `fest` has no command that ticks them (`fest task`, `fest progress` and `fest workflow` do not edit that file), and the campaign's rule is not to hand-edit fest-managed state. The completion record is the fest state above: all 50 sequence tasks, plus this gate's steps as they are approved.
