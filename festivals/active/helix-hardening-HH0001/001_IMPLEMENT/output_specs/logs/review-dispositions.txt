@@ -114,4 +114,4 @@ $ gh pr list -R lancekrogers/helix --state open --json number,reviewDecision,hea
 $ grep -h '^fest_status' 0*/[0-9]*.md | sort | uniq -c
   50 fest_status: completed
 $ fest progress | grep -E 'Overall|blocked'
-Overall ███████████████████░ 98% (53/54 tasks)
+Overall ████████████████████ 100% (54/54 tasks)

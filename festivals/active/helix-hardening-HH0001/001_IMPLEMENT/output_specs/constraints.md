@@ -647,7 +647,7 @@ $ gh pr list -R lancekrogers/helix --state open --json number,reviewDecision,hea
 $ grep -h '^fest_status' 0*/[0-9]*.md | sort | uniq -c
   50 fest_status: completed
 $ fest progress | grep -E 'Overall|blocked'
-Overall ███████████████████░ 98% (53/54 tasks)
+Overall ████████████████████ 100% (54/54 tasks)
 ```
 
 Read together: 71 rows across the four sequence reviews, 53 fixed. The other 18 are deferred with the reason in the row, documented as a limit, labeled unverified in Azure, or (one) an open question for the owner. The three pull-request findings were confirmed against the code and fixed in `c41a69c` and `149ac5a`.
