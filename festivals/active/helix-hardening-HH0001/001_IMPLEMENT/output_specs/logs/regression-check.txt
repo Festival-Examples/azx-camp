@@ -1,0 +1,93 @@
+# Regression and warning checks, 792557a (pre-festival base) against ca0afd1 (tip of the stack)
+
+## Test counts: the gate at the first change (SP-1, a test-only commit on top of 792557a) and at the tip
+$ grep -E 'Test Files|Tests  ' logs/gate-at-first-change-dc287c7.log
+ Test Files  231 passed (231)
+      Tests  3173 passed | 1 skipped (3174)
+$ grep -E 'Test Files|Tests  ' logs/check-and-lint.log
+ Test Files  243 passed (243)
+      Tests  3704 passed | 1 skipped (3705)
+
+## Test files deleted in the phase
+$ git diff --name-status --diff-filter=D 792557a..ca0afd1 -- '*.test.ts' '*.test.tsx' '*.test.mjs' | wc -l
+0
+
+## Test files added in the phase (12 run under vitest; translate.test.mjs runs under node --test)
+$ git diff --name-status --diff-filter=A 792557a..ca0afd1 -- '*.test.ts' '*.test.tsx' '*.test.mjs'
+A	apps/edge/src/gateway/leaseStore.inflightCheck.test.ts
+A	apps/edge/src/gateway/leaseStore.integration.test.ts
+A	apps/edge/src/gateway/leaseStore.test.ts
+A	apps/edge/src/gateway/replicaGate.test.ts
+A	apps/edge/src/gateway/usage.platformSpendCheck.test.ts
+A	apps/edge/src/routing/legacyRedirect.test.ts
+A	apps/egress/src/netprobe.test.ts
+A	apps/egress/src/ssrfRegistry.test.ts
+A	apps/portal/src/netControls/egressHosts.integration.test.ts
+A	apps/portal/src/netControls/egressHosts.test.ts
+A	infra/netsim/translate.test.mjs
+A	packages/shared/src/llmTimeouts.test.ts
+A	packages/shared/src/usageEstimate.test.ts
+
+## Test titles removed from existing test files, and whether each still exists at the tip
+# (a title line that moved or was re-indented shows as removed in a diff; the check below looks for the title text at ca0afd1)
+removed title lines: 30; titles still present at the tip: 25; titles gone: 5
+  gone: apps/edge/src/gateway/llm.test.ts :: imposes no cap when the grant omits dollarsPerDay
+  gone: apps/edge/src/serving/csp.test.ts :: keeps img-src open (honest trade-off, §4.4)
+  gone: packages/shared/src/approval.test.ts :: treats removing a spend cap (→ unlimited) as elevated
+  gone: packages/shared/src/approval.test.ts :: treats adding a cap (unlimited → capped) as baseline privilege reduction
+  gone: packages/shared/src/approval.test.ts :: applies scalar removal (cap removed)
+
+## The tests that replaced the five titles that are gone (each covers behavior the phase changed on purpose)
+$ git show ca0afd1:apps/edge/src/gateway/llm.test.ts | grep -n 'omits dollarsPerDay'
+493:  it("enforces the install default when the grant omits dollarsPerDay", async () => {
+$ git show ca0afd1:apps/edge/src/serving/csp.test.ts | grep -n -E '^\s*it\(.*img-src' | head -4
+40:  it("pins img-src to 'self' data: blob: exactly", () => {
+59:  it("widens connect-src and img-src with approved origins", () => {
+75:  it("includes wss origins in connect-src but not img-src", () => {
+100:  it("widens img-src only with imgSrcExtra (not connect-src) and dedupes", () => {
+$ git show ca0afd1:packages/shared/src/approval.test.ts | grep -n -E '^\s*it\(.*(removing an LLM spend cap|adding a cap|scalar removal)'
+60:  it("elevates removing an LLM spend cap (requested unset may exceed install default)", () => {
+71:  it("treats adding a cap (unset default → capped) as baseline privilege reduction", () => {
+883:  it("applies scalar removal (LLM cap removed to install default) from elevated bundle", () => {
+
+## Tests disabled in the phase (.skip, .only, .todo added)
+$ git diff 792557a..ca0afd1 -- '*.test.ts' '*.test.tsx' | grep -cE '^\+.*\b(it|describe|test)\.(skip|only|todo)\b'
+0
+# The one skipped test in both runs is the same pre-existing one:
+$ grep 'skipped)' logs/gate-at-first-change-dc287c7.log ; grep 'skipped)' logs/check-and-lint.log
+ ✓  node  apps/edge/src/gateway/provider.test.ts (10 tests | 1 skipped)
+ ✓  node  apps/edge/src/gateway/provider.test.ts (12 tests | 1 skipped)
+
+## Lint and type-check suppressions added in the phase
+$ git diff 792557a..ca0afd1 -- apps packages scripts infra .claude | grep -E '^\+.*(eslint-disable|@ts-ignore|@ts-expect-error|@ts-nocheck)'
++  // eslint-disable-next-line no-control-regex -- intentional: reject decoded control bytes in rd
+# One, in apps/edge/src/auth/validate.ts: the regular expression that rejects control bytes in a return path.
+# The same suppression already exists for the same reason at these places in the base commit:
+$ git grep -n 'no-control-regex' 792557a -- apps packages
+792557a:apps/edge/src/auth/validate.ts:13:// eslint-disable-next-line no-control-regex
+792557a:apps/edge/src/serving/paths.ts:17:// eslint-disable-next-line no-control-regex
+
+## Warnings
+# ESLint and tsc print nothing but their step lines in the final run:
+$ awk '/▶ lint/,/✔ lint/' logs/check-and-lint.log
+▶ lint
+  $ pnpm lint
+$ eslint .
+✔ lint passed (7s)
+$ awk '/▶ typecheck/,/✔ typecheck/' logs/check-and-lint.log | grep -ciE 'warning|error'
+0
+# Runtime warnings printed by the test run, counted at SP-1 and at the tip (same two sources, same counts):
+$ grep -c 'oidc-provider WARNING' / grep -c 'DEP0123'   logs/gate-at-first-change-dc287c7.log
+7 / 1
+$ grep -c 'oidc-provider WARNING' / grep -c 'DEP0123'   logs/check-and-lint.log
+7 / 1
+$ grep -ci 'warning' logs/check-and-lint.log   (all of them are the two sources above, plus the DEP0123 hint line)
+9
+
+## Build
+$ cat logs/infra-build.log
+az bicep build --file infra/azure/main.bicep --stdout > /dev/null
+az bicep build-params --file infra/azure/main.bicepparam --stdout > /dev/null
+az bicep build-params --file infra/azure/main.bootstrap.bicepparam --stdout > /dev/null
+az bicep build --file infra/entra/main.bicep --stdout > /dev/null
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
