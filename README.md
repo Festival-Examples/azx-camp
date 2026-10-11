@@ -22,6 +22,6 @@ The festival implemented 34 planned changes and 11 review fix batches. Its final
 | [`workflow/explore/helix-repo-exploration/`](workflow/explore/helix-repo-exploration/) | Evidence gathered from the existing codebase and its operations |
 | [`workflow/design/helix-spend-containment-egress/`](workflow/design/helix-spend-containment-egress/) | Designs, decisions, review, and implementation plan |
 | [`festivals/.dungeon/completed/2026-10-11/helix-hardening-HH0001/`](festivals/.dungeon/completed/2026-10-11/helix-hardening-HH0001/) | Completed tasks, review findings, gate evidence, and replay |
-| `projects/helix/` and `projects/TaskQ/` | Git submodules; Helix holds the implementation, while TaskQ is another camp project outside this case study |
+| `projects/helix/` | Git submodule containing the Helix implementation |
 
-The Helix and TaskQ submodules currently point to private repositories. The camp's written records and GIF can be read here; cloning those submodules or following the Helix PR links requires access to their repositories.
+The Helix submodule currently points to a private repository. The camp's written records and GIF can be read here; cloning Helix or following its PR links requires access to that repository.

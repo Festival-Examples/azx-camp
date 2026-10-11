@@ -1,6 +1,3 @@
 [submodule "projects/helix"]
 	path = projects/helix
 	url = git@github.com:lancekrogers/helix.git
-[submodule "projects/TaskQ"]
-	path = projects/TaskQ
-	url = git@github.com:lancekrogers/TaskQ.git
