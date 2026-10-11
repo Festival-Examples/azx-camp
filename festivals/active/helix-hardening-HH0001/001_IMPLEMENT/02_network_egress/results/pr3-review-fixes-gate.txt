@@ -1,0 +1,74 @@
+# PR #3 review fix: checks run by the coordinator on hardening/02-network-egress
+## merge of the PR #2 fix (955af5e)
+✔ typecheck passed (21s)
+✔ lint passed (9s)
+✔ refs passed (0s)
+✔ format passed (8s)
+✔ docs passed (3s)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL   node  apps/portal/src/deploy/diagnose.test.ts > diagnoseBundle > stays fast on a pathological many-entry zip (bounded enumeration)
+ Test Files  1 failed | 241 passed (242)
+      Tests  1 failed | 3509 passed | 1 skipped (3511)
+✗ tests FAILED (93s)
+✗ 1 step(s) failed: tests
+## infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## smoke (real browser)
+34 passed, 0 failed, 0 skipped
+## netsim static
+ℹ pass 21
+ℹ fail 0
+leftover watchers: 0
+      Tests  6 passed (6)
+      Tests  6 passed (6)
+      Tests  6 passed (6)
+## full gate rerun
+✔ typecheck passed (18s)
+✔ lint passed (9s)
+✔ refs passed (0s)
+✔ format passed (7s)
+✔ docs passed (4s)
+ Test Files  242 passed (242)
+      Tests  3510 passed | 1 skipped (3511)
+✔ tests passed (77s)
+✔ All checks passed
+
+## the probe fix
+✔ typecheck passed (15s)
+✔ lint passed (7s)
+✔ refs passed (0s)
+✔ format passed (6s)
+✔ docs passed (3s)
+ Test Files  242 passed (242)
+      Tests  3526 passed | 1 skipped (3527)
+✔ tests passed (62s)
+✔ All checks passed
+## infra build
+az bicep build-params --file infra/entra/main.bicepparam --stdout > /dev/null
+## netsim static
+ℹ pass 21
+ℹ fail 0
+## dry-run parses
+net-verify dry-run ok
+## smoke (real browser)
+34 passed, 0 failed, 0 skipped
+leftover watchers: 0
+## just infra net-sim (host)
+scenario	result	detail
+off	PASS	exit 0 (want 0)
+deny-list-only	PASS	exit 0 (want 0)
+enforce	PASS	exit 0 (want 0)
+deny-list-only-unpinned	PASS	exit 0 (want 0)
+break-kv	PASS	exit 1 (want 1)
+break-order	PASS	exit 1 (want 1)
+broken-closing-deny	PASS	exit 1 (want 1)
+nsg-detached	PASS	exit 1 (want 1)
+
+## net-verify decision logic replayed on sample logs
+pinned deny-list-only, proven:      exit=0
+unpinned deny-list-only (default):  exit=3 (nsg=deny-list-only denyProven=false)
+enforce, deny proven, no closing:   exit=0 with closing-deny warning
+enforce, both proven:               exit=0
+nsg off:                            exit=0
+mismatch:                           exit=1 (ok=false)
+no result line:                     exit=1 (no result line)
