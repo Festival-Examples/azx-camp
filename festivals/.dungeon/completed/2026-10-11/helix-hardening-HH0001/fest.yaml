@@ -18,6 +18,9 @@ metadata:
     - status: active
       timestamp: 2026-10-09T14:05:42.556032-06:00
       path: festivals/active/helix-hardening-HH0001
+    - status: completed
+      timestamp: 2026-10-11T15:17:43.833697-06:00
+      path: festivals/.dungeon/completed/2026-10-11/helix-hardening-HH0001
 project_path: projects/helix
 type_config:
   auto_phases:

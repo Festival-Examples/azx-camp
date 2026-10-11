@@ -2,11 +2,12 @@
 fest_type: festival
 fest_id: HH0001
 fest_name: helix-hardening
-fest_status: active
+fest_status: completed
 fest_created: 2026-10-08T19:45:32.304864-06:00
-fest_updated: 2026-10-09T14:05:42.555228-06:00
+fest_updated: 2026-10-11T15:17:43.832084-06:00
 fest_tracking: true
 ---
+
 
 
 

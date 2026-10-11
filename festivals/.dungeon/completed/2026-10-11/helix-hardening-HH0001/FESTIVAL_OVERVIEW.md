@@ -43,3 +43,9 @@ Four sequences in the agreed order: 01 spend controls, 02 network egress, 03 CSP
 - Source of truth: workflow/design/helix-spend-containment-egress/plan.md (order, dependencies, rules), decisions.md, review.md, and each design's "Work breakdown" section.
 - Cross-sequence dependencies: CT-9 needs EG-6 on installs that run the firewall; EG-11 and CT-10 write one shared ADR-0028 amendment; SP-8 and SP-10 widen `helix_edge` and must extend `role-split.integration.test.ts`.
 - Open items settled inside tasks: the production migration owner role (SP-8), `.localhost` cross-site behavior (CT-7), Azure wildcard and certbot naming (CT-9, unverified in Azure).
+
+<!-- fest:replay:start -->
+## Execution replay
+
+![Festival execution replay](festival-replay.gif)
+<!-- fest:replay:end -->
